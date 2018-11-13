@@ -1,0 +1,63 @@
+# depslib dependency file v1.0
+1541688921 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\main.cpp
+	<iostream>
+	"Player.h"
+	"AIPlayer1.h"
+	<windows.h>
+	"GameController.h"
+	"Tools.h"
+
+1541684637 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\tools.h
+	<iostream>
+	<windows.h>
+
+1541684637 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\tools.cpp
+	"Tools.h"
+
+1541683499 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\chessboard.cpp
+	"ChessBoard.h"
+	"Tools.h"
+	"stdio.h"
+	"conio.h"
+	<map>
+	<stack>
+
+1541579304 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\chessboard.h
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	<vector>
+	<memory.h>
+	<stack>
+	"Tools.h"
+
+1541688740 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\player.cpp
+	"Player.h"
+	"ChessBoard.h"
+	"GameController.h"
+	<algorithm>
+	<iostream>
+	<map>
+	<limits>
+	<float.h>
+	<string.h>
+	"AIPlayer1.h"
+	"conio.h"
+
+1541684637 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\player.h
+	"ChessBoard.h"
+	<map>
+
+1541507052 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\gamecontroller.cpp
+	"GameController.h"
+
+1541509163 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\gamecontroller.h
+
+1541590876 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\aiplayer1.cpp
+	"AIPlayer1.h"
+
+1541591413 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\机器学习与深度学习\gobang\5 stone\5stoneaitest\aiplayer1.h
+	"Player.h"
+	<map>
+	<cfloat>
+
