@@ -7,8 +7,9 @@ using namespace std;
 class AIPlayer1 : public Player
 {
 public:
+    AIPlayer1(ChessType Color);
     float Score[15][15];
-    map<string,float> toScore;
+    void playChess();
     virtual ~AIPlayer1();
 protected:
 private:
