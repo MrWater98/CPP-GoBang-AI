@@ -4,16 +4,17 @@
 #include<windows.h>
 #include "GameController.h"
 #include "Tools.h"
+#include "AIPlayer1.h"
 using namespace std;
 int main()
 {
     HideCursor();
-    Player BlackPlayer(BLACK);
-    Player WhitePlayer(WHITE);
+    AIPlayer1 WhitePlayer(BLACK);
+    Player BlackPlayer(WHITE);
     while(true)
     {
         BlackPlayer.Start();
-        WhitePlayer.AIStart();
+        WhitePlayer.Start();
     }
     return 0;
 }

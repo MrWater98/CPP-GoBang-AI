@@ -10,6 +10,10 @@
 #include "AIPlayer1.h"
 #include"conio.h"
 using namespace std;
+Player::Player()
+{
+
+}
 Player::Player(ChessType Color)
 {
     chessColor = Color;
@@ -25,9 +29,10 @@ void Player::Start()
         playChess();
     }
 }
-map<string,float> toScore;
-map<ChessType,char> stateMap;
-ChessType temp;
+//map<string,float> toScore;
+//map<ChessType,char> stateMap;
+//ChessType temp;
+/*
 void Player::AIStart()
 {
     toScore["_a_"]=10;
@@ -59,6 +64,7 @@ void Player::AIStart()
         AIPlayChess();
     }
 }
+*/
 pair<short,short> p(6,6);
 void Player::playChess()
 {
@@ -101,6 +107,7 @@ void Player::playChess()
         ChessBoard::getInstance()->print(p);
     }
 }
+/*
 float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType chessColor)
 {
     string str = "a";
@@ -144,6 +151,7 @@ float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType chessC
     return toScore[str];
 
 }
+
 float getTotalScore(pair<short,short> p)
 {
     float ans = 0;
@@ -160,9 +168,9 @@ float getTotalScore(pair<short,short> p)
     return ans;
 }
 
+
 void Player::AIPlayChess()
 {
-
     temp = chessColor;
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
@@ -208,4 +216,5 @@ void Player::AIPlayChess()
     }
 
 }
+*/
 

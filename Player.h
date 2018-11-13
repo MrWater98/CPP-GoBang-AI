@@ -5,14 +5,14 @@
 class Player
 {
     public:
-
+        Player();
         Player(ChessType Color);
         ChessType chessColor;
         virtual ~Player();
-        float Score[15][15];
+        //float Score[15][15];
         void Start();
-        void AIStart();
-        void AIPlayChess();
+        //void AIStart();
+        //void AIPlayChess();
         virtual void playChess();
     protected:
 
