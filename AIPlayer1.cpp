@@ -7,8 +7,7 @@ using namespace std;
 map<string,float> toScore;
 map<ChessType,char> stateMap;
 ChessType temp;
-float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType chessColor);
-float getTotalScore(pair<short,short> p);
+
 AIPlayer1::AIPlayer1(ChessType Color)
 {
     chessColor = Color;
@@ -89,7 +88,7 @@ void AIPlayer1::playChess()
         }
     }
 }
-float getTotalScore(pair<short,short> p)
+float AIPlayer1::getTotalScore(pair<short,short> p)
 {
     float ans = 0;
     ans += getLineScore(p,pair<short,short>(1,0),temp);
@@ -104,10 +103,10 @@ float getTotalScore(pair<short,short> p)
 
     return ans;
 }
-float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType chessColor)
+float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
     string str = "a";
-    char localChess = stateMap[chessColor];
+    char localChess = stateMap[myChessColor];
     //×ó±ß
     int Count = 0;
     for(int i = offset.first,j = offset.second; p.first+i>=0&&p.first+i<15
