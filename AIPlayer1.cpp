@@ -4,9 +4,6 @@
 #include"Tools.h"
 using namespace std;
 
-map<string,float> toScore;
-map<ChessType,char> stateMap;
-ChessType temp;
 
 AIPlayer1::AIPlayer1(ChessType Color)
 {
@@ -31,6 +28,7 @@ AIPlayer1::AIPlayer1(ChessType Color)
     toScore["aaaaa_"]=FLT_MAX;
     toScore["_aaaaa"]=FLT_MAX;
     toScore["_aaaaa_"]=FLT_MAX;
+    stateMap[BLACK] = 'x';stateMap[WHITE] = 'o';
 }
 AIPlayer1::AIPlayer1()
 {
@@ -43,8 +41,6 @@ AIPlayer1::~AIPlayer1()
 void AIPlayer1::playChess()
 {
     temp = chessColor;
-
-    stateMap[BLACK] = 'x';stateMap[WHITE] = 'o';
     if(ChessBoard::getInstance()->st.size()==0)
     {
         ChessBoard::getInstance()->st.push(pair<short,short>(7,7));
@@ -63,10 +59,10 @@ void AIPlayer1::playChess()
                 Score[i][j] = getTotalScore(pair<short,short>(i,j));
                 SetCursorPos(pair<short,short>((i+10)*2,j));
                 //print all the score
-                //cout<<"   ";
-                //Sleep(1);
-                //SetCursorPos(pair<short,short>((i+10)*2,j));
-                //cout<<Score[i][j];
+                cout<<"   ";
+                Sleep(1);
+                SetCursorPos(pair<short,short>((i+10)*2,j));
+                cout<<Score[i][j];
                 Max = max(Max,Score[i][j]);
             }
         }
@@ -110,13 +106,11 @@ float AIPlayer1::getTotalScore(pair<short,short> p)
 float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
     string str = "a";
-    char localChess = stateMap[myChessColor];
     //×ó±ß
-    int Count = 0;
     for(int i = offset.first,j = offset.second; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15; i+=offset.first,j+=offset.second)
     {
-        if(ChessBoard::getInstance()->myChessBoard[p.first+i][p.second+j]==localChess)
+        if(ChessBoard::getInstance()->myChessBoard[p.first+i][p.second+j]==stateMap[myChessColor])
         {
             str+="a";
         }
@@ -133,7 +127,7 @@ float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
     for(int i = -offset.first,j = -offset.second; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15; i-=offset.first,j-=offset.second)
     {
-        if(ChessBoard::getInstance()->myChessBoard[p.first+i][p.second+j]==localChess)
+        if(ChessBoard::getInstance()->myChessBoard[p.first+i][p.second+j]==stateMap[myChessColor])
         {
             str="a"+str;
         }
@@ -147,6 +141,7 @@ float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
             break;
         }
     }
+
     //Sleep(1);
     return toScore[str];
 
