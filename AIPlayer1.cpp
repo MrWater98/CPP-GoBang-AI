@@ -32,6 +32,10 @@ AIPlayer1::AIPlayer1(ChessType Color)
     toScore["_aaaaa"]=FLT_MAX;
     toScore["_aaaaa_"]=FLT_MAX;
 }
+AIPlayer1::AIPlayer1()
+{
+
+}
 AIPlayer1::~AIPlayer1()
 {
 
