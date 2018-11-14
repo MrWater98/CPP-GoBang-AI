@@ -5,12 +5,13 @@
 #include "GameController.h"
 #include "Tools.h"
 #include "AIPlayer1.h"
+#include "AIPlayer2.h"
 using namespace std;
 int main()
 {
     HideCursor();
-    AIPlayer1 WhitePlayer(BLACK);
-    Player BlackPlayer(WHITE);
+    AIPlayer2 WhitePlayer(WHITE);
+    Player BlackPlayer(BLACK);
     while(true)
     {
         BlackPlayer.Start();
