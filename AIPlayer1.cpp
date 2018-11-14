@@ -59,10 +59,11 @@ void AIPlayer1::playChess()
             {
                 Score[i][j] = getTotalScore(pair<short,short>(i,j));
                 SetCursorPos(pair<short,short>((i+10)*2,j));
-                cout<<"   ";
-                Sleep(1);
-                SetCursorPos(pair<short,short>((i+10)*2,j));
-                cout<<Score[i][j];
+                //print all the score
+                //cout<<"   ";
+                //Sleep(1);
+                //SetCursorPos(pair<short,short>((i+10)*2,j));
+                //cout<<Score[i][j];
                 Max = max(Max,Score[i][j]);
             }
         }
@@ -143,7 +144,7 @@ float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType chessC
             break;
         }
     }
-    Sleep(1);
+    //Sleep(1);
     return toScore[str];
 
 }
