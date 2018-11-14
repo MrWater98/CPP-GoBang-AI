@@ -8,6 +8,8 @@ class AIPlayer1 : public Player
 {
 public:
     AIPlayer1(ChessType Color);
+    float getTotalScore(pair<short,short> p);
+    float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
     float Score[15][15];
     void playChess();
     virtual ~AIPlayer1();
