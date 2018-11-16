@@ -1,5 +1,6 @@
 #include "AIPlayer1.h"
 #include<iostream>
+#include<ctime>
 #include<map>
 #include"Tools.h"
 using namespace std;
@@ -50,6 +51,23 @@ void AIPlayer1::playChess()
         ChessBoard::getInstance()->turn = ChessType(-temp+3);
         return ;
     }
+    else if(ChessBoard::getInstance()->st.size()==1)
+    {
+        for(int i = 0;i < 15;i++)
+            for(int j = 0;j < 15;j++){
+                if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
+                {
+                    srand((unsigned)time(NULL));
+                    int a=1,b=1;
+                    while(a==0&&b==0)
+                        a = rand()%3-1;b = rand()%3-1;
+                    ChessBoard::getInstance()->myChessBoard[i+a][j+b] = ChessBoard::getInstance()->m[int(chessColor)];
+                    ChessBoard::getInstance()->turn = ChessType(-temp+3);
+                    ChessBoard::getInstance()->st.push(pair<short,short>(i+a,j+b));
+                    return ;
+                }
+            }
+    }
     memset(Score,0,sizeof(Score));//first step set all the zero
     float Max = -1;
     for(int i = 0; i < 15; i++)
@@ -62,7 +80,7 @@ void AIPlayer1::playChess()
                 SetCursorPos(pair<short,short>((i+10)*2,j));
                 //print all the score
                 cout<<"   ";
-                Sleep(1);
+                //Sleep(1);
                 SetCursorPos(pair<short,short>((i+10)*2,j));
                 cout<<Score[i][j];
                 Max = max(Max,Score[i][j]);
@@ -85,6 +103,7 @@ void AIPlayer1::playChess()
                     getchar();
                 }
                 ChessBoard::getInstance()->turn = ChessType(-temp+3);
+                ChessBoard::getInstance()->st.push(pair<short,short>(i,j));
                 return ;
             }
         }
