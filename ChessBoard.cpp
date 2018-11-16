@@ -4,7 +4,6 @@
 #include "conio.h"
 #include <map>
 #include<stack>
-map<int,char> m;
 ChessBoard::ChessBoard()
 {
     memset(myChessBoard,'.',sizeof(myChessBoard));
