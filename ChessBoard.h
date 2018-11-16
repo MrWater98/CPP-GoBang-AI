@@ -1,6 +1,6 @@
 #ifndef CHESSBOARD_H
 #define CHESSBOARD_H
-
+#include<map>
 #include<iostream>
 #include<stdio.h>
 #include<stdlib.h>
@@ -27,6 +27,7 @@ public:
     bool CheckWinner(pair<short,short> pos);
     bool CheckLine(pair<short,short> pos,pair<short,short>offset);
     stack<pair<short,short>> st;
+    map<int,char> m;
     void Retract();
     void print(pair<short,short> twinkle);
     ChessType turn = BLACK;
