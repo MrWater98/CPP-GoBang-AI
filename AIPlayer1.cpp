@@ -7,6 +7,7 @@ using namespace std;
 
 AIPlayer1::AIPlayer1(ChessType Color)
 {
+
     chessColor = Color;
     toScore["_a_"]=10;
     toScore["a_"]=5;
@@ -40,6 +41,7 @@ AIPlayer1::~AIPlayer1()
 }
 void AIPlayer1::playChess()
 {
+    HideCursor();
     temp = chessColor;
     if(ChessBoard::getInstance()->st.size()==0)
     {
