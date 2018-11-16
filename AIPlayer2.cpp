@@ -10,6 +10,24 @@ using namespace std;
 AIPlayer2::AIPlayer2(ChessType Color)
 {
     chessColor = Color;
+    toScore["_a_"]=10;
+    toScore["a_"]=5;
+    toScore["_a"]=5;
+
+    toScore["_aa_"]=100;
+    toScore["aa_"]=50;
+    toScore["_aa"]=50;
+
+    toScore["_aaa_"]=1000;
+    toScore["aaa_"]=500;
+    toScore["_aaa"]=500;
+
+    toScore["_aaaa_"]=10000;
+    toScore["aaaa_"]=5000;
+    toScore["_aaaa"]=5000;
+
+
+
     toScore["aa___"]=50;                      //Ãß¶þ
     toScore["a_a__"]=50;
     toScore["___aa"]=50;
@@ -187,6 +205,7 @@ float AIPlayer2::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
         */
     string str = "a";
     //ÓÒ±ß
+    HideCursor();
     for(int i = offset.first,j = offset.second,k=0; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15&&k<5; i+=offset.first,j+=offset.second,k++)
     {
