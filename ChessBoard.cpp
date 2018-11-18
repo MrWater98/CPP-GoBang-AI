@@ -24,7 +24,7 @@ ChessBoard* ChessBoard::getInstance()
 
 bool ChessBoard::PlayChess(pair<short,short> pos)
 {
-    if(myChessBoard[pos.first][pos.second]=='.')
+    if(myChessBoard[pos.first][pos.second]=='.'){
         if(turn==BLACK){
             myChessBoard[pos.first][pos.second] = 'x';
             if(CheckWinner(pos))
@@ -53,6 +53,7 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             turn = BLACK;
             return true;
         }
+    }
     return false;
 }
 void ChessBoard::print(pair<short,short> twinkle)
@@ -62,7 +63,15 @@ void ChessBoard::print(pair<short,short> twinkle)
         for(int j = 0;j < 15;j++)
         {
             SetCursorPos(pair<short,short>(i,j));
+            if(myChessBoard[i][j]=='x')
+            {
+                SetColor(10);
+            }else if(myChessBoard[i][j]=='o')
+            {
+                SetColor(14);
+            }
             cout<<myChessBoard[i][j];
+            SetColor(7);
         }
     }
     while(true)
@@ -88,7 +97,6 @@ bool ChessBoard::CheckWinner(pair<short,short> pos)
 bool ChessBoard::CheckLine(pair<short,short> pos,pair<short,short>offset)
 {
     int linkNum = 1;
-    int Count = 0;
     //ср╠ъ
     for(int i = offset.first,j = offset.second;(pos.first+i>=0&&pos.first+i<15)&&
     (pos.second+j>=0&&pos.second+j<15);i+=offset.first,j+=offset.second)
