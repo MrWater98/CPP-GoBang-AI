@@ -61,7 +61,15 @@ void ChessBoard::print(pair<short,short> twinkle)
         for(int j = 0;j < 15;j++)
         {
             SetCursorPos(pair<short,short>(i,j));
+            if(myChessBoard[i][j]=='x')
+            {
+                SetColor(12);
+            }else if(myChessBoard[i][j]=='o')
+            {
+                SetColor(14);
+            }
             cout<<myChessBoard[i][j];
+            SetColor(7);
         }
     }
     while(true)
