@@ -14,3 +14,7 @@ void SetCursorPos(pair<short,short> pos)
     Pos.Y = pos.second;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),Pos);
 }
+void SetColor(int colorID)//设置文本颜色
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorID);
+}
