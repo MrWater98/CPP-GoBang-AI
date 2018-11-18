@@ -61,7 +61,7 @@
 	<map>
 	<cfloat>
 
-1542334594 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer1.cpp
+1542546455 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer1.cpp
 	"AIPlayer1.h"
 	<iostream>
 	<ctime>
@@ -87,7 +87,7 @@
 	<stack>
 	"Tools.h"
 
-1542209722 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
+1542546203 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
 	<iostream>
 	<windows.h>
 
@@ -104,7 +104,7 @@
 
 1541509163 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.h
 
-1542334629 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
+1542546494 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
 	<iostream>
 	"Player.h"
 	"AIPlayer1.h"
@@ -127,7 +127,7 @@
 	"AIPlayer1.h"
 	"conio.h"
 
-1541684637 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.cpp
+1542546374 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.cpp
 	"Tools.h"
 
 1542299664 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer2.cpp
