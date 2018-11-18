@@ -93,17 +93,8 @@ void AIPlayer1::playChess()
         {
             if(Max==Score[i][j])
             {
-                ChessBoard::getInstance()->myChessBoard[i][j] = stateMap[temp];
-                ChessBoard::getInstance()->st.push(pair<short,short>(i,j));
-                if(ChessBoard::getInstance()->CheckWinner(pair<short,short>(i,j)))
-                {
-                    SetCursorPos(pair<short,short>(0,16));
-                    cout<<"win->Press any key to stop"<<endl;
-                    ChessBoard::getInstance()->print(pair<short,short>(i,j));
-                    getchar();
-                }
-                ChessBoard::getInstance()->turn = ChessType(-temp+3);
-                ChessBoard::getInstance()->st.push(pair<short,short>(i,j));
+                //直接调用playchess，所有判断执行函数已经封装在playchess内了
+                ChessBoard::getInstance()->PlayChess(pair<short,short>(i,j));
                 return ;
             }
         }
