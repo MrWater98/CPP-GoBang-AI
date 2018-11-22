@@ -13,7 +13,7 @@ public:
     virtual float getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
     map<ChessType,char> stateMap;
     map<string,float> toScore;
-    ChessType temp;
+    //ChessType temp;
     float Score[15][15];
     void playChess();
     virtual ~AIPlayer1();
