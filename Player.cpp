@@ -14,14 +14,15 @@ Player::Player()
 {
 
 }
-Player::Player(ChessType Color)
-{
-    chessColor = Color;
-}
 Player::~Player()
 {
     //dtor
 }
+Player::Player(ChessType Color)
+{
+    chessColor = Color;
+}
+
 void Player::Start()
 {
     if(chessColor==ChessBoard::getInstance()->turn)
