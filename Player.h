@@ -6,13 +6,11 @@ class Player
 {
     public:
         Player();
+        virtual ~Player();
         Player(ChessType Color);
         ChessType chessColor;
-        virtual ~Player();
         //float Score[15][15];
         void Start();
-        //void AIStart();
-        //void AIPlayChess();
         virtual void playChess();
     protected:
 
