@@ -23,7 +23,7 @@ ChessBoard* ChessBoard::getInstance()
 
 bool ChessBoard::PlayChess(pair<short,short> pos)
 {
-    if(myChessBoard[pos.first][pos.second]=='.')
+    if(myChessBoard[pos.first][pos.second]=='.'){
         if(turn==BLACK){
             myChessBoard[pos.first][pos.second] = 'x';
             if(CheckWinner(pos))
@@ -52,6 +52,7 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             turn = BLACK;
             return true;
         }
+    }
     return false;
 }
 void ChessBoard::print(pair<short,short> twinkle)
