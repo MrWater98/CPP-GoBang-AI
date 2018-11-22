@@ -10,31 +10,15 @@ using namespace std;
 AIPlayer2::AIPlayer2(ChessType Color)
 {
     chessColor = Color;
-    toScore["_a_"]=10;
-    toScore["a_"]=5;
-    toScore["_a"]=5;
-
-    toScore["_aa_"]=100;
-    toScore["aa_"]=50;
-    toScore["_aa"]=50;
-
-    toScore["_aaa_"]=1000;
-    toScore["aaa_"]=500;
-    toScore["_aaa"]=500;
-
-    toScore["_aaaa_"]=10000;
-    toScore["aaaa_"]=5000;
-    toScore["_aaaa"]=5000;
 
 
-
-    toScore["aa___"]=50;                      //眠二
-    toScore["a_a__"]=50;
-    toScore["___aa"]=50;
-    toScore["__a_a"]=50;
-    toScore["a__a_"]=50;
-    toScore["_a__a"]=50;
-    toScore["a___a"]=50;
+    toScore["aa___"]=100;                      //眠二
+    toScore["a_a__"]=100;
+    toScore["___aa"]=100;
+    toScore["__a_a"]=100;
+    toScore["a__a_"]=100;
+    toScore["_a__a"]=100;
+    toScore["a___a"]=100;
 
 
     toScore["__aa__"]=500;                     //活二
