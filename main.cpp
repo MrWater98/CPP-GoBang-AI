@@ -11,18 +11,18 @@ using namespace std;
 int main()
 {
     HideCursor();
-    AIPlayer2 BlackPlayer(BLACK);
+    Player BlackPlayer(BLACK);
     AIPlayer3 WhitePlayer(WHITE);
 
     while(true)
     {
-        ChessBoard::getInstance()->print(pair<short,short>(0,0));
+        //ChessBoard::getInstance()->print(pair<short,short>(0,0));
         BlackPlayer.Start();
-        Sleep(200);
-        system("cls");
-        ChessBoard::getInstance()->print(pair<short,short>(0,0));
+        //Sleep(200);
+        //system("cls");
+        //ChessBoard::getInstance()->print(pair<short,short>(0,0));
         WhitePlayer.Start();
-        Sleep(200);
+        //Sleep(200);
     }
     return 0;
 }
