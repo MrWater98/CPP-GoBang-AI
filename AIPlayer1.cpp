@@ -157,5 +157,4 @@ float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
 
     //Sleep(1);
     return toScore[str];
-
 }
