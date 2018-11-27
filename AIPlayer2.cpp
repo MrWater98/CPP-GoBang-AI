@@ -242,5 +242,4 @@ float AIPlayer2::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
         }
     }
     return toScore[cmpStr];
-
 }
