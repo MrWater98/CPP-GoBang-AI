@@ -7,12 +7,13 @@
 #include "AIPlayer1.h"
 #include "AIPlayer2.h"
 #include "AIPlayer3.h"
+#include "AIPlayer4.h"
 using namespace std;
 int main()
 {
     HideCursor();
     Player BlackPlayer(BLACK);
-    AIPlayer3 WhitePlayer(WHITE);
+    AIPlayer4 WhitePlayer(WHITE);
 
     while(true)
     {
