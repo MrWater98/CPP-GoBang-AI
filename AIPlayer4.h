@@ -8,7 +8,7 @@ class AIPlayer4 : public AIPlayer2
         AIPlayer4();
         AIPlayer4(ChessType Color);
         vector<int> MonteCarlo(vector<int> bestPlace,char cloneChessBoard[][15]);
-        char [][15][15] getVector(char cloneChessBoard[][15],int num);
+        char[][15][15] getVector(char cloneChessBoard[][15],int num);
         void playChess();
         virtual ~AIPlayer4();
 
