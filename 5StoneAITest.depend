@@ -68,7 +68,7 @@
 	<map>
 	"Tools.h"
 
-1542787625 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer1.h
+1543412847 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer1.h
 	"Player.h"
 	<map>
 	<cfloat>
@@ -104,7 +104,7 @@
 
 1541509163 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.h
 
-1542906416 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
+1543412772 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
 	<iostream>
 	"Player.h"
 	"AIPlayer1.h"
@@ -114,6 +114,7 @@
 	"AIPlayer1.h"
 	"AIPlayer2.h"
 	"AIPlayer3.h"
+	"AIPlayer4.h"
 
 1542790140 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\player.cpp
 	"Player.h"
@@ -143,7 +144,7 @@
 1542547168 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer2.h
 	"AIPlayer1.h"
 
-1542906211 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.cpp
+1543413202 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.cpp
 	"AIPlayer3.h"
 	<iostream>
 	<vector>
@@ -152,9 +153,16 @@
 	<ctime>
 	<map>
 
-1542944714 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.h
+1543413415 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.h
 	"Player.h"
 	<map>
 	<iostream>
+	<vector>
+
+1543412760 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer4.cpp
+	"AIPlayer4.h"
+
+1543415364 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer4.h
+	"AIPlayer2.h"
 	<vector>
 
