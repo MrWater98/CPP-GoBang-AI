@@ -15,7 +15,7 @@ public:
     map<string,float> toScore;
     //ChessType temp;
     float Score[15][15];
-    void playChess();
+    virtual void playChess();
     virtual ~AIPlayer1();
 protected:
 private:
