@@ -72,6 +72,7 @@ void AIPlayer3::playChess()
         ChessBoard::getInstance()->PlayChess(make_pair(7,7));
         return ;
     }
+    /*
     else if(ChessBoard::getInstance()->st.size()==1)
     {
         for(int i = 0;i < 15;i++)
@@ -89,11 +90,9 @@ void AIPlayer3::playChess()
                 }
             }
     }
-
+    */
     MiniMaxNode node;
     node.value = -INT_MAX;
-    SetCursorPos(make_pair(0,16));
-        cout<<node.value<<endl;
     int Count = 0;
     char cloneChessBoard[15][15];
     for(int i = 0;i < 15;i++)
@@ -103,16 +102,15 @@ void AIPlayer3::playChess()
     vector<MiniMaxNode> Mnn = GetVector(cloneChessBoard,chessColor,true);
     for(auto &item : Mnn)
     {
-        createTree(item,cloneChessBoard,3,false);
+        createTree(item,cloneChessBoard,8,false);
 
         float a = INT_MAX;
         float b = INT_MAX;
-        item.value += AlphaBeta(item,3,false,a,b);
+        item.value += AlphaBeta(item,8,false,a,b);
         //Ìô×î´óµÄ
         if(node.value<item.value){
             node = item;
         }
-
     }
     ChessBoard::getInstance()->PlayChess(node.pos);
 }
@@ -213,15 +211,15 @@ void AIPlayer3::createTree(MiniMaxNode &node,char chessboard[][15],int depth,boo
 float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 {
     float ans = 0;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor)*1.5;
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor)*1.5;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor)*1.5;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor)*1.5;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor);
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor);
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor);
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor);
 
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3))*0.9;
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3))*0.9;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),ChessType(-chessColor+3))*0.9;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),ChessType(-chessColor+3))*0.9;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),ChessType(-chessColor+3));
 
     return ans;
 }
