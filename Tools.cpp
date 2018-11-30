@@ -18,3 +18,13 @@ void SetColor(int colorID)//设置文本颜色
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorID);
 }
+void copyArray(char cloneChessboard[15][15],char temp[15][15])
+{
+    for(int i = 0;i < 15;i++)
+    {
+        for(int j = 0;j < 15;j++)
+        {
+            temp[i][j] = cloneChessboard[i][j];
+        }
+    }
+}
