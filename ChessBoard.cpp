@@ -23,9 +23,13 @@ ChessBoard* ChessBoard::getInstance()
 
 bool ChessBoard::PlayChess(pair<short,short> pos)
 {
+    SetColor(10);
     if(myChessBoard[pos.first][pos.second]=='.'){
         if(turn==BLACK){
             myChessBoard[pos.first][pos.second] = 'x';
+            SetCursorPos(pair<short,short>(pos.first,pos.second));
+            cout<<'x';
+            Sleep(50);
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
@@ -40,6 +44,9 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
         }
         else if(turn==WHITE){
             myChessBoard[pos.first][pos.second] = 'o';
+            SetCursorPos(pair<short,short>(pos.first,pos.second));
+            cout<<'o';
+            Sleep(50);
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
