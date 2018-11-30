@@ -13,29 +13,29 @@ AIPlayer2::AIPlayer2(ChessType Color)
 
 
     toScore["aa___"]=100;                      //眠二
-    toScore["a_a__"]=100;
-    toScore["___aa"]=100;
-    toScore["__a_a"]=100;
-    toScore["a__a_"]=100;
-    toScore["_a__a"]=100;
-    toScore["a___a"]=100;
+    toScore["a_a__"]=90;
+    toScore["___aa"]=90;
+    toScore["__a_a"]=90;
+    toScore["a__a_"]=90;
+    toScore["_a__a"]=90;
+    toScore["a___a"]=90;
 
 
     toScore["__aa__"]=500;                     //活二
-    toScore["_a_a_"]=500;
-    toScore["_a__a_"]=500;
+    toScore["_a_a_"]=400;
+    toScore["_a__a_"]=400;
 
     toScore["_aa__"]=500;
     toScore["__aa_"]=500;
 
 
-    toScore["a_a_a"]=1000;
-    toScore["aa__a"]=1000;
-    toScore["_aa_a"]=1000;
-    toScore["a_aa_"]=1000;
-    toScore["_a_aa"]=1000;
-    toScore["aa_a_"]=1000;
-    toScore["aaa__"]=1000;                     //眠三
+    toScore["a_a_a"]=900;
+    toScore["aa__a"]=800;
+    toScore["_aa_a"]=1100;
+    toScore["a_aa_"]=1100;
+    toScore["_a_aa"]=1100;
+    toScore["aa_a_"]=1100;
+    toScore["aaa__"]=1200;                     //眠三
 
     toScore["_aa_a_"]=9000;                    //跳活三
     toScore["_a_aa_"]=9000;
@@ -68,125 +68,6 @@ AIPlayer2::~AIPlayer2()
 }
 float AIPlayer2::getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
-    /*
-    bool lfirst = true,lstop = false,rstop = false;
-    int AllNum = 1;
-    string str = "a";
-    int ri = offset.first,rj = offset.second;
-    int li = -offset.first,lj = -offset.second;
-    while(AllNum<7&&(!lstop||!rstop))
-    {
-        if(lfirst)
-        {
-            //left
-            if((p.first+li>=0&&p.first+li<15)&&
-                    p.second+lj>=0&&p.second+lj<15&&!lstop)
-            {
-
-                if(ChessBoard::getInstance()->myChessBoard[p.first+li][p.second+lj]==stateMap[myChessColor])
-                {
-                    AllNum++;
-                    str = "a"+str;
-                }
-                else if(ChessBoard::getInstance()->myChessBoard[p.first+ri][p.second+rj]=='.')
-                {
-                    AllNum++;
-                    str = "_"+str;
-                    if (!rstop)
-                        lfirst = false;
-                }
-                else
-                {
-                    lstop = true;
-                    if(!rstop)
-                        lfirst = false;
-                }
-                li -= offset.first;
-                lj -= offset.second;
-            }
-            else
-            {
-                lstop = true;
-                if(!rstop)
-                    lfirst = false;
-            }
-        }
-        //右边
-        else
-        {
-            if((p.first+ri>=0&&p.first+ri<15)&&
-                    p.second+rj>=0&&p.second+rj<15&&!lfirst&&!rstop)
-            {
-                if(ChessBoard::getInstance()->myChessBoard[p.first+ri][p.second+rj]==stateMap[myChessColor])
-                {
-                    AllNum++;
-                    str+="a";
-                }
-                else if(ChessBoard::getInstance()->myChessBoard[p.first+ri][p.second+rj]=='.')
-                {
-                    AllNum++;
-                    str+="_";
-                    if(!lstop)
-                        lfirst = true;
-                }
-                else
-                {
-                    rstop = true;
-                    if(!lstop)
-                        lfirst = true;
-                }
-                ri+=offset.first;
-                rj+=offset.second;
-            }
-            else
-            {
-                rstop = true;
-                if(!lstop)
-                    lfirst = true;
-            }
-        }
-    }
-
-
-    string cmpStr = "";
-    */
-    /*
-    for(auto &i : toScore)
-    {
-        if(str.find(i.first)!=string::npos)
-        {
-            if (cmpStr != "")
-            {
-                if(toScore[i.first]>toScore[cmpStr])
-                {
-                    cmpStr = i.first;
-                }
-            }
-            else
-            {
-                cmpStr = i.first;
-            }
-        }
-    }
-    */
-    /*
-    for(int i = 0;i < 15;i++)
-    {
-        for(int j = 0;j < 15;j++)
-        {
-            SetCursorPos(pair<short,short>((10+i)*2,(10+j)*2));
-            cout<<Score[i][j];
-        }
-    }
-    */
-    /*
-    SetCursorPos(pair<short,short>(0,20));
-    cout<<"      "<<endl;
-    if(cmpStr=="")
-        cout<<"None"<<endl;
-    else
-        cout<<cmpStr<<endl;
-        */
     string str = "a";
     //右边
     HideCursor();
