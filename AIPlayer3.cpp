@@ -117,6 +117,7 @@ void AIPlayer3::playChess()
 
 float AIPlayer3::AlphaBeta(MiniMaxNode node,int depth,bool myself,float alpha,float beta)
 {
+
     if(depth==0||node.value>=INT_MAX||node.value>=INT_MAX)
         return node.value;
     if(myself)
@@ -211,15 +212,15 @@ void AIPlayer3::createTree(MiniMaxNode &node,char chessboard[][15],int depth,boo
 float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 {
     float ans = 0;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor);
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor);
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor);
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor);
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor)*1.2;
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor)*1.2;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor)*1.2;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor)*1.2;
 
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3));
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3));
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),ChessType(-chessColor+3));
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3))*0.9;
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3))*0.9;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),ChessType(-chessColor+3))*0.9;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),ChessType(-chessColor+3))*0.9;
 
     return ans;
 }
