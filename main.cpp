@@ -8,22 +8,23 @@
 #include "AIPlayer2.h"
 #include "AIPlayer3.h"
 #include "AIPlayer4.h"
+#pragma GCC optimize(3)
 using namespace std;
 int main()
 {
     HideCursor();
-    Player BlackPlayer(BLACK);
-    AIPlayer4 WhitePlayer(WHITE);
+    AIPlayer4 BlackPlayer(BLACK);
+    AIPlayer3 WhitePlayer(WHITE);
 
     while(true)
     {
-        //ChessBoard::getInstance()->print(pair<short,short>(0,0));
+        ChessBoard::getInstance()->print(pair<short,short>(0,0));
         BlackPlayer.Start();
-        //Sleep(200);
-        //system("cls");
-        //ChessBoard::getInstance()->print(pair<short,short>(0,0));
+        Sleep(200);
+        system("cls");
+        ChessBoard::getInstance()->print(pair<short,short>(0,0));
         WhitePlayer.Start();
-        //Sleep(200);
+        Sleep(200);
     }
     return 0;
 }
