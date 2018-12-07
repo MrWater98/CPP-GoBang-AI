@@ -13,7 +13,7 @@ using namespace std;
 int main()
 {
     HideCursor();
-    AIPlayer4 BlackPlayer(BLACK);
+    AIPlayer3 BlackPlayer(BLACK);
     AIPlayer3 WhitePlayer(WHITE);
 
     while(true)
