@@ -11,44 +11,44 @@ AIPlayer3::AIPlayer3(ChessType Color)
     chessColor = Color;
 
     toScore["aa___"]=100;                      //眠二
-    toScore["a_a__"]=100;
+    toScore["a_a__"]=80;
     toScore["___aa"]=100;
-    toScore["__a_a"]=100;
-    toScore["a__a_"]=100;
-    toScore["_a__a"]=100;
-    toScore["a___a"]=100;
+    toScore["__a_a"]=80;
+    toScore["a__a_"]=80;
+    toScore["_a__a"]=80;
+    toScore["a___a"]=60;
 
 
-    toScore["__aa__"]=500;                     //活二
-    toScore["_a_a_"]=499;
-    toScore["_a__a_"]=499;
+    toScore["__aa__"]=300;                     //活二
+    toScore["_a_a_"]=230;
+    toScore["_a__a_"]=230;
 
-    toScore["_aa__"]=500;
-    toScore["__aa_"]=500;
-
-
-    toScore["a_a_a"]=1000;
-    toScore["aa__a"]=1000;
-    toScore["_aa_a"]=1000;
-    toScore["a_aa_"]=1000;
-    toScore["_a_aa"]=1000;
-    toScore["aa_a_"]=1000;
-    toScore["aaa__"]=1000;                     //眠三
-
-    toScore["_aa_a_"]=9000;                    //跳活三
-    toScore["_a_aa_"]=9000;
-
-    toScore["_aaa_"]=10000;                    //活三
+    toScore["_aa__"]=300;
+    toScore["__aa_"]=300;
 
 
-    toScore["a_aaa"]=15000;                    //冲四
-    toScore["aaa_a"]=15000;                    //冲四
-    toScore["_aaaa"]=15000;                    //冲四
-    toScore["aaaa_"]=15000;                    //冲四
-    toScore["aa_aa"]=15000;                    //冲四
+    toScore["a_a_a"]=600;
+    toScore["aa__a"]=600;
+    toScore["_aa_a"]=600;
+    toScore["a_aa_"]=600;
+    toScore["_a_aa"]=600;
+    toScore["aa_a_"]=600;
+    toScore["aaa__"]=600;                     //眠三
+
+    toScore["_aa_a_"]=1200;                    //跳活三
+    toScore["_a_aa_"]=1200;
+
+    toScore["_aaa_"]=1800;                    //活三
 
 
-    toScore["_aaaa_"]=1000000;                 //活四
+    toScore["a_aaa"]=2100;                    //冲四
+    toScore["aaa_a"]=2100;                    //冲四
+    toScore["_aaaa"]=2100;                    //冲四
+    toScore["aaaa_"]=2100;                    //冲四
+    toScore["aa_aa"]=2100;                    //冲四
+
+
+    toScore["_aaaa_"]=5000;                 //活四
 
     toScore["aaaaa"]=INT_MAX;           //连五
 
@@ -72,7 +72,7 @@ void AIPlayer3::playChess()
         ChessBoard::getInstance()->PlayChess(make_pair(7,7));
         return ;
     }
-    /*
+
     else if(ChessBoard::getInstance()->st.size()==1)
     {
         for(int i = 0;i < 15;i++)
@@ -90,7 +90,7 @@ void AIPlayer3::playChess()
                 }
             }
     }
-    */
+
     MiniMaxNode node;
     node.value = -INT_MAX;
     int Count = 0;
@@ -164,7 +164,7 @@ vector<MiniMaxNode> AIPlayer3::GetVector(char chessboard[][15],ChessType myChess
                 node.value = getTotalScore(chessboard,p);
             else
                 node.value = -getTotalScore(chessboard,p);
-            if(nodeVector.size()<4)
+            if(nodeVector.size()<3)
                 nodeVector.push_back(node);
             else
             {
@@ -212,15 +212,15 @@ void AIPlayer3::createTree(MiniMaxNode &node,char chessboard[][15],int depth,boo
 float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 {
     float ans = 0;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor)*1.2;
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor)*1.2;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor)*1.2;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor)*1.2;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor)*1.25;
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor)*1.25;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor)*1.25;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor)*1.25;
 
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3))*0.9;
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3))*0.9;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),ChessType(-chessColor+3))*0.9;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),ChessType(-chessColor+3))*0.9;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),ChessType(-chessColor+3));
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),ChessType(-chessColor+3));
 
     return ans;
 }
