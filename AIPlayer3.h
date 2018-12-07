@@ -27,8 +27,6 @@ class AIPlayer3 : public Player
         vector<MiniMaxNode> GetVector(char chessboard[][15],ChessType myChessColor,bool myself);
         void createTree(MiniMaxNode &node,char chessboard[][15],int depth,bool myself);
         void playChess();
-
-
     protected:
 
     private:
