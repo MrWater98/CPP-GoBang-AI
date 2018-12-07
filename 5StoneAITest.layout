@@ -2,64 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="Player.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="306" topLine="1" />
-		</Cursor>
-	</File>
-	<File name="ChessBoard.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="413" topLine="21" />
-		</Cursor>
-	</File>
-	<File name="ChessBoard.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1374" topLine="19" />
-		</Cursor>
-	</File>
 	<File name="GameController.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="267" topLine="3" />
 		</Cursor>
 	</File>
-	<File name="AIPlayer3.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
+	<File name="GameController.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="968" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="AIPlayer2.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="304" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="359" topLine="13" />
-		</Cursor>
-	</File>
-	<File name="AIPlayer3.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="222" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="AIPlayer2.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1649" topLine="23" />
-		</Cursor>
-	</File>
-	<File name="AIPlayer4.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="10796" topLine="313" />
-		</Cursor>
-	</File>
-	<File name="AIPlayer4.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="303" topLine="11" />
-		</Cursor>
-	</File>
-	<File name="AIPlayer1.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3628" topLine="104" />
+			<Cursor1 position="76" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="Tools.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -67,9 +17,29 @@
 			<Cursor1 position="592" topLine="13" />
 		</Cursor>
 	</File>
-	<File name="AIPlayer1.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="AIPlayer1.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="396" topLine="7" />
+			<Cursor1 position="3631" topLine="97" />
+		</Cursor>
+	</File>
+	<File name="Player.h" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="306" topLine="1" />
+		</Cursor>
+	</File>
+	<File name="AIPlayer2.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="-3" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="304" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="550" topLine="13" />
+		</Cursor>
+	</File>
+	<File name="AIPlayer3.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3566" topLine="117" />
 		</Cursor>
 	</File>
 	<File name="Tools.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -82,9 +52,39 @@
 			<Cursor1 position="1259" topLine="51" />
 		</Cursor>
 	</File>
-	<File name="GameController.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="AIPlayer3.h" open="0" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="-4" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="76" topLine="0" />
+			<Cursor1 position="968" topLine="6" />
+		</Cursor>
+	</File>
+	<File name="AIPlayer4.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="303" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="ChessBoard.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1374" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="ChessBoard.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="413" topLine="21" />
+		</Cursor>
+	</File>
+	<File name="AIPlayer1.h" open="0" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="396" topLine="7" />
+		</Cursor>
+	</File>
+	<File name="AIPlayer2.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1649" topLine="31" />
+		</Cursor>
+	</File>
+	<File name="AIPlayer4.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2961" topLine="119" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
