@@ -109,10 +109,10 @@ float AIPlayer1::getTotalScore(pair<short,short> p)
     ans += getLineScore(p,pair<short,short>(1,1),chessColor);
     ans += getLineScore(p,pair<short,short>(1,-1),chessColor);
 
-    ans += getLineScore(p,pair<short,short>(1,0),ChessType(-chessColor+3))*1.2;
-    ans += getLineScore(p,pair<short,short>(0,1),ChessType(-chessColor+3))*1.2;
-    ans += getLineScore(p,pair<short,short>(1,1),ChessType(-chessColor+3))*1.2;
-    ans += getLineScore(p,pair<short,short>(1,-1),ChessType(-chessColor+3))*1.2;
+    ans += getLineScore(p,pair<short,short>(1,0),ChessType(-chessColor+3))*1.1;
+    ans += getLineScore(p,pair<short,short>(0,1),ChessType(-chessColor+3))*1.1;
+    ans += getLineScore(p,pair<short,short>(1,1),ChessType(-chessColor+3))*1.1;
+    ans += getLineScore(p,pair<short,short>(1,-1),ChessType(-chessColor+3))*1.1;
 
     return ans;
 }
