@@ -8,13 +8,14 @@
 #include "AIPlayer2.h"
 #include "AIPlayer3.h"
 #include "AIPlayer4.h"
+#include "AIPlayer5.h"
 #pragma GCC optimize(3)
 using namespace std;
 int main()
 {
     HideCursor();
     AIPlayer3 BlackPlayer(BLACK);
-    AIPlayer3 WhitePlayer(WHITE);
+    AIPlayer5 WhitePlayer(WHITE);
 
     while(true)
     {
