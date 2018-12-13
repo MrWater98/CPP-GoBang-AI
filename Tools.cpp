@@ -1,4 +1,5 @@
 #include "Tools.h"
+#include<string.h>
 void HideCursor()
 {
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -20,11 +21,13 @@ void SetColor(int colorID)//设置文本颜色
 }
 void copyArray(char cloneChessboard[15][15],char temp[15][15])
 {
+    /*
     for(int i = 0;i < 15;i++)
     {
         for(int j = 0;j < 15;j++)
         {
             temp[i][j] = cloneChessboard[i][j];
         }
-    }
+    }*/
+    memcpy(temp,cloneChessboard,15*15*sizeof(char));
 }
