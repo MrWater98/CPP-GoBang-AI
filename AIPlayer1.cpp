@@ -78,12 +78,12 @@ void AIPlayer1::playChess()
             if(ChessBoard::getInstance()->myChessBoard[i][j]=='.')
             {
                 Score[i][j] = getTotalScore(pair<short,short>(i,j));
-                SetCursorPos(pair<short,short>((i+10)*2,j));
+                //SetCursorPos(pair<short,short>((i+10)*2,j));
                 //print all the score
-                cout<<"   ";
+                //cout<<"   ";
                 //Sleep(1);
-                SetCursorPos(pair<short,short>((i+10)*2,j));
-                cout<<Score[i][j];
+                //SetCursorPos(pair<short,short>((i+10)*2,j));
+                //cout<<Score[i][j];
                 Max = max(Max,Score[i][j]);
             }
         }
