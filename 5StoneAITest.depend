@@ -61,7 +61,7 @@
 	<map>
 	<cfloat>
 
-1543670847 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer1.cpp
+1544685972 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer1.cpp
 	"AIPlayer1.h"
 	<iostream>
 	<ctime>
@@ -87,7 +87,7 @@
 	<stack>
 	"Tools.h"
 
-1543510554 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
+1544196859 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
 	<iostream>
 	<assert.h>
 	<windows.h>
@@ -109,7 +109,7 @@
 
 1541509163 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.h
 
-1543973602 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
+1544696025 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
 	<iostream>
 	"Player.h"
 	"AIPlayer1.h"
@@ -120,6 +120,7 @@
 	"AIPlayer2.h"
 	"AIPlayer3.h"
 	"AIPlayer4.h"
+	"AIPlayer5.h"
 
 1542790140 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\player.cpp
 	"Player.h"
@@ -134,8 +135,9 @@
 	"AIPlayer1.h"
 	"conio.h"
 
-1543461471 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.cpp
+1544688652 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.cpp
 	"Tools.h"
+	<string.h>
 
 1543505659 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer2.cpp
 	"AIPlayer2.h"
@@ -149,7 +151,7 @@
 1542547168 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer2.h
 	"AIPlayer1.h"
 
-1543677971 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.cpp
+1544696283 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.cpp
 	"AIPlayer3.h"
 	<iostream>
 	<vector>
@@ -158,8 +160,9 @@
 	<ctime>
 	<map>
 
-1543413415 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.h
+1544686799 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.h
 	"Player.h"
+	"Tools.h"
 	<map>
 	<iostream>
 	<vector>
@@ -176,4 +179,21 @@
 	"AIPlayer2.h"
 	"Tools.h"
 	<vector>
+
+1544690952 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.cpp
+	"AIPlayer5.h"
+	<iostream>
+	<map>
+	<algorithm>
+	<limits.h>
+	<string.h>
+	<windows.h>
+	"ChessBoard.h"
+
+1544419476 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.h
+	<iostream>
+	<map>
+	<algorithm>
+	"Player.h"
+	"Tools.h"
 
