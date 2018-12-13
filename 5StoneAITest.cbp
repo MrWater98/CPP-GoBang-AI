@@ -40,6 +40,8 @@
 		<Unit filename="AIPlayer3.h" />
 		<Unit filename="AIPlayer4.cpp" />
 		<Unit filename="AIPlayer4.h" />
+		<Unit filename="AIPlayer5.cpp" />
+		<Unit filename="AIPlayer5.h" />
 		<Unit filename="ChessBoard.cpp" />
 		<Unit filename="ChessBoard.h" />
 		<Unit filename="GameController.cpp" />
