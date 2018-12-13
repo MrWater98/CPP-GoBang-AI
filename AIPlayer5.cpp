@@ -27,21 +27,21 @@ AIPlayer5::AIPlayer5(ChessType Color)
     evaBoard["___a_"] = chessModel["LiveOne"];
     evaBoard["___a_"] = chessModel["LiveOne"];
 
-    evaBoard["aa___"]=chessModel["SleepTwo"]+1;                      //眠二
-    evaBoard["a_a__"]=chessModel["SleepTwo"]-1;
-    evaBoard["___aa"]=chessModel["SleepTwo"]+1;
-    evaBoard["__a_a"]=chessModel["SleepTwo"]-1;
-    evaBoard["a__a_"]=chessModel["SleepTwo"]-1;
-    evaBoard["_a__a"]=chessModel["SleepTwo"]-1;
-    evaBoard["a___a"]=chessModel["SleepTwo"]-2;
+    evaBoard["aa___"]=chessModel["SleepTwo"];                      //眠二
+    evaBoard["a_a__"]=chessModel["SleepTwo"];
+    evaBoard["___aa"]=chessModel["SleepTwo"];
+    evaBoard["__a_a"]=chessModel["SleepTwo"];
+    evaBoard["a__a_"]=chessModel["SleepTwo"];
+    evaBoard["_a__a"]=chessModel["SleepTwo"];
+    evaBoard["a___a"]=chessModel["SleepTwo"];
 
 
-    evaBoard["__aa__"]=chessModel["LiveTwo"]+1;                     //活二
-    evaBoard["_a_a_"]=chessModel["LiveTwo"]-1;
-    evaBoard["_a__a_"]=chessModel["LiveTwo"]-1;
+    evaBoard["__aa__"]=chessModel["LiveTwo"];                     //活二
+    evaBoard["_a_a_"]=chessModel["LiveTwo"];
+    evaBoard["_a__a_"]=chessModel["LiveTwo"];
 
-    evaBoard["_aa__"]=chessModel["LiveTwo"]+1;
-    evaBoard["__aa_"]=chessModel["LiveTwo"]+1;
+    evaBoard["_aa__"]=chessModel["LiveTwo"];
+    evaBoard["__aa_"]=chessModel["LiveTwo"];
 
 
     evaBoard["a_a_a"]=chessModel["SleepThree"];
@@ -108,7 +108,7 @@ void AIPlayer5::playChess()
     }
 
     MiniMaxNode2 node;
-    node.value = -INT_MAX;
+    node.value = -chessModel["Five"];
     char cloneChessBoard[15][15];
     copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
     vector<MiniMaxNode2> Mnn = GetVector(cloneChessBoard,chessColor,true);
@@ -119,11 +119,11 @@ void AIPlayer5::playChess()
         cout<<".";
 
         copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
-        createTree(item,cloneChessBoard,5,false);
+        createTree(item,cloneChessBoard,3,false);
 
         float a = -chessModel["Five"];
         float b = chessModel["Five"];
-        item.value += AlphaBeta(item,5,false,a,b);
+        item.value += AlphaBeta(item,3,false,a,b);
 
         SetCursorPos(pair<short,short>(item.pos.first,item.pos.second));
         SetColor(10);
