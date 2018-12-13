@@ -138,4 +138,5 @@ private:
     std::chrono::steady_clock::time_point _end_time;
     std::string _name;
 };
+
 #endif // TOOLS_H
