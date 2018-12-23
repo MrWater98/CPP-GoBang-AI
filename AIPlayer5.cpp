@@ -36,32 +36,32 @@ AIPlayer5::AIPlayer5(ChessType Color)
     evaBoard["a___a"]=chessModel["SleepTwo"];
 
 
-    evaBoard["__aa__"]=chessModel["LiveTwo"];                     //活二
+    evaBoard["__aa__"]=chessModel["LiveTwo"]+1;                     //活二
     evaBoard["_a_a_"]=chessModel["LiveTwo"];
-    evaBoard["_a__a_"]=chessModel["LiveTwo"];
+    evaBoard["_a__a_"]=chessModel["LiveTwo"]-1;
 
-    evaBoard["_aa__"]=chessModel["LiveTwo"];
-    evaBoard["__aa_"]=chessModel["LiveTwo"];
+    evaBoard["_aa__"]=chessModel["LiveTwo"]+1;
+    evaBoard["__aa_"]=chessModel["LiveTwo"]+1;
 
 
-    evaBoard["a_a_a"]=chessModel["SleepThree"];
+    evaBoard["a_a_a"]=chessModel["SleepThree"]-1;
     evaBoard["aa__a"]=chessModel["SleepThree"];
     evaBoard["_aa_a"]=chessModel["SleepThree"];
     evaBoard["a_aa_"]=chessModel["SleepThree"];
     evaBoard["_a_aa"]=chessModel["SleepThree"];
     evaBoard["aa_a_"]=chessModel["SleepThree"];
-    evaBoard["aaa__"]=chessModel["SleepThree"];                     //眠三
+    evaBoard["aaa__"]=chessModel["SleepThree"]+1;                     //眠三
 
-    evaBoard["_aa_a_"]=chessModel["LiveThree"];                    //跳活三
-    evaBoard["_a_aa_"]=chessModel["LiveThree"];
+    evaBoard["_aa_a_"]=chessModel["LiveThree"]-1;                    //跳活三
+    evaBoard["_a_aa_"]=chessModel["LiveThree"]-1;
 
-    evaBoard["_aaa_"]=chessModel["LiveThree"];                    //活三
+    evaBoard["_aaa_"]=chessModel["LiveThree"]+1;                    //活三
 
 
     evaBoard["a_aaa"]=chessModel["SleepFour"];                    //冲四
     evaBoard["aaa_a"]=chessModel["SleepFour"];                    //冲四
-    evaBoard["_aaaa"]=chessModel["SleepFour"];                    //冲四
-    evaBoard["aaaa_"]=chessModel["SleepFour"];                    //冲四
+    evaBoard["_aaaa"]=chessModel["SleepFour"]+1;                    //冲四
+    evaBoard["aaaa_"]=chessModel["SleepFour"]+1;                    //冲四
     evaBoard["aa_aa"]=chessModel["SleepFour"];                    //冲四
 
 
@@ -150,20 +150,43 @@ void AIPlayer5::playChess()
 }
 bool AIPlayer5::hasNeighbor(char chessBoard[][15],int i,int j)
 {
+    /*
+    pair<short,short> po[4];
+    po[0] = make_pair(1,1);
+    po[1] = make_pair(1,-1);
+    po[2] = make_pair(1,0);
+    po[3] = make_pair(0,1);
+    for(int k = 0;k<=3;k++)
+    {
+        int xEnd = i+po[k].first*2,yEnd = j+po[k].second*2;
+        for(int x = i-po[k].first*2;x<=xEnd&&x>=0&&x<15;x++)
+        {
+            for(int y = j-po[k].second*2;y<=yEnd&&y>=0&&y<15;y++)
+            {
+                if(chessBoard[x][y]!='.')
+                    return true;
+            }
+        }
+    }
+    return false;
+    */
+
+
     int xBegin = i-2>=0?i-2:0;
     int yBegin = j-2>=0?j-2:0;
     int xEnd = i+2<=14?i+2:14;
     int yEnd = j+2<=14?j+2:14;
 
-    for(int i = xBegin; i<=xEnd; i++)
+    for(int x = xBegin; x<=xEnd; x++)
     {
-        for(int j = yBegin; j<=yEnd; j++)
+        for(int y = yBegin; y<=yEnd; y++)
         {
-            if(chessBoard[i][j]!='.')
+            if(chessBoard[x][y]!='.')
                 return true;
         }
     }
     return false;
+
 }
 vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChessColor,bool myself)
 {
@@ -176,7 +199,6 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
         {
             if(chessboard[i][j]=='.'&&hasNeighbor(chessboard,i,j))
             {
-
                 pair<short,short> p = pair<short,short>(i,j);
                 node.pos = p;
                 node.chess = myChessColor;
@@ -241,7 +263,7 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
     else
         chessboard[node.pos.first][node.pos.second] = stateMap[ChessType(-chessColor+3)];
     node.child = GetVector(chessboard,ChessType(-node.chess+3),!myself);
-    /*
+
     for(int i = 0; i < 15; i++)
     {
         for(int j = 0; j < 15; j++)
@@ -259,8 +281,8 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
             cout<<chessboard[i][j];
         }
     }
-    getchar();
-    */
+    //getchar();
+
 
     for(auto &item : node.child)
     {
@@ -316,10 +338,10 @@ float AIPlayer5::getTotalValue(char chessboard[][15],bool myself)
                 }
                 else if(chessboard[i][j]==stateMap[ChessType(-chessColor+3)])
                 {
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,0),ChessType(-chessColor+3))*1.2;
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(0,1),ChessType(-chessColor+3))*1.2;
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,1),ChessType(-chessColor+3))*1.2;
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,-1),ChessType(-chessColor+3))*1.2;
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,0),ChessType(-chessColor+3))*1.01;
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(0,1),ChessType(-chessColor+3))*1.01;
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,1),ChessType(-chessColor+3))*1.01;
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,-1),ChessType(-chessColor+3))*1.01;
                 }
             }
         }
