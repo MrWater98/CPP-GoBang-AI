@@ -20,7 +20,7 @@ AIPlayer4::AIPlayer4(ChessType Color)
 {
     chessColor = Color;
 
-    toScore["aa___"]=100;                      //眠二
+   toScore["aa___"]=100;                      //眠二
     toScore["a_a__"]=80;
     toScore["___aa"]=100;
     toScore["__a_a"]=80;
@@ -61,10 +61,10 @@ AIPlayer4::AIPlayer4(ChessType Color)
     toScore["_aaaa_"]=5000;                 //活四
 
     toScore["aaaaa"]=INT_MAX;           //连五
-
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
 }
+pair<short,short> showPoint;
 void AIPlayer4::playChess()
 {
     if(ChessBoard::getInstance()->st.size()==0)
@@ -94,19 +94,20 @@ void AIPlayer4::playChess()
     else if(ChessBoard::getInstance()->st.size()<=9)
     {
         BESTPOSNUM = 2;
-        GAMENUM = 10000;
+        GAMENUM = 50000;
     }
     else if(ChessBoard::getInstance()->st.size()>9&&ChessBoard::getInstance()->st.size()<=20)
     {
         BESTPOSNUM = 3;
-        GAMENUM = 20000;
-    }else if(ChessBoard::getInstance()->st.size()>20)
+        GAMENUM = 50000;
+    }
+    else if(ChessBoard::getInstance()->st.size()>20)
     {
         BESTPOSNUM = 3;
         GAMENUM = 20000;
     }
-    SetCursorPos(pair<short,short>(0,16));
-    cout<<ChessBoard::getInstance()->st.size()<<endl;
+    //SetCursorPos(pair<short,short>(0,16));
+    //cout<<ChessBoard::getInstance()->st.size()<<endl;
 
     char cloneChessBoard[15][15];
     copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
@@ -120,7 +121,8 @@ void AIPlayer4::playChess()
         {
             for(int j = 0; j < 15; j++)
             {
-                if(cloneChessBoard[i][j]=='.'){
+                if(cloneChessBoard[i][j]=='.')
+                {
                     float TScore = getTotalScore(pair<short,short>(i,j));
                     if(TScore>=INT_MAX)
                     {
@@ -136,7 +138,7 @@ void AIPlayer4::playChess()
         {
             char temp[15][15];
             copyArray(cloneChessBoard,temp);
-            SetCursorPos(pair<short,short>(0,16));
+            //SetCursorPos(pair<short,short>(0,16));
             temp[i->second.first][i->second.second] = stateMap[chessColor];
             bestPos.push_back(i->second);
             vec.push_back(nextState(temp));
@@ -166,11 +168,14 @@ void AIPlayer4::playChess()
 
     for(int i = 0; i < vec.size(); i++)
     {
+        showPoint = bestPos[i];
         scoreTemp = MonteCarlo(vec[i].nextBoard,ChessType(3-chessColor));
-        SetCursorPos(pair<short,short>(0,17));
-        cout<<"                       ";
-        SetCursorPos(pair<short,short>(0,17));
-        cout<<bestPos[i].first<<" "<<bestPos[i].second<<" "<<scoreTemp<<endl;
+
+
+        //SetCursorPos(pair<short,short>(0,17));
+        //cout<<"                       ";
+        //SetCursorPos(pair<short,short>(0,17));
+        //cout<<bestPos[i].first<<" "<<bestPos[i].second<<" "<<scoreTemp<<endl;
         //getchar();
         if(scoreTemp>score)
         {
@@ -180,6 +185,43 @@ void AIPlayer4::playChess()
     }
     ChessBoard::getInstance()->PlayChess(bestPos[index]);
     return ;
+}
+void AIPlayer4::addPos(vector<pair<short,short> > &p,int i,int j,char newBoard[][15])
+{
+    if(i-1>=0&&newBoard[i-1][j]=='.')
+        p.push_back(pair<short,short>(i-1,j));
+    if(i+1<15&&newBoard[i+1][j]=='.')
+        p.push_back(pair<short,short>(i+1,j));
+    if(j-1>=0&&newBoard[i][j-1]=='.')
+        p.push_back(pair<short,short>(i,j-1));
+    if(j+1<15&&newBoard[i][j+1]=='.')
+        p.push_back(pair<short,short>(i,j+1));
+    if(i-1>=0&&j-1>=0&&newBoard[i-1][j-1]=='.')
+        p.push_back(pair<short,short>(i-1,j-1));
+    if(i+1<15&&j+1<15&&newBoard[i+1][j+1]=='.')
+        p.push_back(pair<short,short>(i+1,j+1));
+    if(j-1>=0&&i+1<15&&newBoard[i+1][j-1]=='.')
+        p.push_back(pair<short,short>(i+1,j-1));
+    if(j+1<15&&i-1>=0&&newBoard[i-1][j+1]=='.')
+        p.push_back(pair<short,short>(i-1,j+1));
+    /*
+    if(i-2>=0&&newBoard[i-2][j]=='.')
+        p.push_back(pair<short,short>(i-2,j));
+    if(i+2<15&&newBoard[i+2][j]=='.')
+        p.push_back(pair<short,short>(i+2,j));
+    if(j-2>=0&&newBoard[i][j-2]=='.')
+        p.push_back(pair<short,short>(i,j-2));
+    if(j+2<15&&newBoard[i][j+2]=='.')
+        p.push_back(pair<short,short>(i,j+2));
+    if(i-2>=0&&j-2>=0&&newBoard[i-2][j-2]=='.')
+        p.push_back(pair<short,short>(i-2,j-2));
+    if(i+2<15&&j+2<15&&newBoard[i+2][j+2]=='.')
+        p.push_back(pair<short,short>(i+2,j+2));
+    if(j-2>=0&&i+2<15&&newBoard[i+2][j-2]=='.')
+        p.push_back(pair<short,short>(i+2,j-2));
+    if(j+2<15&&i-2>=0&&newBoard[i-2][j+2]=='.')
+        p.push_back(pair<short,short>(i-2,j+2));
+        */
 }
 int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
 {
@@ -247,39 +289,7 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
         {
             if(bestPlace[i][j]!='.')
             {
-                if(i-1>=0&&bestPlace[i-1][j]=='.')
-                    p.push_back(pair<short,short>(i-1,j));
-                if(i+1<15&&bestPlace[i+1][j]=='.')
-                    p.push_back(pair<short,short>(i+1,j));
-                if(j-1>=0&&bestPlace[i][j-1]=='.')
-                    p.push_back(pair<short,short>(i,j-1));
-                if(j+1<15&&bestPlace[i][j+1]=='.')
-                    p.push_back(pair<short,short>(i,j+1));
-                if(i-1>=0&&j-1>=0&&bestPlace[i-1][j-1]=='.')
-                    p.push_back(pair<short,short>(i-1,j-1));
-                if(i+1<15&&j+1<15&&bestPlace[i+1][j+1]=='.')
-                    p.push_back(pair<short,short>(i+1,j+1));
-                if(j-1>=0&&i+1<15&&bestPlace[i+1][j-1]=='.')
-                    p.push_back(pair<short,short>(i+1,j-1));
-                if(j+1<15&&i-1>=0&&bestPlace[i-1][j+1]=='.')
-                    p.push_back(pair<short,short>(i-1,j+1));
-
-                if(i-2>=0&&bestPlace[i-2][j]=='.')
-                    p.push_back(pair<short,short>(i-2,j));
-                if(i+2<15&&bestPlace[i+2][j]=='.')
-                    p.push_back(pair<short,short>(i+2,j));
-                if(j-2>=0&&bestPlace[i][j-2]=='.')
-                    p.push_back(pair<short,short>(i,j-2));
-                if(j+2<15&&bestPlace[i][j+2]=='.')
-                    p.push_back(pair<short,short>(i,j+2));
-                if(i-2>=0&&j-2>=0&&bestPlace[i-2][j-2]=='.')
-                    p.push_back(pair<short,short>(i-2,j-2));
-                if(i+2<15&&j+2<15&&bestPlace[i+2][j+2]=='.')
-                    p.push_back(pair<short,short>(i+2,j+2));
-                if(j-2>=0&&i+2<15&&bestPlace[i+2][j-2]=='.')
-                    p.push_back(pair<short,short>(i+2,j-2));
-                if(j+2<15&&i-2>=0&&bestPlace[i-2][j+2]=='.')
-                    p.push_back(pair<short,short>(i-2,j+2));
+                addPos(p,i,j,bestPlace);
             }
         }
     }
@@ -296,7 +306,8 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
                 break;
             }
             int w = R.randUnsigned()%tempPos.size();//在可下位置中获取随机位置
-            if(tempBoard[tempPos[w].first][tempPos[w].second] !='.'){
+            if(tempBoard[tempPos[w].first][tempPos[w].second] !='.')
+            {
                 tempPos.erase(tempPos.begin()+w);
                 continue;
             }
@@ -304,22 +315,23 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
             {
                 if(tempColor==myColor)
                 {
-                    finalScore+=2;
+                    finalScore+=1;
                     break;
                 }
                 else
                 {
-                    finalScore-=2;
+                    finalScore-=1;
                     break;
                 }
             }
             else
             {
                 tempBoard[tempPos[w].first][tempPos[w].second] = stateMap[tempColor];
+                addPos(tempPos,tempPos[w].first,tempPos[w].second,tempBoard);
                 tempColor = ChessType(3-tempColor);
                 tempPos.erase(tempPos.begin()+w);
             }
-            /*显示蒙特卡洛过程
+            /*显示蒙特卡洛过程*/
             for(int i = 0; i < 15; i++)
             {
                 for(int j = 0; j < 15; j++)
@@ -328,13 +340,29 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
                     cout<<tempBoard[i][j];
                 }
             }
-            getchar();
-            */
+
+            //getchar();
+            SetCursorPos(pair<short,short>(0,17));
+            cout<<"               "<<endl;
+            SetCursorPos(pair<short,short>(0,17));
+            cout<<"Score:"<<finalScore<<endl;
+
+            SetCursorPos(pair<short,short>(0,16));
+            cout<<"               "<<endl;
+            SetCursorPos(pair<short,short>(0,16));
+            cout<<"Point:"<<showPoint.first<<" "<<showPoint.second<<endl;
+
+            SetCursorPos(pair<short,short>(0,18));
+            cout<<"                   ";
+            SetCursorPos(pair<short,short>(0,18));
+            cout<<"iterate times:"<<i<<endl;
+
+
+
         }
     }
 
-    //SetCursorPos(pair<short,short>(0,16));
-    //cout<<finalScore<<endl;
+
     return finalScore;
 }
 bool AIPlayer4::CheckWinner(char Board[15][15],pair<short,short> pos)
