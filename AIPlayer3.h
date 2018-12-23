@@ -22,6 +22,7 @@ public:
     virtual ~AIPlayer3();
     map<string,float> toScore;
     map<ChessType,char> stateMap;
+    map<string,int> chessModel;
     float getTotalScore(char chessboard[][15],pair<short,short> p);
     float getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
     float AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,float beta);
