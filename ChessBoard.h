@@ -31,9 +31,7 @@ public:
     void Retract();
     void print(pair<short,short> twinkle);
     ChessType turn = BLACK;
-
         protected:
-
         private:
     static ChessBoard* instance;
 };
