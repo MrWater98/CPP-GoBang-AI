@@ -77,7 +77,7 @@
 	"ChessBoard.h"
 	<map>
 
-1545059156 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\chessboard.h
+1545578869 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\chessboard.h
 	<map>
 	<iostream>
 	<stdio.h>
@@ -85,6 +85,7 @@
 	<vector>
 	<memory.h>
 	<stack>
+	"Zobrist.h"
 	"Tools.h"
 
 1544700511 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
@@ -109,7 +110,7 @@
 
 1541509163 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.h
 
-1545532298 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
+1545575863 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
 	<iostream>
 	"Player.h"
 	"AIPlayer1.h"
@@ -151,7 +152,7 @@
 1542547168 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer2.h
 	"AIPlayer1.h"
 
-1544700511 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.cpp
+1545576813 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.cpp
 	"AIPlayer3.h"
 	<iostream>
 	<vector>
@@ -160,7 +161,7 @@
 	<ctime>
 	<map>
 
-1544700511 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.h
+1545576861 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer3.h
 	"Player.h"
 	"Tools.h"
 	<map>
@@ -180,7 +181,7 @@
 	"Tools.h"
 	<vector>
 
-1545531874 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.cpp
+1545580108 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.cpp
 	"AIPlayer5.h"
 	<iostream>
 	<map>
@@ -189,11 +190,19 @@
 	<string.h>
 	<windows.h>
 	"ChessBoard.h"
+	"Zobrist.h"
 
-1544700511 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.h
+1545579264 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.h
 	<iostream>
 	<map>
 	<algorithm>
 	"Player.h"
 	"Tools.h"
+
+1545578887 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\zobrist.h
+	<unordered_map>
+
+1545578886 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\zobrist.cpp
+	"Zobrist.h"
+	<bits/stdc++.h>
 
