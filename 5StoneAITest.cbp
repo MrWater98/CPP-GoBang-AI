@@ -50,6 +50,8 @@
 		<Unit filename="Player.h" />
 		<Unit filename="Tools.cpp" />
 		<Unit filename="Tools.h" />
+		<Unit filename="Zobrist.cpp" />
+		<Unit filename="Zobrist.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
