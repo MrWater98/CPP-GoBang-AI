@@ -6,6 +6,7 @@
 #include<string.h>
 #include<windows.h>
 #include "ChessBoard.h"
+#include "Zobrist.h"
 using namespace std;
 AIPlayer5::AIPlayer5(ChessType Color)
 {
@@ -82,6 +83,7 @@ AIPlayer5::~AIPlayer5()
 }
 void AIPlayer5::playChess()
 {
+    hashValue = ChessBoard::getInstance()->zobrist.computeHash(ChessBoard::getInstance()->myChessBoard);
     if(ChessBoard::getInstance()->st.size()==0)
     {
         ChessBoard::getInstance()->PlayChess(make_pair(7,7));
@@ -193,6 +195,7 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
     vector<MiniMaxNode2> nodeVector;
     MiniMaxNode2 node;
     int Count = 0;
+    unsigned long long int curBoardHash = ChessBoard::getInstance()->zobrist.computeHash(chessboard);
     for(int i = 0; i < 15; i++)
     {
         for(int j = 0; j < 15; j++)
@@ -205,7 +208,22 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
                 char cloneChessBoard[15][15];
                 copyArray(chessboard,cloneChessBoard);
                 cloneChessBoard[i][j] = myself?stateMap[chessColor]:stateMap[ChessType(-chessColor+3)];
-                node.value = getTotalValue(cloneChessBoard,myself);
+
+                unsigned long long int tempHash = curBoardHash^ChessBoard::getInstance()
+                ->zobrist.ZobristTable[i][j][ChessBoard::getInstance()
+                ->zobrist.indexOf(cloneChessBoard[i][j])];
+
+                if(ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)]==0){
+                    node.value = getTotalValue(cloneChessBoard,myself);
+                    ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)] = node.value;
+                }else
+                {
+                    node.value = ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)];
+                }
+
+                //hashTable[chessboard] = node.value这时候就可以对已经打过分的点进行储存
+
+
                 /*
                 SetCursorPos(pair<short,short>(0,18));
                 cout<<"                             "<<endl;
