@@ -10,47 +10,61 @@ AIPlayer3::AIPlayer3(ChessType Color)
 {
     chessColor = Color;
 
-    toScore["aa___"]=100;                      //眠二
-    toScore["a_a__"]=80;
-    toScore["___aa"]=100;
-    toScore["__a_a"]=80;
-    toScore["a__a_"]=80;
-    toScore["_a__a"]=80;
-    toScore["a___a"]=60;
+    chessModel["Five"] = INT_MAX;
+    chessModel["LiveFour"] = 10000;
+    chessModel["SleepFour"] = 1000;
+    chessModel["LiveThree"] = 1000;
+    chessModel["SleepThree"] = 100;
+    chessModel["LiveTwo"] = 100;
+    chessModel["SleepTwo"] = 10;
+    chessModel["LiveOne"] = 10;
+
+    toScore["_a___"] = chessModel["LiveOne"];
+    toScore["__a__"] = chessModel["LiveOne"];
+    toScore["___a_"] = chessModel["LiveOne"];
+    toScore["___a_"] = chessModel["LiveOne"];
+
+    toScore["aa___"]=chessModel["SleepTwo"];                      //眠二
+    toScore["a_a__"]=chessModel["SleepTwo"];
+    toScore["___aa"]=chessModel["SleepTwo"];
+    toScore["__a_a"]=chessModel["SleepTwo"];
+    toScore["a__a_"]=chessModel["SleepTwo"];
+    toScore["_a__a"]=chessModel["SleepTwo"];
+    toScore["a___a"]=chessModel["SleepTwo"];
 
 
-    toScore["__aa__"]=300;                     //活二
-    toScore["_a_a_"]=230;
-    toScore["_a__a_"]=230;
+    toScore["__aa__"]=chessModel["LiveTwo"]+1;                     //活二
+    toScore["_a_a_"]=chessModel["LiveTwo"];
+    toScore["_a__a_"]=chessModel["LiveTwo"]-1;
 
-    toScore["_aa__"]=300;
-    toScore["__aa_"]=300;
-
-
-    toScore["a_a_a"]=600;
-    toScore["aa__a"]=600;
-    toScore["_aa_a"]=600;
-    toScore["a_aa_"]=600;
-    toScore["_a_aa"]=600;
-    toScore["aa_a_"]=600;
-    toScore["aaa__"]=600;                     //眠三
-
-    toScore["_aa_a_"]=1200;                    //跳活三
-    toScore["_a_aa_"]=1200;
-
-    toScore["_aaa_"]=1800;                    //活三
+    toScore["_aa__"]=chessModel["LiveTwo"]+1;
+    toScore["__aa_"]=chessModel["LiveTwo"]+1;
 
 
-    toScore["a_aaa"]=2100;                    //冲四
-    toScore["aaa_a"]=2100;                    //冲四
-    toScore["_aaaa"]=2100;                    //冲四
-    toScore["aaaa_"]=2100;                    //冲四
-    toScore["aa_aa"]=2100;                    //冲四
+    toScore["a_a_a"]=chessModel["SleepThree"]-1;
+    toScore["aa__a"]=chessModel["SleepThree"];
+    toScore["_aa_a"]=chessModel["SleepThree"];
+    toScore["a_aa_"]=chessModel["SleepThree"];
+    toScore["_a_aa"]=chessModel["SleepThree"];
+    toScore["aa_a_"]=chessModel["SleepThree"];
+    toScore["aaa__"]=chessModel["SleepThree"]+1;                     //眠三
+
+    toScore["_aa_a_"]=chessModel["LiveThree"]-1;                    //跳活三
+    toScore["_a_aa_"]=chessModel["LiveThree"]-1;
+
+    toScore["_aaa_"]=chessModel["LiveThree"]+1;                    //活三
 
 
-    toScore["_aaaa_"]=5000;                 //活四
+    toScore["a_aaa"]=chessModel["SleepFour"];                    //冲四
+    toScore["aaa_a"]=chessModel["SleepFour"];                    //冲四
+    toScore["_aaaa"]=chessModel["SleepFour"]+1;                    //冲四
+    toScore["aaaa_"]=chessModel["SleepFour"]+1;                    //冲四
+    toScore["aa_aa"]=chessModel["SleepFour"];                    //冲四
 
-    toScore["aaaaa"]=INT_MAX;           //连五
+
+    toScore["_aaaa_"]=chessModel["LiveFour"];                 //活四
+
+    toScore["aaaaa"]=chessModel["Five"];           //连五
 
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
