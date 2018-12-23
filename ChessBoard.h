@@ -7,6 +7,7 @@
 #include<vector>
 #include<memory.h>
 #include<stack>
+#include"Zobrist.h"
 #include "Tools.h"
 using namespace std;
 
@@ -21,6 +22,7 @@ class ChessBoard
 public:
     ChessBoard();
     virtual ~ChessBoard();
+    Zobrist zobrist;
     char myChessBoard[15][15];
     bool PlayChess(pair<short,short> pos);
     static ChessBoard *getInstance();
