@@ -19,6 +19,7 @@ class AIPlayer4 : public AIPlayer2
         int MonteCarlo(char bestPlace[][15],ChessType ChessColor);
         bool CheckWinner(char Board[][15],pair<short,short> pos);
         bool CheckLine(char Board[][15],pair<short,short> pos,pair<short,short>offset);
+        void addPos(vector<pair<short,short> > &p,int i,int j,char newBoard[][15]);
         void playChess();
         virtual ~AIPlayer4();
 
