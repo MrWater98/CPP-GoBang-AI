@@ -20,6 +20,7 @@ public:
     AIPlayer3();
     AIPlayer3(ChessType Color);
     virtual ~AIPlayer3();
+    map<string,int> chessModel;
     map<string,float> toScore;
     map<ChessType,char> stateMap;
     float getTotalScore(char chessboard[][15],pair<short,short> p);
