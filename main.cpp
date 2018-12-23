@@ -16,7 +16,6 @@ int main()
     HideCursor();
     AIPlayer3 BlackPlayer(BLACK);
     AIPlayer5 WhitePlayer(WHITE);
-
     while(true)
     {
         ChessBoard::getInstance()->print(pair<short,short>(0,0));
@@ -27,5 +26,6 @@ int main()
         WhitePlayer.Start();
         Sleep(200);
     }
+    getchar();
     return 0;
 }
