@@ -14,12 +14,14 @@ struct MiniMaxNode2
     vector<MiniMaxNode2> child;
     float value;//得到下了这步后局面的分数
     float point;//得到这步棋的分数
+    unsigned long long int nodeHashVal;
 };
 class AIPlayer5 : public Player
 {
     public:
         AIPlayer5(ChessType Color);
         AIPlayer5();
+        unsigned long long int hashValue;
         map<string,int> evaBoard;
         map<ChessType,char> stateMap;
         map<string,int> chessModel;
