@@ -8,6 +8,14 @@
 #include "ChessBoard.h"
 #include "Zobrist.h"
 using namespace std;
+bool cmp(MiniMaxNode2 &a,MiniMaxNode2 &b)
+{
+    return a.value>b.value;
+}
+bool _cmp(MiniMaxNode2 &a,MiniMaxNode2 &b)
+{
+    return a.point>b.point;
+}
 AIPlayer5::AIPlayer5(ChessType Color)
 {
 
@@ -70,6 +78,63 @@ AIPlayer5::AIPlayer5(ChessType Color)
 
     evaBoard["aaaaa"]=chessModel["Five"];           //连五
 
+    //判点的
+    pointModel["Five"] = INT_MAX;
+    pointModel["LiveFour"] = 1000000;
+    pointModel["SleepFour"] = 15000;
+    pointModel["LiveThree"] = 10000;
+    pointModel["SleepThree"] = 1000;
+    pointModel["LiveTwo"] = 500;
+    pointModel["SleepTwo"] = 50;
+    pointModel["LiveOne"] = 10;
+
+    evaBoard["_b___"] = pointModel["LiveOne"];
+    evaBoard["__b__"] = pointModel["LiveOne"];
+    evaBoard["___b_"] = pointModel["LiveOne"];
+    evaBoard["___b_"] = pointModel["LiveOne"];
+
+    evaBoard["bb___"]=pointModel["SleepTwo"];                      //眠二
+    evaBoard["b_b__"]=pointModel["SleepTwo"];
+    evaBoard["___bb"]=pointModel["SleepTwo"];
+    evaBoard["__b_b"]=pointModel["SleepTwo"];
+    evaBoard["b__b_"]=pointModel["SleepTwo"];
+    evaBoard["_b__b"]=pointModel["SleepTwo"];
+    evaBoard["b___b"]=pointModel["SleepTwo"];
+
+
+    evaBoard["__bb__"]=pointModel["LiveTwo"]+1;                     //活二
+    evaBoard["_b_b_"]=pointModel["LiveTwo"];
+    evaBoard["_b__b_"]=pointModel["LiveTwo"]-1;
+
+    evaBoard["_bb__"]=pointModel["LiveTwo"]+1;
+    evaBoard["__bb_"]=pointModel["LiveTwo"]+1;
+
+
+    evaBoard["b_b_b"]=pointModel["SleepThree"]-1;
+    evaBoard["bb__b"]=pointModel["SleepThree"];
+    evaBoard["_bb_b"]=pointModel["SleepThree"];
+    evaBoard["b_bb_"]=pointModel["SleepThree"];
+    evaBoard["_b_bb"]=pointModel["SleepThree"];
+    evaBoard["bb_b_"]=pointModel["SleepThree"];
+    evaBoard["bbb__"]=pointModel["SleepThree"]+1;                     //眠三
+
+    evaBoard["_bb_b_"]=pointModel["LiveThree"]-100;                    //跳活三
+    evaBoard["_b_bb_"]=pointModel["LiveThree"]-100;
+
+    evaBoard["_bbb_"]=pointModel["LiveThree"]+1;                    //活三
+
+
+    evaBoard["b_bbb"]=pointModel["SleepFour"];                    //冲四
+    evaBoard["bbb_b"]=pointModel["SleepFour"];                    //冲四
+    evaBoard["_bbbb"]=pointModel["SleepFour"]+1;                    //冲四
+    evaBoard["bbbb_"]=pointModel["SleepFour"]+1;                    //冲四
+    evaBoard["bb_bb"]=pointModel["SleepFour"];                    //冲四
+
+
+    evaBoard["_bbbb_"]=pointModel["LiveFour"];                 //活四
+
+    evaBoard["bbbbb"]=pointModel["Five"];           //连五
+
 
 }
 AIPlayer5::AIPlayer5()
@@ -83,7 +148,7 @@ AIPlayer5::~AIPlayer5()
 }
 void AIPlayer5::playChess()
 {
-    hashValue = ChessBoard::getInstance()->zobrist.computeHash(ChessBoard::getInstance()->myChessBoard);
+    //hashValue = ChessBoard::getInstance()->zobrist.computeHash(ChessBoard::getInstance()->myChessBoard);
     if(ChessBoard::getInstance()->st.size()==0)
     {
         ChessBoard::getInstance()->PlayChess(make_pair(7,7));
@@ -91,8 +156,8 @@ void AIPlayer5::playChess()
     }
     else if(ChessBoard::getInstance()->st.size()==1)
     {
-        for(int i = 0; i < 15; i++)
-            for(int j = 0; j < 15; j++)
+        for(int i = 0; i < 15; ++i)
+            for(int j = 0; j < 15; ++j)
             {
                 if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
                 {
@@ -114,6 +179,8 @@ void AIPlayer5::playChess()
     char cloneChessBoard[15][15];
     copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
     vector<MiniMaxNode2> Mnn = GetVector(cloneChessBoard,chessColor,true);
+    //sort<Mnn.begin(),Mnn.end(),_cmp);
+    int Count = 0;
     for(auto &item : Mnn)
     {
         SetCursorPos(pair<short,short>(item.pos.first,item.pos.second));
@@ -148,22 +215,21 @@ void AIPlayer5::playChess()
     cout<<"nx:"<<node.pos.first<<" ny:"<<node.pos.second<<" "<<node.value;
     //getchar();
     ChessBoard::getInstance()->PlayChess(node.pos);
-
 }
 bool AIPlayer5::hasNeighbor(char chessBoard[][15],int i,int j)
 {
-    /*
+
     pair<short,short> po[4];
     po[0] = make_pair(1,1);
     po[1] = make_pair(1,-1);
     po[2] = make_pair(1,0);
     po[3] = make_pair(0,1);
-    for(int k = 0;k<=3;k++)
+    for(int k = 0; k<=3; k++)
     {
         int xEnd = i+po[k].first*2,yEnd = j+po[k].second*2;
-        for(int x = i-po[k].first*2;x<=xEnd&&x>=0&&x<15;x++)
+        for(int x = i-po[k].first*2; x<=xEnd&&x>=0&&x<15; x++)
         {
-            for(int y = j-po[k].second*2;y<=yEnd&&y>=0&&y<15;y++)
+            for(int y = j-po[k].second*2; y<=yEnd&&y>=0&&y<15; y++)
             {
                 if(chessBoard[x][y]!='.')
                     return true;
@@ -171,9 +237,9 @@ bool AIPlayer5::hasNeighbor(char chessBoard[][15],int i,int j)
         }
     }
     return false;
-    */
 
 
+    /*
     int xBegin = i-2>=0?i-2:0;
     int yBegin = j-2>=0?j-2:0;
     int xEnd = i+2<=14?i+2:14;
@@ -188,17 +254,20 @@ bool AIPlayer5::hasNeighbor(char chessBoard[][15],int i,int j)
         }
     }
     return false;
-
+    */
 }
+int myCount = 0;
+int compCount = 0;
 vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChessColor,bool myself)
 {
+
     vector<MiniMaxNode2> nodeVector;
     MiniMaxNode2 node;
     int Count = 0;
     unsigned long long int curBoardHash = ChessBoard::getInstance()->zobrist.computeHash(chessboard);
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             if(chessboard[i][j]=='.'&&hasNeighbor(chessboard,i,j))
             {
@@ -210,20 +279,18 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
                 cloneChessBoard[i][j] = myself?stateMap[chessColor]:stateMap[ChessType(-chessColor+3)];
 
                 unsigned long long int tempHash = curBoardHash^ChessBoard::getInstance()
-                ->zobrist.ZobristTable[i][j][ChessBoard::getInstance()
-                ->zobrist.indexOf(cloneChessBoard[i][j])];
+                                                  ->zobrist.ZobristTable[i][j][ChessBoard::getInstance()
+                                                          ->zobrist.indexOf(cloneChessBoard[i][j])];
 
-                if(ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)]==0){
+                if(ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)]==0)
+                {
                     node.value = getTotalValue(cloneChessBoard,myself);
                     ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)] = node.value;
-                }else
+                }
+                else
                 {
                     node.value = ChessBoard::getInstance()->zobrist.hashTable[to_string(tempHash)];
                 }
-
-                //hashTable[chessboard] = node.value这时候就可以对已经打过分的点进行储存
-
-
                 /*
                 SetCursorPos(pair<short,short>(0,18));
                 cout<<"                             "<<endl;
@@ -235,7 +302,7 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
                 cout<<node.value<<endl;
                 */
                 //getchar();
-                if(nodeVector.size()<=3)
+                if(nodeVector.size()<=5)
                     nodeVector.push_back(node);
                 else
                 {
@@ -267,7 +334,42 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
         }
     }
 
-    return nodeVector;
+    //SetCursorPos(pair<short,short>(0,16));
+    //for(int i = 0;i < nodeVector.size();i++)
+    //cout<<nodeVector[i].pos.first<<" "<<nodeVector[i].pos.second<<" ";
+    //getchar();
+    sort(nodeVector.begin(),nodeVector.end(),cmp);
+    /*
+    //计算单个点的分，如果是myself，那么则取大，如果不是，则取反
+    for(int i = 3; i < nodeVector.size(); i++)
+    {
+        char cloneChessBoard[15][15];
+        copyArray(chessboard,cloneChessBoard);
+
+        float ans = 0;
+        ans += getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),chessColor);
+        ans += getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),chessColor);
+        ans += getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),chessColor);
+        ans += getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),chessColor);
+        nodeVector[i].point = myChessColor==chessColor?ans:-ans;
+        SetCursorPos(pair<short,short>(0,16));
+        cout<<"                                       "<<endl;
+        SetCursorPos(pair<short,short>(0,16));
+        cout<<fixed<<nodeVector.size()<<" "<<nodeVector[i].point<<" "<<nodeVector[i].point<<" "<<nodeVector[i].pos.first<<" "<<nodeVector[i].pos.second<<endl;
+        //getchar();
+        /*
+        if(nodeVector[i].point>=INT_MAX||nodeVector[i].point<=-INT_MAX)
+        {
+            nodeVector.insert(nodeVector.begin(),nodeVector[i]);
+            nodeVector.erase(nodeVector.end());
+        }
+
+    }
+    */
+    vector<MiniMaxNode2> ret;
+    ret.assign(nodeVector.begin(),nodeVector.begin()+5);
+
+    return ret;
 }
 void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bool myself)
 {
@@ -282,17 +384,17 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
         chessboard[node.pos.first][node.pos.second] = stateMap[ChessType(-chessColor+3)];
     node.child = GetVector(chessboard,ChessType(-node.chess+3),!myself);
 
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             SetCursorPos(pair<short,short>(i+20,j));
             cout<<"   ";
         }
     }
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
 
             SetCursorPos(pair<short,short>(i+20,j));
@@ -310,8 +412,7 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
 }
 float AIPlayer5::AlphaBeta(MiniMaxNode2 node,int depth,bool myself,float alpha,float beta)
 {
-
-    if(depth==0||node.value>=chessModel["Five"])
+    if(depth==0||node.value>=chessModel["Five"]||node.value<=chessModel["Five"])
         return node.value;
     if(myself)
     {
@@ -341,9 +442,9 @@ float AIPlayer5::getTotalValue(char chessboard[][15],bool myself)
 {
     float ans1 = 0;
     float ans2 = 0;
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             if(chessboard[i][j]!='.')
             {
@@ -429,3 +530,62 @@ float AIPlayer5::getLineScore(char chessboard[][15],pair<short,short> p,pair<sho
     }
     return evaBoard[cmpStr];
 }
+float AIPlayer5::getPointScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
+{
+    string str = "b";
+    //右边
+    HideCursor();
+    for(int i = offset.first,j = offset.second,k=0; p.first+i>=0&&p.first+i<15
+            &&p.second+j>=0&&p.second+j<15&&k<4; i+=offset.first,j+=offset.second,k++)
+    {
+        if(chessboard[p.first+i][p.second+j]==stateMap[myChessColor])
+        {
+            str += "b";
+        }
+        else if(chessboard[p.first+i][p.second+j]=='.')
+        {
+            str +="_";
+        }
+        else
+        {
+            break;
+        }
+    }
+    //左边
+    for(int i = -offset.first,j = -offset.second,k=0; p.first+i>=0&&p.first+i<15
+            &&p.second+j>=0&&p.second+j<15&&k<4; i-=offset.first,j-=offset.second,k++)
+    {
+        if(chessboard[p.first+i][p.second+j]==stateMap[myChessColor])
+        {
+            str="b"+str;
+        }
+        else if(chessboard[p.first+i][p.second+j]=='.')
+        {
+            str="_"+str;
+        }
+        else
+        {
+            break;
+        }
+    }
+    string cmpStr = "";
+    for(auto &i : evaBoard)
+    {
+        if(str.find(i.first)!=string::npos)
+        {
+            if (cmpStr != "")
+            {
+                if(evaBoard[i.first]>evaBoard[cmpStr])
+                {
+                    cmpStr = i.first;
+                }
+            }
+            else
+            {
+                cmpStr = i.first;
+            }
+        }
+    }
+    return evaBoard[cmpStr];
+}
+
