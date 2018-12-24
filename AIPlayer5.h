@@ -1,7 +1,7 @@
 #ifndef AIPLAYER5_H
 #define AIPLAYER5_H
 #include<iostream>
-#include<map>
+#include<unordered_map>
 #include<algorithm>
 #include "Player.h"
 #include "Tools.h"
@@ -22,12 +22,14 @@ class AIPlayer5 : public Player
         AIPlayer5(ChessType Color);
         AIPlayer5();
         unsigned long long int hashValue;
-        map<string,int> evaBoard;
-        map<ChessType,char> stateMap;
-        map<string,int> chessModel;
+        unordered_map<string,int> evaBoard;
+        unordered_map<string,int> pointModel;
+        unordered_map<string,int> chessModel;
+        unordered_map<ChessType,char> stateMap;
         bool hasNeighbor(char chessBoard[][15],int i,int j);
         float getTotalValue(char chessBoard[][15],bool myself);
         float getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
+        float getPointScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
         float AlphaBeta(MiniMaxNode2 node,int depth,bool myself,float alpha,float beta);
         vector<MiniMaxNode2> GetVector(char chessboard[][15],ChessType myChessColor,bool myself);
         void createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bool myself);
