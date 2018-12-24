@@ -89,8 +89,8 @@ void AIPlayer5::playChess()
     }
     else if(ChessBoard::getInstance()->st.size()==1)
     {
-        for(int i = 0; i < 15; i++)
-            for(int j = 0; j < 15; j++)
+        for(int i = 0; i < 15; ++i)
+            for(int j = 0; j < 15; ++j)
             {
                 if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
                 {
@@ -193,9 +193,9 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
     vector<MiniMaxNode2> nodeVector;
     MiniMaxNode2 node;
     int Count = 0;
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             if(chessboard[i][j]=='.'&&hasNeighbor(chessboard,i,j))
             {
@@ -264,17 +264,17 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
         chessboard[node.pos.first][node.pos.second] = stateMap[ChessType(-chessColor+3)];
     node.child = GetVector(chessboard,ChessType(-node.chess+3),!myself);
 
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             SetCursorPos(pair<short,short>(i+20,j));
             cout<<"   ";
         }
     }
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
 
             SetCursorPos(pair<short,short>(i+20,j));
@@ -323,9 +323,9 @@ float AIPlayer5::getTotalValue(char chessboard[][15],bool myself)
 {
     float ans1 = 0;
     float ans2 = 0;
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             if(chessboard[i][j]!='.')
             {
