@@ -4,67 +4,67 @@
 #include<float.h>
 #include<limits.h>
 #include<ctime>
-#include<map>
+#include<unordered_map>
 using namespace std;
 AIPlayer3::AIPlayer3(ChessType Color)
 {
     chessColor = Color;
 
-    chessModel["Five"] = INT_MAX;
-    chessModel["LiveFour"] = 10000;
-    chessModel["SleepFour"] = 1000;
-    chessModel["LiveThree"] = 1000;
-    chessModel["SleepThree"] = 100;
-    chessModel["LiveTwo"] = 100;
-    chessModel["SleepTwo"] = 10;
-    chessModel["LiveOne"] = 10;
+    pointModel["Five"] = INT_MAX;
+    pointModel["LiveFour"] = 1000000;
+    pointModel["SleepFour"] = 15000;
+    pointModel["LiveThree"] = 10000;
+    pointModel["SleepThree"] = 1000;
+    pointModel["LiveTwo"] = 500;
+    pointModel["SleepTwo"] = 50;
+    pointModel["LiveOne"] = 10;
 
-    toScore["_a___"] = chessModel["LiveOne"];
-    toScore["__a__"] = chessModel["LiveOne"];
-    toScore["___a_"] = chessModel["LiveOne"];
-    toScore["___a_"] = chessModel["LiveOne"];
+    toScore["_a___"] = pointModel["LiveOne"];
+    toScore["__a__"] = pointModel["LiveOne"];
+    toScore["___a_"] = pointModel["LiveOne"];
+    toScore["___a_"] = pointModel["LiveOne"];
 
-    toScore["aa___"]=chessModel["SleepTwo"];                      //眠二
-    toScore["a_a__"]=chessModel["SleepTwo"];
-    toScore["___aa"]=chessModel["SleepTwo"];
-    toScore["__a_a"]=chessModel["SleepTwo"];
-    toScore["a__a_"]=chessModel["SleepTwo"];
-    toScore["_a__a"]=chessModel["SleepTwo"];
-    toScore["a___a"]=chessModel["SleepTwo"];
-
-
-    toScore["__aa__"]=chessModel["LiveTwo"]+1;                     //活二
-    toScore["_a_a_"]=chessModel["LiveTwo"];
-    toScore["_a__a_"]=chessModel["LiveTwo"]-1;
-
-    toScore["_aa__"]=chessModel["LiveTwo"]+1;
-    toScore["__aa_"]=chessModel["LiveTwo"]+1;
+    toScore["aa___"]=pointModel["SleepTwo"];                      //眠二
+    toScore["a_a__"]=pointModel["SleepTwo"];
+    toScore["___aa"]=pointModel["SleepTwo"];
+    toScore["__a_a"]=pointModel["SleepTwo"];
+    toScore["a__a_"]=pointModel["SleepTwo"];
+    toScore["_a__a"]=pointModel["SleepTwo"];
+    toScore["a___a"]=pointModel["SleepTwo"];
 
 
-    toScore["a_a_a"]=chessModel["SleepThree"]-1;
-    toScore["aa__a"]=chessModel["SleepThree"];
-    toScore["_aa_a"]=chessModel["SleepThree"];
-    toScore["a_aa_"]=chessModel["SleepThree"];
-    toScore["_a_aa"]=chessModel["SleepThree"];
-    toScore["aa_a_"]=chessModel["SleepThree"];
-    toScore["aaa__"]=chessModel["SleepThree"]+1;                     //眠三
+    toScore["__aa__"]=pointModel["LiveTwo"]+1;                     //活二
+    toScore["_a_a_"]=pointModel["LiveTwo"];
+    toScore["_a__a_"]=pointModel["LiveTwo"]-1;
 
-    toScore["_aa_a_"]=chessModel["LiveThree"]-1;                    //跳活三
-    toScore["_a_aa_"]=chessModel["LiveThree"]-1;
-
-    toScore["_aaa_"]=chessModel["LiveThree"]+1;                    //活三
+    toScore["_aa__"]=pointModel["LiveTwo"]+1;
+    toScore["__aa_"]=pointModel["LiveTwo"]+1;
 
 
-    toScore["a_aaa"]=chessModel["SleepFour"];                    //冲四
-    toScore["aaa_a"]=chessModel["SleepFour"];                    //冲四
-    toScore["_aaaa"]=chessModel["SleepFour"]+1;                    //冲四
-    toScore["aaaa_"]=chessModel["SleepFour"]+1;                    //冲四
-    toScore["aa_aa"]=chessModel["SleepFour"];                    //冲四
+    toScore["a_a_a"]=pointModel["SleepThree"]-1;
+    toScore["aa__a"]=pointModel["SleepThree"];
+    toScore["_aa_a"]=pointModel["SleepThree"];
+    toScore["a_aa_"]=pointModel["SleepThree"];
+    toScore["_a_aa"]=pointModel["SleepThree"];
+    toScore["aa_a_"]=pointModel["SleepThree"];
+    toScore["aaa__"]=pointModel["SleepThree"]+1;                     //眠三
+
+    toScore["_aa_a_"]=pointModel["LiveThree"]-100;                    //跳活三
+    toScore["_a_aa_"]=pointModel["LiveThree"]-100;
+
+    toScore["_aaa_"]=pointModel["LiveThree"]+1;                    //活三
 
 
-    toScore["_aaaa_"]=chessModel["LiveFour"];                 //活四
+    toScore["a_aaa"]=pointModel["SleepFour"];                    //冲四
+    toScore["aaa_a"]=pointModel["SleepFour"];                    //冲四
+    toScore["_aaaa"]=pointModel["SleepFour"]+1;                    //冲四
+    toScore["aaaa_"]=pointModel["SleepFour"]+1;                    //冲四
+    toScore["aa_aa"]=pointModel["SleepFour"];                    //冲四
 
-    toScore["aaaaa"]=chessModel["Five"];           //连五
+
+    toScore["_aaaa_"]=pointModel["LiveFour"];                 //活四
+
+    toScore["aaaaa"]=pointModel["Five"];           //连五
 
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
@@ -137,7 +137,7 @@ void AIPlayer3::playChess()
 float AIPlayer3::AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,float beta)
 {
 
-    if(depth==0||node.value>=INT_MAX||node.value<=INT_MAX)
+    if(depth==0||node.value>=INT_MAX||node.value<=-INT_MAX)
         return node.value;
     if(myself)
     {
