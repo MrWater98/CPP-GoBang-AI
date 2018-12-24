@@ -64,9 +64,9 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
 }
 void ChessBoard::print(pair<short,short> twinkle)
 {
-    for(int i = 0;i < 15;i++)
+    for(int i = 0;i < 15;++i)
     {
-        for(int j = 0;j < 15;j++)
+        for(int j = 0;j < 15;++j)
         {
             SetCursorPos(pair<short,short>(i,j));
             if(myChessBoard[i][j]=='x')
