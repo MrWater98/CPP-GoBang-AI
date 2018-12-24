@@ -2,7 +2,7 @@
 #define AIPLAYER3_H
 #include "Player.h"
 #include "Tools.h"
-#include<map>
+#include<unordered_map>
 #include<iostream>
 #include<vector>
 using namespace std;
@@ -20,9 +20,9 @@ public:
     AIPlayer3();
     AIPlayer3(ChessType Color);
     virtual ~AIPlayer3();
-    map<string,int> chessModel;
-    map<string,float> toScore;
-    map<ChessType,char> stateMap;
+    unordered_map<string,int> pointModel;
+    unordered_map<string,float> toScore;
+    unordered_map<ChessType,char> stateMap;
     float getTotalScore(char chessboard[][15],pair<short,short> p);
     float getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
     float AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,float beta);
