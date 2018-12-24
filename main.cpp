@@ -9,7 +9,7 @@
 #include "AIPlayer3.h"
 #include "AIPlayer4.h"
 #include "AIPlayer5.h"
-#pragma GCC optimize(3)
+#pragma GCC optimize(2)
 using namespace std;
 int main()
 {
