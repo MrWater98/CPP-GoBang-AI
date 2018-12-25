@@ -8,6 +8,10 @@
 #include <windows.h>
 #include <wincrypt.h>
 using namespace std;
+void SetWindowSize(int cols, int lines);
+void SetCursorPosition(const int x, const int y);
+void SetColor(int colorID);
+void SetBackColor();
 void HideCursor();
 void SetCursorPos(pair<short,short> pos);
 float getTotalScore(pair<short,short> p);
