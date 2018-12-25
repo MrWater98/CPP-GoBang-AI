@@ -358,7 +358,7 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
     sort(nodeVector.begin(),nodeVector.end(),cmp);
 
     //计算单个点的分，如果是myself，那么则取大，如果不是，则取反
-    for(int i = 0; i < nodeVector.size(); i++)
+    for(int i = 4; i < nodeVector.size(); i++)
     {
         char cloneChessBoard[15][15];
         copyArray(chessboard,cloneChessBoard);
@@ -386,7 +386,7 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
     }
 
     vector<MiniMaxNode2> ret;
-    ret.assign(nodeVector.begin(),nodeVector.begin()+3);
+    ret.assign(nodeVector.begin(),nodeVector.begin()+4);
 
     return ret;
 }
