@@ -15,7 +15,7 @@ void SetCursorPos(pair<short,short> pos)
     Pos.Y = pos.second;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),Pos);
 }
-void SetColor(int colorID)//�����ı���ɫ
+void SetColor(int colorID)//ÉèÖÃÎÄ±¾ÑÕÉ«
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorID);
 }
@@ -30,4 +30,32 @@ void copyArray(char cloneChessboard[15][15],char temp[15][15])
         }
     }*/
     memcpy(temp,cloneChessboard,15*15*sizeof(char));
+}
+
+//以下是从贪吃蛇里copy的东西
+void SetWindowSize(int cols, int lines)//设置窗口大小
+{
+    system("title 贪吃蛇");//设置窗口标题
+    char cmd[30];
+    sprintf(cmd, "mode con cols=%d lines=%d", cols * 2, lines);//一个图形■占两个字符，故宽度乘以2
+    system(cmd);//system(mode con cols=88 lines=88)设置窗口宽度和高度
+}
+
+void SetCursorPosition(const int x, const int y)//设置光标位置
+{
+    COORD position;
+    position.X = x * 2;
+    position.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), position);
+}
+
+
+
+void SetBackColor()//设置文本背景色
+{
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+                            FOREGROUND_BLUE |
+                            BACKGROUND_BLUE |
+                            BACKGROUND_GREEN |
+                            BACKGROUND_RED );
 }
