@@ -4,17 +4,23 @@
 
 class GameController
 {
-    public:
-        GameController();
-        virtual ~GameController();
-        //获取单例对象
-        static GameController* getInstance();
-        void Start();
-
-    protected:
-
-    private:
-        static GameController* instance;
+public:
+    GameController() : speed(200), key(1), score(0) {}
+    void Start();
+    void SelectDifficulty();
+    void SelectPlayer();
+    void SelectFirstPlayer();
+    void DrawGame();
+    int PlayGame();
+    void UpdateScore(const int&);
+    void RewriteScore();
+    int Menu();
+    void Game();
+    int GameOver();
+private:
+    int speed;
+    int key;
+    int score;
 };
 
 #endif // GAMECONTROLLER_H
