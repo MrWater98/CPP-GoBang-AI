@@ -97,7 +97,7 @@ void Player::playChess()
         case 'r':
             ChessBoard::getInstance()->Retract();
             break;
-        case 'j':
+        case 13:
             if(ChessBoard::getInstance()->PlayChess(p))
                 return ;
             else
