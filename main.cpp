@@ -10,21 +10,21 @@
 #include "AIPlayer5.h"
 #pragma GCC optimize(3)
 #include "GameController.h"
-
+/*
 int main()//程序入口
 {
     GameController c;//声明一个Controller类
     c.Game();//整个游戏循环
     return 0;
 }
+*/
 
-/*
 using namespace std;
 int main()
 {
     HideCursor();
     AIPlayer5 BlackPlayer(BLACK);
-    AIPlayer4 WhitePlayer(WHITE);
+    AIPlayer3 WhitePlayer(WHITE);
     while(true)
     {
         ChessBoard::getInstance()->print(pair<short,short>(0,0));
@@ -38,5 +38,5 @@ int main()
     getchar();
     return 0;
 }
-/*/
+
 
