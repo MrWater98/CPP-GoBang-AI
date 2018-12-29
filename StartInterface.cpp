@@ -9,7 +9,7 @@ void StartInterface::PrintFirst()//蛇从左边出现到完全出现的过程
     }
 }
 
-void StartInterface::PrintSecond()//蛇从左向右移动的过程
+void StartInterface::PrintSecond()//从左往右移动动画
 {
     for (int i = 10; i != 40; ++i) //蛇头需要从10移动到40
     {
