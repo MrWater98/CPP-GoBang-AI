@@ -93,7 +93,8 @@ void GameController::SelectPlayer()//选择和人打还是和AI打
         default://无效按键
             break;
         }
-        if (flag) break;//输入Enter回车键确认，退出检查输入循环
+        if (flag)
+            break;//输入Enter回车键确认，退出检查输入循环
 
         SetCursorPosition(0, 31);//将光标置于左下角，避免关标闪烁影响游戏体验
     }
@@ -178,7 +179,8 @@ void GameController::SelectFirstPlayer()
         default://无效按键
             break;
         }
-        if (flag) break;//输入Enter回车键确认，退出检查输入循环
+        if (flag)
+            break;//输入Enter回车键确认，退出检查输入循环
 
         SetCursorPosition(0, 31);//将光标置于左下角，避免关标闪烁影响游戏体验
     }
@@ -186,15 +188,15 @@ void GameController::SelectFirstPlayer()
     {
     case 1:
         //人类先下棋
-        SelectDifficulty();
+        SelectDifficulty(false);
         break;
     case 2:
-        SelectDifficulty();
+        SelectDifficulty(true);
         //AI先下棋
         break;
     }
 }
-void GameController::SelectDifficulty()//选择界面
+void GameController::SelectDifficulty(bool AIFirst)//选择界面
 {
     SetColor(3);
     SetCursorPosition(13, 26);
@@ -316,28 +318,115 @@ void GameController::SelectDifficulty()//选择界面
         default://无效按键
             break;
         }
-        if (flag) break;//输入Enter回车键确认，退出检查输入循环
+        if (flag)
+            break;//输入Enter回车键确认，退出检查输入循环
 
         SetCursorPosition(0, 31);//将光标置于左下角，避免关标闪烁影响游戏体验
     }
     switch (key)
     {
     case 1:
-
+        StartGame(AIFirst,key);
         break;
     case 2:
-        cout<<"case2"<<endl;
+        StartGame(AIFirst,key);
         break;
     case 3:
-        cout<<"case3"<<endl;
+        StartGame(AIFirst,key);
         break;
     case 4:
-        cout<<"case4"<<endl;
+        StartGame(AIFirst,key);
+        break;
     default:
         break;
     }
 }
+void GameController::StartGame(bool AIFirst,int key)
+{
+    system("cls");
+    HideCursor();
+    Player Human;
+    if(!AIFirst)
+        Human = Player(BLACK);
+    else
+        Human = Player(WHITE);
+    if(key==1)
+    {
 
+        AIPlayer2 AIBlack = AIPlayer2(BLACK);
+        AIPlayer2 AIWhite = AIPlayer2(WHITE);
+        while(true)
+        {
+            if(AIFirst)
+            {
+                AIBlack.Start();
+                Human.Start();
+            }
+            else
+            {
+                Human.Start();
+                AIWhite.Start();
+            }
+        }
+    }
+    else if(key==2)
+    {
+        AIPlayer4 AIBlack = AIPlayer4(BLACK);
+        AIPlayer4 AIWhite = AIPlayer4(WHITE);
+        while(true)
+        {
+            if(AIFirst)
+            {
+                AIBlack.Start();
+                Human.Start();
+            }
+            else
+            {
+                Human.Start();
+                AIWhite.Start();
+            }
+        }
+    }
+    else if(key==3)
+    {
+        AIPlayer3 AIBlack = AIPlayer3(BLACK);
+        AIPlayer3 AIWhite = AIPlayer3(WHITE);
+        while(true)
+        {
+            if(AIFirst)
+            {
+                AIBlack.Start();
+                Human.Start();
+            }
+            else
+            {
+                Human.Start();
+                AIWhite.Start();
+            }
+        }
+    }
+    else if(key==4)
+    {
+        AIPlayer5 AIBlack = AIPlayer5(BLACK);
+        AIPlayer5 AIWhite = AIPlayer5(WHITE);
+        while(true)
+        {
+            if(AIFirst)
+            {
+                AIBlack.Start();
+                Human.Start();
+            }
+            else
+            {
+                Human.Start();
+                AIWhite.Start();
+            }
+        }
+    }
+
+
+
+}
 int GameController::PlayGame()//游戏二级循环
 {
     HideCursor();
