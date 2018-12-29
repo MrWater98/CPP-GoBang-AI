@@ -48,6 +48,10 @@
 		<Unit filename="GameController.h" />
 		<Unit filename="Player.cpp" />
 		<Unit filename="Player.h" />
+		<Unit filename="Point.cpp" />
+		<Unit filename="Point.h" />
+		<Unit filename="StartInterface.cpp" />
+		<Unit filename="StartInterface.h" />
 		<Unit filename="Tools.cpp" />
 		<Unit filename="Tools.h" />
 		<Unit filename="Zobrist.cpp" />
