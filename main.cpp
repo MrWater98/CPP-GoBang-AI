@@ -17,11 +17,13 @@ int main()//程序入口
     c.Game();//整个游戏循环
     return 0;
 }
-/*using namespace std;
+
+/*
+using namespace std;
 int main()
 {
     HideCursor();
-    AIPlayer3 BlackPlayer(BLACK);
+    AIPlayer5 BlackPlayer(BLACK);
     AIPlayer4 WhitePlayer(WHITE);
     while(true)
     {
@@ -36,4 +38,5 @@ int main()
     getchar();
     return 0;
 }
-*/
+/*/
+
