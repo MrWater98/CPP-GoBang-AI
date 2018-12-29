@@ -7,7 +7,8 @@ class GameController
 public:
     GameController() : speed(200), key(1), score(0) {}
     void Start();
-    void SelectDifficulty();
+    void SelectDifficulty(bool AIFirst);
+    void StartGame(bool AIFirst,int key);
     void SelectPlayer();
     void SelectFirstPlayer();
     void DrawGame();
