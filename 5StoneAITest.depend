@@ -88,7 +88,7 @@
 	"Zobrist.h"
 	"Tools.h"
 
-1544700511 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
+1545725570 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.h
 	<iostream>
 	<assert.h>
 	<windows.h>
@@ -97,7 +97,7 @@
 	<windows.h>
 	<wincrypt.h>
 
-1545645503 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\chessboard.cpp
+1545754881 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\chessboard.cpp
 	"ChessBoard.h"
 	"Tools.h"
 	"stdio.h"
@@ -105,15 +105,28 @@
 	<map>
 	<stack>
 
-1541507052 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.cpp
+1545751465 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.cpp
 	"GameController.h"
+	<iostream>
+	<time.h>
+	<conio.h>
+	"GameController.h"
+	"Player.h"
+	"GameController.h"
+	"Tools.h"
+	"startInterface.h"
+	<windows.h>
+	"AIPlayer1.h"
+	"AIPlayer2.h"
+	"AIPlayer3.h"
+	"AIPlayer4.h"
+	"AIPlayer5.h"
 
-1541509163 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.h
+1545746959 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\gamecontroller.h
 
-1545701544 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
+1546049686 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\main.cpp
 	<iostream>
 	"Player.h"
-	"AIPlayer1.h"
 	<windows.h>
 	"GameController.h"
 	"Tools.h"
@@ -122,8 +135,9 @@
 	"AIPlayer3.h"
 	"AIPlayer4.h"
 	"AIPlayer5.h"
+	"GameController.h"
 
-1542790140 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\player.cpp
+1545746543 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\player.cpp
 	"Player.h"
 	"ChessBoard.h"
 	"GameController.h"
@@ -136,7 +150,7 @@
 	"AIPlayer1.h"
 	"conio.h"
 
-1544716254 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.cpp
+1545810578 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\tools.cpp
 	"Tools.h"
 	<string.h>
 
@@ -168,7 +182,7 @@
 	<iostream>
 	<vector>
 
-1545288217 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer4.cpp
+1545812988 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer4.cpp
 	"AIPlayer4.h"
 	<iostream>
 	<ctime>
@@ -181,7 +195,7 @@
 	"Tools.h"
 	<vector>
 
-1545671287 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.cpp
+1545812987 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.cpp
 	"AIPlayer5.h"
 	<iostream>
 	<map>
@@ -192,7 +206,7 @@
 	"ChessBoard.h"
 	"Zobrist.h"
 
-1545655263 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.h
+1545811174 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\aiplayer5.h
 	<iostream>
 	<unordered_map>
 	<algorithm>
@@ -205,4 +219,20 @@
 1545655263 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\zobrist.cpp
 	"Zobrist.h"
 	<bits/stdc++.h>
+
+1545725570 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\startinterface.h
+	<deque>
+	<vector>
+	"point.h"
+
+1545725570 d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\point.h
+
+1545725570 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\point.cpp
+	"point.h"
+	"Tools.h"
+	<iostream>
+
+1546053740 source:d:\子越文档\onedrive - 广厚设计学校\大学\课程\自学\github\5 stone ai\5-stone-ai\startinterface.cpp
+	"startinterface.h"
+	<windows.h>
 
