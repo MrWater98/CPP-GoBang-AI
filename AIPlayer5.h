@@ -26,6 +26,7 @@ class AIPlayer5 : public Player
         unordered_map<string,int> pointModel;
         unordered_map<string,int> chessModel;
         unordered_map<ChessType,char> stateMap;
+        void setModel(int i);
         bool hasNeighbor(char chessBoard[][15],int i,int j);
         float getTotalValue(char chessBoard[][15],bool myself);
         float getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
