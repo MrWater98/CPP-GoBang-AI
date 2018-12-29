@@ -7,6 +7,8 @@
 #include<windows.h>
 #include "ChessBoard.h"
 #include "Zobrist.h"
+#define argCM 2
+#define argPM 5
 using namespace std;
 bool cmp(MiniMaxNode2 &a,MiniMaxNode2 &b)
 {
@@ -22,14 +24,14 @@ AIPlayer5::AIPlayer5(ChessType Color)
     chessColor = Color;
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
-    chessModel["Five"] = 100000;
-    chessModel["LiveFour"] = 10000;
-    chessModel["SleepFour"] = 1000;
-    chessModel["LiveThree"] = 1000;
-    chessModel["SleepThree"] = 100;
-    chessModel["LiveTwo"] = 100;
-    chessModel["SleepTwo"] = 10;
-    chessModel["LiveOne"] = 10;
+    chessModel["Five"] = 100000*argCM;
+    chessModel["LiveFour"] = 10000*argCM;
+    chessModel["SleepFour"] = 1000*argCM;
+    chessModel["LiveThree"] = 1000*argCM;
+    chessModel["SleepThree"] = 100*argCM;
+    chessModel["LiveTwo"] = 100*argCM;
+    chessModel["SleepTwo"] = 10*argCM;
+    chessModel["LiveOne"] = 10*argCM;
 
     evaBoard["_a___"] = chessModel["LiveOne"];
     evaBoard["__a__"] = chessModel["LiveOne"];
@@ -80,13 +82,13 @@ AIPlayer5::AIPlayer5(ChessType Color)
 
     //判点的
     pointModel["Five"] = INT_MAX;
-    pointModel["LiveFour"] = 1000000;
-    pointModel["SleepFour"] = 15000;
-    pointModel["LiveThree"] = 10000;
-    pointModel["SleepThree"] = 1000;
-    pointModel["LiveTwo"] = 500;
-    pointModel["SleepTwo"] = 50;
-    pointModel["LiveOne"] = 10;
+    pointModel["LiveFour"] = 1000000/argPM;
+    pointModel["SleepFour"] = 15000/argPM;
+    pointModel["LiveThree"] = 10000/argPM;
+    pointModel["SleepThree"] = 1000/argPM;
+    pointModel["LiveTwo"] = 500/argPM;
+    pointModel["SleepTwo"] = 50/argPM;
+    pointModel["LiveOne"] = 50/argPM;
 
     evaBoard["_b___"] = pointModel["LiveOne"];
     evaBoard["__b__"] = pointModel["LiveOne"];
@@ -134,8 +136,6 @@ AIPlayer5::AIPlayer5(ChessType Color)
     evaBoard["_bbbb_"]=pointModel["LiveFour"];                 //活四
 
     evaBoard["bbbbb"]=pointModel["Five"];           //连五
-
-
 }
 AIPlayer5::AIPlayer5()
 {
@@ -179,7 +179,7 @@ void AIPlayer5::playChess()
     char cloneChessBoard[15][15];
     copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
     vector<MiniMaxNode2> Mnn = GetVector(cloneChessBoard,chessColor,true);
-    //sort<Mnn.begin(),Mnn.end(),_cmp);
+    sort(Mnn.begin(),Mnn.end(),_cmp);
     int Count = 0;
     for(auto &item : Mnn)
     {
@@ -196,7 +196,7 @@ void AIPlayer5::playChess()
         SetCursorPos(pair<short,short>(0,16));
         cout<<fixed<<item.point;
         //getchar();
-        if(item.point>=INT_MAX||item.point<=-INT_MAX)
+        if(item.point>=pointModel["Five"]||item.point<=-pointModel["Five"])
         {
             ChessBoard::getInstance()->PlayChess(item.pos);
             return ;
@@ -358,15 +358,15 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
     sort(nodeVector.begin(),nodeVector.end(),cmp);
 
     //计算单个点的分，如果是myself，那么则取大，如果不是，则取反
-    for(int i = 4; i < nodeVector.size(); i++)
+    for(int i = 0; i < nodeVector.size(); i++)
     {
         char cloneChessBoard[15][15];
         copyArray(chessboard,cloneChessBoard);
         float ans = 0;
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),chessColor));
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),chessColor));
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),chessColor));
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),chessColor));
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),chessColor))+30;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),chessColor))+30;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),chessColor))+30;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),chessColor))+30;
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),ChessType(-chessColor+3)));
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),ChessType(-chessColor+3)));
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),ChessType(-chessColor+3)));
@@ -377,7 +377,7 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
         //SetCursorPos(pair<short,short>(0,16));
         //cout<<fixed<<nodeVector.size()<<" "<<nodeVector[i].point<<" "<<nodeVector[i].point<<" "<<nodeVector[i].pos.first<<" "<<nodeVector[i].pos.second<<endl;
         //getchar();
-        if(ans>=INT_MAX)
+        if(ans>=pointModel["LiveFour"])
         {
             nodeVector.insert(nodeVector.begin(),nodeVector[i]);
             nodeVector.erase(nodeVector.begin()+i+1);
@@ -433,7 +433,7 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
 float AIPlayer5::AlphaBeta(MiniMaxNode2 node,int depth,bool myself,float alpha,float beta)
 {
     if(depth==0||node.value>=chessModel["Five"]||node.value<=chessModel["Five"])
-        return node.value;
+        return node.value+node.point;
     if(myself)
     {
         for(auto &child : node.child)
