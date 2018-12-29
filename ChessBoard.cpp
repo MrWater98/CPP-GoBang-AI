@@ -8,6 +8,33 @@ ChessBoard::ChessBoard()
 {
     memset(myChessBoard,'.',sizeof(myChessBoard));
     m[BLACK] = 'x';m[WHITE] = 'o';
+    /*
+    char _ChessBoard[16][16] =
+                   {"...............",
+                    "...............",
+                    "...............",
+                    "...............",
+                    ".....x..x......",
+                    "...oxooox......",
+                    ".....ooxo......",
+                    ".....oxxxox....",
+                    "....oo.........",
+                    "...x.x.........",
+                    "...............",
+                    "...............",
+                    "...............",
+                    "...............",
+                    "..............."};
+    for(int i = 0;i < 15;i++)
+    {
+        for(int j = 0;j < 15;j++)
+        {
+            myChessBoard[j][i] = _ChessBoard[i][j];
+        }
+    }
+    st.push(pair<short,short>(0,0));
+    st.push(pair<short,short>(0,0));
+    */
 }
 ChessBoard::~ChessBoard()
 {
