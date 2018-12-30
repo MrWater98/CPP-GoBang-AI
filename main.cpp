@@ -10,7 +10,7 @@
 #include "AIPlayer5.h"
 #pragma GCC optimize(2)
 #include "GameController.h"
-/*
+
 int main()
 {
     HideCursor();//hide the cursor 隐藏鼠标
@@ -18,7 +18,7 @@ int main()
     c.Game();//begin the game
     return 0;
 }
-*/
+
 /*
 using namespace std;
 int main()
