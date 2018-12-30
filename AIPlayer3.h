@@ -23,6 +23,7 @@ public:
     unordered_map<string,int> pointModel;
     unordered_map<string,float> toScore;
     unordered_map<ChessType,char> stateMap;
+    bool hasNeighbor(char chessBoard[][15],int i,int j);
     float getTotalScore(char chessboard[][15],pair<short,short> p);
     float getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor);
     float AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,float beta);
