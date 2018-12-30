@@ -4,10 +4,12 @@
 #include "conio.h"
 #include <map>
 #include<stack>
+#include "GameController.h"
 ChessBoard::ChessBoard()
 {
     memset(myChessBoard,'.',sizeof(myChessBoard));
-    m[BLACK] = 'x';m[WHITE] = 'o';
+    m[BLACK] = 'x';
+    m[WHITE] = 'o';
     /*
     char _ChessBoard[16][16] =
                    {"...............",
@@ -51,8 +53,10 @@ ChessBoard* ChessBoard::getInstance()
 bool ChessBoard::PlayChess(pair<short,short> pos)
 {
     SetColor(10);
-    if(myChessBoard[pos.first][pos.second]=='.'){
-        if(turn==BLACK){
+    if(myChessBoard[pos.first][pos.second]=='.')
+    {
+        if(turn==BLACK)
+        {
             myChessBoard[pos.first][pos.second] = 'x';
             SetCursorPos(pair<short,short>(pos.first,pos.second));
             cout<<'x';
@@ -60,8 +64,11 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
-                cout<<"win->Press any key to stop"<<endl;
-                print(pos);
+                cout<<"win->Press R to exit"<<endl;
+                char ch;
+                ch = getch();
+                if(ch=='r')
+                    exit(0);
                 getchar();
                 return false;
             }
@@ -69,7 +76,8 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             turn = WHITE;
             return true;
         }
-        else if(turn==WHITE){
+        else if(turn==WHITE)
+        {
             myChessBoard[pos.first][pos.second] = 'o';
             SetCursorPos(pair<short,short>(pos.first,pos.second));
             cout<<'o';
@@ -77,8 +85,11 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
-                cout<<"win->Press any key to stop"<<endl;
-                print(pos);
+                cout<<"win->Press R to exit"<<endl;
+                char ch;
+                ch = getch();
+                if(ch=='r')
+                    exit(0);
                 getchar();
                 return false;
             }
@@ -91,15 +102,16 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
 }
 void ChessBoard::print(pair<short,short> twinkle)
 {
-    for(int i = 0;i < 15;++i)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0;j < 15;++j)
+        for(int j = 0; j < 15; ++j)
         {
             SetCursorPos(pair<short,short>(i,j));
             if(myChessBoard[i][j]=='x')
             {
                 SetColor(12);
-            }else if(myChessBoard[i][j]=='o')
+            }
+            else if(myChessBoard[i][j]=='o')
             {
                 SetColor(14);
             }
@@ -112,7 +124,7 @@ void ChessBoard::print(pair<short,short> twinkle)
         Sleep(80);
         SetCursorPos(twinkle);
         cout<<"  ";
-        Sleep(80);
+        Sleep(79);
         SetCursorPos(twinkle);
         cout<<myChessBoard[twinkle.first][twinkle.second];
         if(kbhit())
@@ -121,47 +133,54 @@ void ChessBoard::print(pair<short,short> twinkle)
 }
 bool ChessBoard::CheckWinner(pair<short,short> pos)
 {
-    if(CheckLine(pos,pair<short,short>(1,0)))return true;
-    if(CheckLine(pos,pair<short,short>(0,1)))return true;
-    if(CheckLine(pos,pair<short,short>(1,1)))return true;
-    if(CheckLine(pos,pair<short,short>(1,-1)))return true;
+    if(CheckLine(pos,pair<short,short>(1,0)))
+        return true;
+    if(CheckLine(pos,pair<short,short>(0,1)))
+        return true;
+    if(CheckLine(pos,pair<short,short>(1,1)))
+        return true;
+    if(CheckLine(pos,pair<short,short>(1,-1)))
+        return true;
     return false;
 }
 bool ChessBoard::CheckLine(pair<short,short> pos,pair<short,short>offset)
 {
     int linkNum = 1;
     int Count = 0;
-    //ÓÒ±ß
-    for(int i = offset.first,j = offset.second;(pos.first+i>=0&&pos.first+i<15)&&
-    (pos.second+j>=0&&pos.second+j<15);i+=offset.first,j+=offset.second)
+    //Ã“Ã’Â±ÃŸ
+    for(int i = offset.first,j = offset.second; (pos.first+i>=0&&pos.first+i<15)&&
+            (pos.second+j>=0&&pos.second+j<15); i+=offset.first,j+=offset.second)
     {
         if(myChessBoard[pos.first+i][pos.second+j]==m[turn])
         {
             linkNum++;
-        }else
+        }
+        else
         {
             break;
         }
     }
-    //×ó±ß
-    for(int i = -offset.first,j = -offset.second;(pos.first+i>=0&&pos.first+i<15)&&
-    (pos.second+j>=0&&pos.second+j<15);i-=offset.first,j-=offset.second)
+    //Ã—Ã³Â±ÃŸ
+    for(int i = -offset.first,j = -offset.second; (pos.first+i>=0&&pos.first+i<15)&&
+            (pos.second+j>=0&&pos.second+j<15); i-=offset.first,j-=offset.second)
     {
         if(myChessBoard[pos.first+i][pos.second+j]==m[turn])
         {
             linkNum++;
-        }else
+        }
+        else
         {
             break;
         }
     }
     if (linkNum > 4)
-            return true;
-        return false;
+        return true;
+    return false;
 }
 void ChessBoard::Retract()
 {
-    if(st.size()>=2){
+    if(st.size()>=2)
+    {
         myChessBoard[st.top().first][st.top().second] = '.';
         st.pop();
         myChessBoard[st.top().first][st.top().second] = '.';
