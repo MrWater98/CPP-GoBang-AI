@@ -9,6 +9,7 @@
 #include<stack>
 #include"Zobrist.h"
 #include "Tools.h"
+#include "GameController.h"
 using namespace std;
 
 enum ChessType
