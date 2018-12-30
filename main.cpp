@@ -8,23 +8,24 @@
 #include "AIPlayer3.h"
 #include "AIPlayer4.h"
 #include "AIPlayer5.h"
-#pragma GCC optimize(3)
+#pragma GCC optimize(2)
 #include "GameController.h"
 /*
-int main()//程序入口
+int main()
 {
-    GameController c;//声明一个Controller类
-    c.Game();//整个游戏循环
+    HideCursor();//hide the cursor 隐藏鼠标
+    GameController c;//declare a GameController
+    c.Game();//begin the game
     return 0;
 }
 */
-
+/*
 using namespace std;
 int main()
 {
     HideCursor();
-    AIPlayer5 BlackPlayer(BLACK);
-    AIPlayer3 WhitePlayer(WHITE);
+    AIPlayer4 BlackPlayer(BLACK);
+    AIPlayer5 WhitePlayer(WHITE);
     while(true)
     {
         ChessBoard::getInstance()->print(pair<short,short>(0,0));
@@ -38,5 +39,5 @@ int main()
     getchar();
     return 0;
 }
-
+*/
 
