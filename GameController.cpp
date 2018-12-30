@@ -13,7 +13,6 @@
 #include "AIPlayer3.h"
 #include "AIPlayer4.h"
 #include "AIPlayer5.h"
-#pragma GCC optimize(3)
 
 void GameController::Start()//开始界面
 {
@@ -37,17 +36,20 @@ void GameController::SelectPlayer()//选择和人打还是和AI打
     std::cout << "                          " ;
     SetCursorPosition(13, 27);
     std::cout << "                          " ;
-    SetCursorPosition(6, 21);
+    SetColor(11);
+    SetCursorPosition(2, 21);
     std::cout << "Chose to Play Game!" ;
-    SetCursorPosition(6, 22);
-    std::cout << "(UP/DOWN move, Enter determine.)" ;
+    SetCursorPosition(2, 22);
+    std::cout << "(UP/DOWN move, Enter determine.\"r\" to regret)" ;
+    SetCursorPosition(2, 24);
+    std::cout << "Press \"b\" then press Enter can back to last level" ;
     SetCursorPosition(27, 22);
     SetBackColor();//第一个选项设置背景色以表示当前选中
     std::cout << "Player VS Player" ;
 
     SetCursorPosition(27, 26);
     SetColor(3);
-    std::cout << "Player VS     AI" ;
+    std::cout << "Player VS   AI" ;
 
     SetCursorPosition(0, 31);
 
@@ -145,6 +147,17 @@ void GameController::SelectFirstPlayer()
     {
         switch (ch)//检测输入键
         {
+        case 'b':{
+            SetCursorPosition(27, 22);
+            cout<<"                                          ";
+            SetCursorPosition(27, 24);
+            cout<<"                                          ";
+            SetCursorPosition(27, 26);
+            cout<<"                                          ";
+            SetCursorPosition(27, 28);
+            cout<<"                                          ";
+            SelectPlayer();
+        }
         case 72://UP上方向键
             if (key = 2)//当此时选中项为第一项时，UP上方向键无效
             {
@@ -203,12 +216,13 @@ void GameController::SelectDifficulty(bool AIFirst)//选择界面
     std::cout << "                          " ;
     SetCursorPosition(13, 27);
     std::cout << "                          " ;
-    SetCursorPosition(6, 21);
+    SetColor(11);
+    SetCursorPosition(2, 21);
     std::cout << "Chose to Play Game!" ;
-    SetCursorPosition(6, 22);
-    std::cout << "(UP/DOWN move, Enter determine.)" ;
-    SetCursorPosition(27, 22);
-    cout<<"                                          ";
+    SetCursorPosition(2, 22);
+    std::cout << "(UP/DOWN move, Enter determine.\"r\" to regret)" ;
+    SetCursorPosition(2, 24);
+    std::cout << "Press \"b\" then press Enter can back to last level" ;
     SetCursorPosition(27, 22);
     SetBackColor();//第一个选项设置背景色以表示当前选中
     std::cout << "Easy   Mode" ;
@@ -231,6 +245,16 @@ void GameController::SelectDifficulty(bool AIFirst)//选择界面
     {
         switch (ch)//检测输入键
         {
+        case 'b':
+            SetCursorPosition(27, 22);
+            cout<<"                                          ";
+            SetCursorPosition(27, 24);
+            cout<<"                                          ";
+            SetCursorPosition(27, 26);
+            cout<<"                                          ";
+            SetCursorPosition(27, 28);
+            cout<<"                                          ";
+            SelectFirstPlayer();
         case 72://UP上方向键
             if (key > 1)//当此时选中项为第一项时，UP上方向键无效
             {
@@ -352,7 +376,6 @@ void GameController::StartGame(bool AIFirst,int key)
         Human = Player(WHITE);
     if(key==1)
     {
-
         AIPlayer2 AIBlack = AIPlayer2(BLACK);
         AIPlayer2 AIWhite = AIPlayer2(WHITE);
         while(true)
@@ -423,9 +446,6 @@ void GameController::StartGame(bool AIFirst,int key)
             }
         }
     }
-
-
-
 }
 int GameController::PlayGame()//游戏二级循环
 {
@@ -444,7 +464,7 @@ void GameController::Game()//游戏一级循环
     while (true)//游戏可视为一个死循环，直到退出游戏时循环结束
     {
         SelectPlayer();//选择界面
-        PlayGame();
+        //PlayGame();
     }
 }
 
