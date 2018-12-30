@@ -26,7 +26,7 @@ AIPlayer5::AIPlayer5(ChessType Color)
     stateMap[WHITE] = 'o';
     chessModel["Five"] = 100000*argCM;
     chessModel["LiveFour"] = 10000*argCM;
-    chessModel["SleepFour"] = 1000*argCM;
+    chessModel["SleepFour"] = 4000*argCM;
     chessModel["LiveThree"] = 1000*argCM;
     chessModel["SleepThree"] = 100*argCM;
     chessModel["LiveTwo"] = 100*argCM;
@@ -71,8 +71,8 @@ AIPlayer5::AIPlayer5(ChessType Color)
 
     evaBoard["a_aaa"]=chessModel["SleepFour"];                    //冲四
     evaBoard["aaa_a"]=chessModel["SleepFour"];                    //冲四
-    evaBoard["_aaaa"]=chessModel["SleepFour"]+1;                    //冲四
-    evaBoard["aaaa_"]=chessModel["SleepFour"]+1;                    //冲四
+    evaBoard["_aaaa"]=chessModel["SleepFour"]+100;                    //冲四
+    evaBoard["aaaa_"]=chessModel["SleepFour"]+100;                    //冲四
     evaBoard["aa_aa"]=chessModel["SleepFour"];                    //冲四
 
 
@@ -83,7 +83,7 @@ AIPlayer5::AIPlayer5(ChessType Color)
     //判点的
     pointModel["Five"] = INT_MAX;
     pointModel["LiveFour"] = 1000000/argPM;
-    pointModel["SleepFour"] = 15000/argPM;
+    pointModel["SleepFour"] = 40000/argPM;
     pointModel["LiveThree"] = 10000/argPM;
     pointModel["SleepThree"] = 1000/argPM;
     pointModel["LiveTwo"] = 500/argPM;
@@ -112,24 +112,24 @@ AIPlayer5::AIPlayer5(ChessType Color)
     evaBoard["__bb_"]=pointModel["LiveTwo"]+1;
 
 
-    evaBoard["b_b_b"]=pointModel["SleepThree"]-1;
+    evaBoard["b_b_b"]=pointModel["SleepThree"]-10;
     evaBoard["bb__b"]=pointModel["SleepThree"];
     evaBoard["_bb_b"]=pointModel["SleepThree"];
     evaBoard["b_bb_"]=pointModel["SleepThree"];
     evaBoard["_b_bb"]=pointModel["SleepThree"];
     evaBoard["bb_b_"]=pointModel["SleepThree"];
-    evaBoard["bbb__"]=pointModel["SleepThree"]+1;                     //眠三
+    evaBoard["bbb__"]=pointModel["SleepThree"]+10;                     //眠三
 
     evaBoard["_bb_b_"]=pointModel["LiveThree"]-100;                    //跳活三
     evaBoard["_b_bb_"]=pointModel["LiveThree"]-100;
 
-    evaBoard["_bbb_"]=pointModel["LiveThree"]+1;                    //活三
+    evaBoard["_bbb_"]=pointModel["LiveThree"];                    //活三
 
 
     evaBoard["b_bbb"]=pointModel["SleepFour"];                    //冲四
     evaBoard["bbb_b"]=pointModel["SleepFour"];                    //冲四
-    evaBoard["_bbbb"]=pointModel["SleepFour"]+1;                    //冲四
-    evaBoard["bbbb_"]=pointModel["SleepFour"]+1;                    //冲四
+    evaBoard["_bbbb"]=pointModel["SleepFour"]+100;                    //冲四
+    evaBoard["bbbb_"]=pointModel["SleepFour"]+100;                    //冲四
     evaBoard["bb_bb"]=pointModel["SleepFour"];                    //冲四
 
 
@@ -367,11 +367,11 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),chessColor))+30;
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),chessColor))+30;
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),chessColor))+30;
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),ChessType(-chessColor+3)));
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),ChessType(-chessColor+3)));
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),ChessType(-chessColor+3)));
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),ChessType(-chessColor+3)));
-        nodeVector[i].point = myChessColor==chessColor?ans:-ans;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),ChessType(-chessColor+3)))*1.1;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),ChessType(-chessColor+3)))*1.1;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),ChessType(-chessColor+3)))*1.1;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),ChessType(-chessColor+3)))*1.1;
+        nodeVector[i].point = myself?ans:-ans;
         //SetCursorPos(pair<short,short>(0,16));
         //cout<<"                                       "<<endl;
         //SetCursorPos(pair<short,short>(0,16));
