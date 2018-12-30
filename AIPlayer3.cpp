@@ -12,7 +12,7 @@ AIPlayer3::AIPlayer3(ChessType Color)
 
     pointModel["Five"] = INT_MAX;
     pointModel["LiveFour"] = 1000000;
-    pointModel["SleepFour"] = 15000;
+    pointModel["SleepFour"] = 30000;
     pointModel["LiveThree"] = 10000;
     pointModel["SleepThree"] = 1000;
     pointModel["LiveTwo"] = 500;
@@ -88,8 +88,8 @@ void AIPlayer3::playChess()
     }
     else if(ChessBoard::getInstance()->st.size()==1)
     {
-        for(int i = 0; i < 15; i++)
-            for(int j = 0; j < 15; j++)
+        for(int i = 0; i < 15; ++i)
+            for(int j = 0; j < 15; ++j)
             {
                 if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
                 {
@@ -111,8 +111,8 @@ void AIPlayer3::playChess()
     int Count = 0;
     char cloneChessBoard[15][15];
     copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
-    //for(int i = 0;i < 15;i++)
-    //for(int j = 0;j < 15;j++)
+    //for(int i = 0;i < 15;++i)
+    //for(int j = 0;j < 15;++j)
     //cloneChessBoard[i][j] = ChessBoard::getInstance()->myChessBoard[i][j];
 
 
@@ -130,7 +130,11 @@ void AIPlayer3::playChess()
         {
             node = item;
         }
+        SetCursorPos(pair<short,short>(item.pos.first,item.pos.second));
+        SetColor(10);
+        cout<<".";
     }
+
     ChessBoard::getInstance()->PlayChess(node.pos);
 }
 
@@ -169,46 +173,49 @@ vector<MiniMaxNode1> AIPlayer3::GetVector(char chessboard[][15],ChessType myChes
 {
     vector<MiniMaxNode1> nodeVector;
     MiniMaxNode1 node;
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
-            pair<short,short> p = pair<short,short>(i,j);
-            if(chessboard[i][j]!='.')
-                continue;
-
-            node.pos = p;
-            node.chess = myChessColor;
-            if(myself)
-                node.value = getTotalScore(chessboard,p);
-            else
-                node.value = -getTotalScore(chessboard,p);
-            if(nodeVector.size()<=3)
-                nodeVector.push_back(node);
-            else
+            if(hasNeighbor(chessboard,i,j))
             {
-                int Count = 0;
-                for(auto &item : nodeVector)
+                pair<short,short> p = pair<short,short>(i,j);
+                if(chessboard[i][j]!='.')
+                    continue;
+
+                node.pos = p;
+                node.chess = myChessColor;
+                if(myself)
+                    node.value = getTotalScore(chessboard,p);
+                else
+                    node.value = -getTotalScore(chessboard,p);
+                if(nodeVector.size()<=3)
+                    nodeVector.push_back(node);
+                else
                 {
-                    if(myself)
+                    int Count = 0;
+                    for(auto &item : nodeVector)
                     {
-                        if(node.value>item.value)
+                        if(myself)
                         {
-                            nodeVector.erase(nodeVector.begin()+Count);
-                            nodeVector.push_back(node);
-                            break;
+                            if(node.value>item.value)
+                            {
+                                nodeVector.erase(nodeVector.begin()+Count);
+                                nodeVector.push_back(node);
+                                break;
+                            }
                         }
-                    }
-                    else
-                    {
-                        if(node.value<item.value)
+                        else
                         {
-                            nodeVector.erase(nodeVector.begin()+Count);
-                            nodeVector.push_back(node);
-                            break;
+                            if(node.value<item.value)
+                            {
+                                nodeVector.erase(nodeVector.begin()+Count);
+                                nodeVector.push_back(node);
+                                break;
+                            }
                         }
+                        ++Count;
                     }
-                    ++Count;
                 }
             }
         }
@@ -229,23 +236,24 @@ void AIPlayer3::createTree(MiniMaxNode1 &node,char chessboard[][15],int depth,bo
         chessboard[node.pos.first][node.pos.second] = stateMap[ChessType(-chessColor+3)];
     node.child = GetVector(chessboard,ChessType(-node.chess+3),!myself);
 
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
             SetCursorPos(pair<short,short>(i+20,j));
             cout<<"   ";
         }
     }
-    for(int i = 0; i < 15; i++)
+    for(int i = 0; i < 15; ++i)
     {
-        for(int j = 0; j < 15; j++)
+        for(int j = 0; j < 15; ++j)
         {
 
             SetCursorPos(pair<short,short>(i+20,j));
             cout<<chessboard[i][j];
         }
     }
+
     //getchar();
 
 
@@ -255,13 +263,52 @@ void AIPlayer3::createTree(MiniMaxNode1 &node,char chessboard[][15],int depth,bo
         createTree(item,cloneChessBoard,depth-1,!myself);
     }
 }
+bool AIPlayer3::hasNeighbor(char chessBoard[][15],int i,int j)
+{
+    /*
+    pair<short,short> po[4];
+    po[0] = make_pair(1,1);
+    po[1] = make_pair(1,-1);
+    po[2] = make_pair(1,0);
+    po[3] = make_pair(0,1);
+    for(int k = 0; k<=3; k++)
+    {
+        int xEnd = i+po[k].first*2,yEnd = j+po[k].second*2;
+        for(int x = i-po[k].first*2; x<=xEnd&&x>=0&&x<15; x++)
+        {
+            for(int y = j-po[k].second*2; y<=yEnd&&y>=0&&y<15; y++)
+            {
+                if(chessBoard[x][y]!='.')
+                    return true;
+            }
+        }
+    }
+    return false;
+    */
+
+    int xBegin = i-2>=0?i-2:0;
+    int yBegin = j-2>=0?j-2:0;
+    int xEnd = i+2<=14?i+2:14;
+    int yEnd = j+2<=14?j+2:14;
+
+    for(int x = xBegin; x<=xEnd; x++)
+    {
+        for(int y = yBegin; y<=yEnd; y++)
+        {
+            if(chessBoard[x][y]!='.')
+                return true;
+        }
+    }
+    return false;
+
+}
 float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 {
     float ans = 0;
-    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor);
-    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor);
-    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor);
-    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor);
+    ans += getLineScore(chessboard,p,pair<short,short>(1,0),chessColor)*1.1;
+    ans += getLineScore(chessboard,p,pair<short,short>(0,1),chessColor)*1.1;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,1),chessColor)*1.1;
+    ans += getLineScore(chessboard,p,pair<short,short>(1,-1),chessColor)*1.1;
 
     ans += getLineScore(chessboard,p,pair<short,short>(1,0),ChessType(-chessColor+3));
     ans += getLineScore(chessboard,p,pair<short,short>(0,1),ChessType(-chessColor+3));
