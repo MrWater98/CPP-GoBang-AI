@@ -7,7 +7,7 @@
 #include<windows.h>
 #include "ChessBoard.h"
 #include "Zobrist.h"
-#define argCM 2
+#define argCM 4
 #define argPM 5
 using namespace std;
 bool cmp(MiniMaxNode2 &a,MiniMaxNode2 &b)
@@ -367,10 +367,10 @@ vector<MiniMaxNode2> AIPlayer5::GetVector(char chessboard[][15],ChessType myChes
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),chessColor))+30;
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),chessColor))+30;
         ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),chessColor))+30;
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),ChessType(-chessColor+3)))*1.1;
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),ChessType(-chessColor+3)))*1.1;
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),ChessType(-chessColor+3)))*1.1;
-        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),ChessType(-chessColor+3)))*1.1;
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,0),ChessType(-chessColor+3)));
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(0,1),ChessType(-chessColor+3)));
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,1),ChessType(-chessColor+3)));
+        ans = max(ans,getPointScore(cloneChessBoard,nodeVector[i].pos,pair<short,short>(1,-1),ChessType(-chessColor+3)));
         nodeVector[i].point = myself?ans:-ans;
         //SetCursorPos(pair<short,short>(0,16));
         //cout<<"                                       "<<endl;
@@ -433,7 +433,7 @@ void AIPlayer5::createTree(MiniMaxNode2 &node,char chessboard[][15],int depth,bo
 float AIPlayer5::AlphaBeta(MiniMaxNode2 node,int depth,bool myself,float alpha,float beta)
 {
     if(depth==0||node.value>=chessModel["Five"]||node.value<=chessModel["Five"])
-        return node.value+node.point;
+        return node.value+node.point/5;
     if(myself)
     {
         for(auto &child : node.child)
@@ -477,10 +477,10 @@ float AIPlayer5::getTotalValue(char chessboard[][15],bool myself)
                 }
                 else if(chessboard[i][j]==stateMap[ChessType(-chessColor+3)])
                 {
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,0),ChessType(-chessColor+3))*1.01;
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(0,1),ChessType(-chessColor+3))*1.01;
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,1),ChessType(-chessColor+3))*1.01;
-                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,-1),ChessType(-chessColor+3))*1.01;
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,0),ChessType(-chessColor+3));
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(0,1),ChessType(-chessColor+3));
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,1),ChessType(-chessColor+3));
+                    ans2 += getLineScore(chessboard,pair<short,short>(i,j),pair<short,short>(1,-1),ChessType(-chessColor+3));
                 }
             }
         }
