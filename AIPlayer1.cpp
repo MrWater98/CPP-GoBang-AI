@@ -1,14 +1,14 @@
 #include "AIPlayer1.h"
 #include<iostream>
+#include<iomanip>
 #include<ctime>
 #include<map>
+#include<fstream>
 #include"Tools.h"
 using namespace std;
 
-
 AIPlayer1::AIPlayer1(ChessType Color)
 {
-
     chessColor = Color;
     toScore["_a_"]=10;
     toScore["a_"]=5;
@@ -26,10 +26,10 @@ AIPlayer1::AIPlayer1(ChessType Color)
     toScore["aaaa_"]=5000;
     toScore["_aaaa"]=5000;
 
-    toScore["aaaaa"]=FLT_MAX;
-    toScore["aaaaa_"]=FLT_MAX;
-    toScore["_aaaaa"]=FLT_MAX;
-    toScore["_aaaaa_"]=FLT_MAX;
+    toScore["aaaaa"]=100000;
+    toScore["aaaaa_"]=100000;
+    toScore["_aaaaa"]=100000;
+    toScore["_aaaaa_"]=100000;
     stateMap[BLACK] = 'x';stateMap[WHITE] = 'o';
 }
 AIPlayer1::AIPlayer1()
@@ -58,7 +58,8 @@ void AIPlayer1::playChess()
                 if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
                 {
                     srand((unsigned)time(NULL));
-                    int a=1,b=1;
+                    int a,b;
+                    a = rand()%3-1;b = rand()%3-1;
                     while(a==0&&b==0)
                         a = rand()%3-1;b = rand()%3-1;
                     ChessBoard::getInstance()->myChessBoard[i+a][j+b] = ChessBoard::getInstance()->m[int(chessColor)];
@@ -71,6 +72,9 @@ void AIPlayer1::playChess()
 
     memset(Score,0,sizeof(Score));//first step set all the zero
     float Max = -1;
+    ofstream myCout;
+    myCout.open("ChessBoard.txt");
+    myCout.setf(std::ios::left);
     for(int i = 0; i < 15; i++)
     {
         for(int j = 0; j < 15; j++)
@@ -86,28 +90,37 @@ void AIPlayer1::playChess()
                 //cout<<Score[i][j];
                 Max = max(Max,Score[i][j]);
             }
+            myCout.width(15);
+            if(Score[i][j]!=0)
+                myCout<<fixed<<setprecision(1)<<Score[i][j];
+            else
+                myCout<<-1000;
         }
+        myCout<<"\n";
     }
+    myCout<<"\n";
+    myCout.close();
     for(int i = 0; i < 15; i++)
     {
         for(int j = 0; j < 15; j++)
         {
             if(Max==Score[i][j])
             {
-                //直接调用playchess，所有判断执行函数已经封装在playchess内了
+                //PlayChess is a function that encapsulated in ChessBoard, which can finish the PlayChess operation
                 ChessBoard::getInstance()->PlayChess(pair<short,short>(i,j));
                 return ;
             }
         }
     }
 }
+//get score from all direction
 float AIPlayer1::getTotalScore(pair<short,short> p)
 {
     float ans = 0;
-    ans += getLineScore(p,pair<short,short>(1,0),chessColor)*1.05;
-    ans += getLineScore(p,pair<short,short>(0,1),chessColor)*1.05;
-    ans += getLineScore(p,pair<short,short>(1,1),chessColor)*1.1;
-    ans += getLineScore(p,pair<short,short>(1,-1),chessColor)*1.1;
+    ans += getLineScore(p,pair<short,short>(1,0),chessColor)/*1.05*/;
+    ans += getLineScore(p,pair<short,short>(0,1),chessColor)/*1.05*/;
+    ans += getLineScore(p,pair<short,short>(1,1),chessColor)/*1.1*/;
+    ans += getLineScore(p,pair<short,short>(1,-1),chessColor)/*1.1*/;
 
     ans += getLineScore(p,pair<short,short>(1,0),ChessType(-chessColor+3));
     ans += getLineScore(p,pair<short,short>(0,1),ChessType(-chessColor+3));
@@ -116,10 +129,10 @@ float AIPlayer1::getTotalScore(pair<short,short> p)
 
     return ans;
 }
+//get score from one direction
 float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
     string str = "a";
-    //×ó±ß
     for(int i = offset.first,j = offset.second; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15; i+=offset.first,j+=offset.second)
     {
