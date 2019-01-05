@@ -94,10 +94,12 @@ void AIPlayer3::playChess()
                 if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
                 {
                     srand((unsigned)time(NULL));
-                    int a=1,b=1;
-                    while(a==0&&b==0)
+                    int a,b;
+                    a = rand()%3-1;b = rand()%3-1;
+                    while(a==0&&b==0){
                         a = rand()%3-1;
-                    b = rand()%3-1;
+                        b = rand()%3-1;
+                    }
                     ChessBoard::getInstance()->myChessBoard[i+a][j+b] = ChessBoard::getInstance()->m[int(chessColor)];
                     ChessBoard::getInstance()->turn = ChessType(-chessColor+3);
                     ChessBoard::getInstance()->st.push(pair<short,short>(i+a,j+b));
@@ -149,7 +151,7 @@ float AIPlayer3::AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,f
         {
             alpha = max(alpha,AlphaBeta(child,depth-1,!myself,alpha,beta));
 
-            //alpha¼ôÖ¦
+            //alpha pruning ¼ôÖ¦
             if(alpha>=beta)
                 return alpha;
         }
@@ -161,14 +163,14 @@ float AIPlayer3::AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,f
         {
             beta = min(beta,AlphaBeta(child,depth-1,!myself,alpha,beta));
 
-            //beta¼ôÖ¦
+            //beta pruning ¼ôÖ¦
             if(alpha>=beta)
                 return beta;
         }
         return beta;
     }
 }
-
+//To get the next best position
 vector<MiniMaxNode1> AIPlayer3::GetVector(char chessboard[][15],ChessType myChessColor,bool myself)
 {
     vector<MiniMaxNode1> nodeVector;
@@ -222,12 +224,10 @@ vector<MiniMaxNode1> AIPlayer3::GetVector(char chessboard[][15],ChessType myChes
     }
     return nodeVector;
 }
-
+//To create a MinMax Tree
 void AIPlayer3::createTree(MiniMaxNode1 &node,char chessboard[][15],int depth,bool myself)
 {
     char cloneChessBoard[15][15];
-    //SetCursorPos(pair<short,short>(0,18));
-    //cout<<depth<<" "<<myself;
     if(depth==0||node.value>=INT_MAX)
         return ;
     if(!myself)
@@ -254,7 +254,7 @@ void AIPlayer3::createTree(MiniMaxNode1 &node,char chessboard[][15],int depth,bo
         }
     }
 
-    //getchar();
+    getchar();
 
 
     for(auto &item : node.child)
@@ -263,6 +263,7 @@ void AIPlayer3::createTree(MiniMaxNode1 &node,char chessboard[][15],int depth,bo
         createTree(item,cloneChessBoard,depth-1,!myself);
     }
 }
+//To find is it a neighbor chess beside the (i,j)
 bool AIPlayer3::hasNeighbor(char chessBoard[][15],int i,int j)
 {
     /*
@@ -302,6 +303,7 @@ bool AIPlayer3::hasNeighbor(char chessBoard[][15],int i,int j)
     return false;
 
 }
+//Get score from all direction
 float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 {
     float ans = 0;
@@ -317,6 +319,7 @@ float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 
     return ans;
 }
+//Get socre of one direction
 float AIPlayer3::getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
     string str = "a";
