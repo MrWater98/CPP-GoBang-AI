@@ -43,16 +43,16 @@ AIPlayer2::AIPlayer2(ChessType Color)
     toScore["_aaa_"]=10000;                    //活三
 
 
-    toScore["a_aaa"]=15000;                    //冲四
-    toScore["aaa_a"]=15000;                    //冲四
-    toScore["_aaaa"]=15000;                    //冲四
-    toScore["aaaa_"]=15000;                    //冲四
-    toScore["aa_aa"]=15000;                    //冲四
+    toScore["a_aaa"]=49000;                    //冲四
+    toScore["aaa_a"]=49000;                    //冲四
+    toScore["_aaaa"]=50000;                    //冲四
+    toScore["aaaa_"]=50000;                    //冲四
+    toScore["aa_aa"]=49000;                    //冲四
 
 
-    toScore["_aaaa_"]=1000000;                 //活四
+    toScore["_aaaa_"]=100000;                 //活四
 
-    toScore["aaaaa"]=FLT_MAX;           //连五
+    toScore["aaaaa"]=1000000;           //连五
 
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
