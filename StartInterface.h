@@ -9,7 +9,7 @@ class StartInterface
 {
 public:
     StartInterface() : speed(35) {
-        startsnake.emplace_back(Point(0,14));//Éß
+        startsnake.emplace_back(Point(0,14));
         startsnake.emplace_back(Point(1,14));
         startsnake.emplace_back(Point(2,15));
         startsnake.emplace_back(Point(3,16));
