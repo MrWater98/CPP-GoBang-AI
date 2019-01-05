@@ -64,11 +64,9 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
-                cout<<"win->Press R to exit"<<endl;
-                char ch;
-                ch = getch();
-                if(ch=='r')
-                    exit(0);
+                cout<<"win->Press Enter to exit"<<endl;
+                getchar();
+                exit(0);
                 getchar();
                 return false;
             }
@@ -85,12 +83,9 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
-                cout<<"win->Press R to exit"<<endl;
-                char ch;
-                ch = getch();
-                if(ch=='r')
-                    exit(0);
+                cout<<"win->Press Enter to exit"<<endl;
                 getchar();
+                exit(0);
                 return false;
             }
             st.push(pos);
@@ -146,8 +141,7 @@ bool ChessBoard::CheckWinner(pair<short,short> pos)
 bool ChessBoard::CheckLine(pair<short,short> pos,pair<short,short>offset)
 {
     int linkNum = 1;
-    int Count = 0;
-    //ÓÒ±ß
+
     for(int i = offset.first,j = offset.second; (pos.first+i>=0&&pos.first+i<15)&&
             (pos.second+j>=0&&pos.second+j<15); i+=offset.first,j+=offset.second)
     {
@@ -160,7 +154,7 @@ bool ChessBoard::CheckLine(pair<short,short> pos,pair<short,short>offset)
             break;
         }
     }
-    //×ó±ß
+
     for(int i = -offset.first,j = -offset.second; (pos.first+i>=0&&pos.first+i<15)&&
             (pos.second+j>=0&&pos.second+j<15); i-=offset.first,j-=offset.second)
     {
