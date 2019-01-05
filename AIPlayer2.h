@@ -2,7 +2,7 @@
 #define AIPLAYER2_H
 #include "AIPlayer1.h"
 
-class AIPlayer2 : public AIPlayer1
+class AIPlayer2 : public AIPlayer1//the improvement of AIPlayer1
 {
     public:
         AIPlayer2();
