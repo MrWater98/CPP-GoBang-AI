@@ -2,7 +2,7 @@
 #define GAMECONTROLLER_H
 
 
-class GameController
+class GameController//To Control the game iteration
 {
 public:
     GameController() : speed(200), key(1), score(0) {}
