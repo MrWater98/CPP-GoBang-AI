@@ -56,6 +56,9 @@
 		<Unit filename="Tools.h" />
 		<Unit filename="Zobrist.cpp" />
 		<Unit filename="Zobrist.h" />
+		<Unit filename="icon.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
