@@ -12,9 +12,8 @@ struct MiniMaxNode2
     ChessType chess;
     pair<short,short> pos;
     vector<MiniMaxNode2> child;
-    float value;//得到下了这步后局面的分数
-    float point;//得到这步棋的分数
-    unsigned long long int nodeHashVal;
+    float value;//The suituation score of this point
+    float point;//The score of this point
 };
 class AIPlayer5 : public Player
 {
