@@ -306,7 +306,7 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
             {
                 break;
             }
-            int w = R.randUnsigned()%tempPos.size();//在可下位置中获取随机位置
+            int w = R.randUnsigned()%tempPos.size();//get the random place 在可下位置中获取随机位置
             if(tempBoard[tempPos[w].first][tempPos[w].second] !='.')
             {
                 tempPos.erase(tempPos.begin()+w);
@@ -333,41 +333,34 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
                 tempPos.erase(tempPos.begin()+w);
             }
 
-            /*显示蒙特卡洛过程*/
-            /*
-            if(kbhit())
+            /*Show the Mento Carlo process显示蒙特卡洛过程*/
+
+            for(int i = 0; i < 15; i++)
             {
-                char ch;
-                ch = getch();
-                if(ch=='s')
+                for(int j = 0; j < 15; j++)
                 {
-                    for(int i = 0; i < 15; i++)
-                    {
-                        for(int j = 0; j < 15; j++)
-                        {
-                            SetCursorPos(pair<short,short>(i+20,j));
-                            cout<<tempBoard[i][j];
-                        }
-                    }
-
-                    //getchar();
-                    SetCursorPos(pair<short,short>(0,17));
-                    cout<<"               "<<endl;
-                    SetCursorPos(pair<short,short>(0,17));
-                    cout<<"Score:"<<finalScore<<endl;
-
-                    SetCursorPos(pair<short,short>(0,16));
-                    cout<<"               "<<endl;
-                    SetCursorPos(pair<short,short>(0,16));
-                    cout<<"Point:"<<showPoint.first<<" "<<showPoint.second<<endl;
-
-                    SetCursorPos(pair<short,short>(0,18));
-                    cout<<"                   ";
-                    SetCursorPos(pair<short,short>(0,18));
-                    cout<<"iterate times:"<<i<<endl;
+                    SetCursorPos(pair<short,short>(i+20,j));
+                    cout<<tempBoard[i][j];
                 }
             }
-            */
+
+            getchar();
+            SetCursorPos(pair<short,short>(0,17));
+            cout<<"               "<<endl;
+            SetCursorPos(pair<short,short>(0,17));
+            cout<<"Score:"<<finalScore<<endl;
+
+            SetCursorPos(pair<short,short>(0,16));
+            cout<<"               "<<endl;
+            SetCursorPos(pair<short,short>(0,16));
+            cout<<"Point:"<<showPoint.first<<" "<<showPoint.second<<endl;
+
+            SetCursorPos(pair<short,short>(0,18));
+            cout<<"                   ";
+            SetCursorPos(pair<short,short>(0,18));
+            cout<<"iterate times:"<<i<<endl;
+
+
         }
     }
 
