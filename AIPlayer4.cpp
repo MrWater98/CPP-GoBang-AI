@@ -6,6 +6,11 @@
 #include<string.h>
 #include<vector>
 using namespace std;
+#define ITERATION1 100
+#define ITERATION2 40000  //the iteration time of MonteCarlo
+#define JNUM1 4
+#define JNUM2 3 // the number you want to judge
+int BESTPOSNUM,GAMENUM;
 AIPlayer4::AIPlayer4()
 {
     //ctor
@@ -15,55 +20,68 @@ AIPlayer4::~AIPlayer4()
 {
     //dtor
 }
-int GAMENUM = 15000;
-int BESTPOSNUM = 3;
 AIPlayer4::AIPlayer4(ChessType Color)
 {
     chessColor = Color;
 
-    toScore["aa___"]=100;                      //眠二
-    toScore["a_a__"]=80;
-    toScore["___aa"]=100;
-    toScore["__a_a"]=80;
-    toScore["a__a_"]=80;
-    toScore["_a__a"]=80;
-    toScore["a___a"]=60;
+    pointModel["Five"] = INT_MAX;
+    pointModel["LiveFour"] = 1000000;
+    pointModel["SleepFour"] = 30000;
+    pointModel["LiveThree"] = 10000;
+    pointModel["SleepThree"] = 1000;
+    pointModel["LiveTwo"] = 500;
+    pointModel["SleepTwo"] = 50;
+    pointModel["LiveOne"] = 10;
+
+    toScore["_a___"] = pointModel["LiveOne"];
+    toScore["__a__"] = pointModel["LiveOne"];
+    toScore["___a_"] = pointModel["LiveOne"];
+    toScore["___a_"] = pointModel["LiveOne"];
+
+    toScore["aa___"]=pointModel["SleepTwo"];
+    toScore["a_a__"]=pointModel["SleepTwo"];
+    toScore["___aa"]=pointModel["SleepTwo"];
+    toScore["__a_a"]=pointModel["SleepTwo"];
+    toScore["a__a_"]=pointModel["SleepTwo"];
+    toScore["_a__a"]=pointModel["SleepTwo"];
+    toScore["a___a"]=pointModel["SleepTwo"];
 
 
-    toScore["__aa__"]=300;                     //活二
-    toScore["_a_a_"]=230;
-    toScore["_a__a_"]=230;
+    toScore["__aa__"]=pointModel["LiveTwo"]+1;
+    toScore["_a_a_"]=pointModel["LiveTwo"];
+    toScore["_a__a_"]=pointModel["LiveTwo"]-1;
 
-    toScore["_aa__"]=300;
-    toScore["__aa_"]=300;
-
-
-    toScore["a_a_a"]=600;
-    toScore["aa__a"]=600;
-    toScore["_aa_a"]=600;
-    toScore["a_aa_"]=600;
-    toScore["_a_aa"]=600;
-    toScore["aa_a_"]=600;
-    toScore["aaa__"]=600;                     //眠三
-
-    toScore["_aa_a_"]=1200;                    //跳活三
-    toScore["_a_aa_"]=1200;
-
-    toScore["_aaa_"]=1800;                    //活三
+    toScore["_aa__"]=pointModel["LiveTwo"]+1;
+    toScore["__aa_"]=pointModel["LiveTwo"]+1;
 
 
-    toScore["a_aaa"]=2100;                    //冲四
-    toScore["aaa_a"]=2100;                    //冲四
-    toScore["_aaaa"]=2100;                    //冲四
-    toScore["aaaa_"]=2100;                    //冲四
-    toScore["aa_aa"]=2100;                    //冲四
+    toScore["a_a_a"]=pointModel["SleepThree"]-1;
+    toScore["aa__a"]=pointModel["SleepThree"];
+    toScore["_aa_a"]=pointModel["SleepThree"];
+    toScore["a_aa_"]=pointModel["SleepThree"];
+    toScore["_a_aa"]=pointModel["SleepThree"];
+    toScore["aa_a_"]=pointModel["SleepThree"];
+    toScore["aaa__"]=pointModel["SleepThree"]+1;
+
+    toScore["_aa_a_"]=pointModel["LiveThree"]-100;
+    toScore["_a_aa_"]=pointModel["LiveThree"]-100;
+
+    toScore["_aaa_"]=pointModel["LiveThree"]+1;
 
 
-    toScore["_aaaa_"]=5000;                 //活四
+    toScore["a_aaa"]=pointModel["SleepFour"];
+    toScore["aaa_a"]=pointModel["SleepFour"];
+    toScore["_aaaa"]=pointModel["SleepFour"]+1;
+    toScore["aaaa_"]=pointModel["SleepFour"]+1;
+    toScore["aa_aa"]=pointModel["SleepFour"];
 
-    toScore["aaaaa"]=INT_MAX;           //连五
+
+    toScore["_aaaa_"]=pointModel["LiveFour"];
+
+    toScore["aaaaa"]=pointModel["Five"];
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
+
 }
 pair<short,short> showPoint;
 void AIPlayer4::playChess()
@@ -94,18 +112,18 @@ void AIPlayer4::playChess()
     }
     else if(ChessBoard::getInstance()->st.size()<=9)
     {
-        BESTPOSNUM = 2;
-        GAMENUM = 50000;
+        BESTPOSNUM = JNUM1;
+        GAMENUM = ITERATION1;
     }
     else if(ChessBoard::getInstance()->st.size()>9&&ChessBoard::getInstance()->st.size()<=20)
     {
-        BESTPOSNUM = 3;
-        GAMENUM = 50000;
+        BESTPOSNUM = JNUM1;
+        GAMENUM = ITERATION1;
     }
     else if(ChessBoard::getInstance()->st.size()>20)
     {
-        BESTPOSNUM = 3;
-        GAMENUM = 20000;
+        BESTPOSNUM = JNUM2;
+        GAMENUM = ITERATION2;
     }
     //SetCursorPos(pair<short,short>(0,16));
     //cout<<ChessBoard::getInstance()->st.size()<<endl;
@@ -115,7 +133,7 @@ void AIPlayer4::playChess()
     vector<pair<short,short> > bestPos;
     vector<nextState> vec;
     //方案1：启发蒙特卡洛(Monte Carlo Based on Human Chess Spectrum)
-    if(ChessBoard::getInstance()->st.size()<=225)
+    if(ChessBoard::getInstance()->st.size()<=225)//now all use heuristic monte-carlo
     {
         map<float,pair<short,short> > scoreToPoint;
         for(int i = 0; i < 15; i++)
@@ -228,9 +246,9 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
 {
     WinRandom R;
     int finalScore = 0;
-    ChessType myColor = ChessType(3-chessColor);//获得我的颜色
+    ChessType myColor = ChessType(3-chessColor);//Get my color
     vector<pair<short,short> > p;
-    /*完全随机法
+    /*Pure MonteCarlo
     for(int i = 0; i < 15; i++)
     {
         for(int j = 0; j < 15; j++)
@@ -283,7 +301,7 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
         }
     }
     */
-    //启发式蒙特卡洛
+    //Heuristic MonteCarlo
     for(int i = 0; i < 15; i++)
     {
         for(int j = 0; j < 15; j++)
@@ -306,7 +324,7 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
             {
                 break;
             }
-            int w = R.randUnsigned()%tempPos.size();//get the random place 在可下位置中获取随机位置
+            int w = R.randUnsigned()%tempPos.size();//get the random place
             if(tempBoard[tempPos[w].first][tempPos[w].second] !='.')
             {
                 tempPos.erase(tempPos.begin()+w);
@@ -333,32 +351,33 @@ int AIPlayer4::MonteCarlo(char bestPlace[][15],ChessType ChessColor)
                 tempPos.erase(tempPos.begin()+w);
             }
 
-            /*Show the Mento Carlo process显示蒙特卡洛过程*/
-
-            for(int i = 0; i < 15; i++)
+            /*Show the Mento Carlo process*/
+            if(ChessBoard::getInstance()->show)
             {
-                for(int j = 0; j < 15; j++)
+                for(int i = 0; i < 15; i++)
                 {
-                    SetCursorPos(pair<short,short>(i+20,j));
-                    cout<<tempBoard[i][j];
+                    for(int j = 0; j < 15; j++)
+                    {
+                        SetCursorPos(pair<short,short>(i+20,j));
+                        cout<<tempBoard[i][j];
+                    }
                 }
+
+                SetCursorPos(pair<short,short>(0,17));
+                cout<<"               "<<endl;
+                SetCursorPos(pair<short,short>(0,17));
+                cout<<"Score:"<<finalScore<<endl;
+
+                SetCursorPos(pair<short,short>(0,16));
+                cout<<"               "<<endl;
+                SetCursorPos(pair<short,short>(0,16));
+                cout<<"Point:"<<showPoint.first<<" "<<showPoint.second<<endl;
+
+                SetCursorPos(pair<short,short>(0,18));
+                cout<<"                   ";
+                SetCursorPos(pair<short,short>(0,18));
+                cout<<"iterate times:"<<i<<endl;
             }
-
-            getchar();
-            SetCursorPos(pair<short,short>(0,17));
-            cout<<"               "<<endl;
-            SetCursorPos(pair<short,short>(0,17));
-            cout<<"Score:"<<finalScore<<endl;
-
-            SetCursorPos(pair<short,short>(0,16));
-            cout<<"               "<<endl;
-            SetCursorPos(pair<short,short>(0,16));
-            cout<<"Point:"<<showPoint.first<<" "<<showPoint.second<<endl;
-
-            SetCursorPos(pair<short,short>(0,18));
-            cout<<"                   ";
-            SetCursorPos(pair<short,short>(0,18));
-            cout<<"iterate times:"<<i<<endl;
 
 
         }
@@ -384,7 +403,7 @@ bool AIPlayer4::CheckLine(char Board[15][15],pair<short,short> pos,pair<short,sh
 {
     int linkNum = 1;
     int Count = 0;
-    //ÓÒ±ß
+    //Left
     for(int i = offset.first,j = offset.second; (pos.first+i>=0&&pos.first+i<15)&&
             (pos.second+j>=0&&pos.second+j<15); i+=offset.first,j+=offset.second)
     {
@@ -397,7 +416,7 @@ bool AIPlayer4::CheckLine(char Board[15][15],pair<short,short> pos,pair<short,sh
             break;
         }
     }
-    //×ó±ß
+    //right
     for(int i = -offset.first,j = -offset.second; (pos.first+i>=0&&pos.first+i<15)&&
             (pos.second+j>=0&&pos.second+j<15); i-=offset.first,j-=offset.second)
     {
