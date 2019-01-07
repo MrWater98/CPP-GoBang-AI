@@ -15,12 +15,11 @@ struct MiniMaxNode2
     float value;//The suituation score of this point
     float point;//The score of this point
 };
-class AIPlayer5 : public Player
+class AIPlayer5 : public Player //AI5: Special MinMax
 {
     public:
         AIPlayer5(ChessType Color);
         AIPlayer5();
-        unsigned long long int hashValue;
         unordered_map<string,int> evaBoard;
         unordered_map<string,int> pointModel;
         unordered_map<string,int> chessModel;
