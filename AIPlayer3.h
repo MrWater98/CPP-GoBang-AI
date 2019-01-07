@@ -6,14 +6,14 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-struct MiniMaxNode1
+struct MiniMaxNode1 //MinMaxNode
     {
         ChessType chess;
         pair<short,short> pos;
         vector<MiniMaxNode1> child;
         float value;
     };
-class AIPlayer3 : public Player
+class AIPlayer3 : public Player//AI3 pure MinMax
 {
 public:
 
