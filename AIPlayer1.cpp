@@ -10,9 +10,9 @@ using namespace std;
 AIPlayer1::AIPlayer1(ChessType Color)
 {
     chessColor = Color;
-    toScore["_a_"]=10;
-    toScore["a_"]=5;
-    toScore["_a"]=5;
+    //toScore["_a_"]=10;
+    //toScore["a_"]=5;
+    //toScore["_a"]=5;
 
     toScore["_aa_"]=100;
     toScore["aa_"]=50;
@@ -42,6 +42,7 @@ AIPlayer1::~AIPlayer1()
 }
 void AIPlayer1::playChess()
 {
+
     HideCursor();
     //temp = chessColor;
     if(ChessBoard::getInstance()->st.size()==0)
@@ -55,13 +56,14 @@ void AIPlayer1::playChess()
     {
         for(int i = 0;i < 15;i++)
             for(int j = 0;j < 15;j++){
-                if(ChessBoard::getInstance()->myChessBoard[i][j] == ChessBoard::getInstance()->m[int(-chessColor+3)])
+                if(ChessBoard::getInstance()->myChessBoard[i][j] !='.')
                 {
                     srand((unsigned)time(NULL));
                     int a,b;
                     a = rand()%3-1;b = rand()%3-1;
-                    while(a==0&&b==0)
+                    while(a==0&&b==0){
                         a = rand()%3-1;b = rand()%3-1;
+                    }
                     ChessBoard::getInstance()->myChessBoard[i+a][j+b] = ChessBoard::getInstance()->m[int(chessColor)];
                     ChessBoard::getInstance()->turn = ChessType(-chessColor+3);
                     ChessBoard::getInstance()->st.push(pair<short,short>(i+a,j+b));
@@ -94,7 +96,7 @@ void AIPlayer1::playChess()
             if(Score[i][j]!=0)
                 myCout<<fixed<<setprecision(1)<<Score[i][j];
             else
-                myCout<<-1000;
+                myCout<<0;
         }
         myCout<<"\n";
     }
@@ -168,6 +170,5 @@ float AIPlayer1::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
         }
     }
 
-    //Sleep(1);
     return toScore[str];
 }
