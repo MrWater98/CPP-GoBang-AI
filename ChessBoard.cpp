@@ -12,24 +12,26 @@ ChessBoard::ChessBoard()
     m[WHITE] = 'o';
     /*
     char _ChessBoard[16][16] =
-                   {"...............",
-                    "...............",
-                    "...............",
-                    "...............",
-                    ".....x..x......",
-                    "...oxooox......",
-                    ".....ooxo......",
-                    ".....oxxxox....",
-                    "....oo.........",
-                    "...x.x.........",
-                    "...............",
-                    "...............",
-                    "...............",
-                    "...............",
-                    "..............."};
-    for(int i = 0;i < 15;i++)
     {
-        for(int j = 0;j < 15;j++)
+        "...............",
+        "...............",
+        "...............",
+        "....x..........",
+        ".....ox.xx.....",
+        ".....xooo......",
+        "......xoo......",
+        "......oxoo.....",
+        ".....oxxox.....",
+        "....x...x......",
+        "...............",
+        "...............",
+        "...............",
+        "...............",
+        "..............."
+};
+    for(int i = 0; i < 15; i++)
+    {
+        for(int j = 0; j < 15; j++)
         {
             myChessBoard[j][i] = _ChessBoard[i][j];
         }
@@ -52,22 +54,22 @@ ChessBoard* ChessBoard::getInstance()
 
 bool ChessBoard::PlayChess(pair<short,short> pos)
 {
-    SetColor(10);
+
     if(myChessBoard[pos.first][pos.second]=='.')
     {
         if(turn==BLACK)
         {
             myChessBoard[pos.first][pos.second] = 'x';
+            SetColor(10);
             SetCursorPos(pair<short,short>(pos.first,pos.second));
             cout<<'x';
-            Sleep(50);
+            Sleep(400);
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
-                cout<<"win->Press Enter to exit"<<endl;
+                cout<<"win->Press Enter toexit"<<endl;
                 getchar();
                 exit(0);
-                getchar();
                 return false;
             }
             st.push(pos);
@@ -77,13 +79,14 @@ bool ChessBoard::PlayChess(pair<short,short> pos)
         else if(turn==WHITE)
         {
             myChessBoard[pos.first][pos.second] = 'o';
+            SetColor(10);
             SetCursorPos(pair<short,short>(pos.first,pos.second));
             cout<<'o';
-            Sleep(50);
+            Sleep(400);
             if(CheckWinner(pos))
             {
                 SetCursorPos(pair<short,short>(0,16));
-                cout<<"win->Press Enter to exit"<<endl;
+                cout<<"win->Press Enter toexit"<<endl;
                 getchar();
                 exit(0);
                 return false;
