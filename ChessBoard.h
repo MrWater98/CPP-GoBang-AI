@@ -11,14 +11,13 @@
 #include "Tools.h"
 #include "GameController.h"
 using namespace std;
-
-enum ChessType
+enum ChessType// Chess type
     {
         WATCH,
         BLACK,
         WHITE
     };
-class ChessBoard
+class ChessBoard//the class chessboard, undertake the task of play chess and check winner
 {
 public:
     ChessBoard();
@@ -29,6 +28,7 @@ public:
     static ChessBoard *getInstance();
     bool CheckWinner(pair<short,short> pos);
     bool CheckLine(pair<short,short> pos,pair<short,short>offset);
+    bool show = false;
     stack<pair<short,short>> st;
     map<int,char> m;
     void Retract();
