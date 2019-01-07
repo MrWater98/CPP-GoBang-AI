@@ -11,8 +11,8 @@ AIPlayer2::AIPlayer2(ChessType Color)
 {
     chessColor = Color;
 
-
-    toScore["aa___"]=100;                      //眠二
+    toScore.clear();
+    toScore["aa___"]=100;
     toScore["a_a__"]=90;
     toScore["___aa"]=90;
     toScore["__a_a"]=90;
@@ -21,7 +21,7 @@ AIPlayer2::AIPlayer2(ChessType Color)
     toScore["a___a"]=90;
 
 
-    toScore["__aa__"]=500;                     //活二
+    toScore["__aa__"]=500;
     toScore["_a_a_"]=400;
     toScore["_a__a_"]=400;
 
@@ -35,24 +35,24 @@ AIPlayer2::AIPlayer2(ChessType Color)
     toScore["a_aa_"]=1100;
     toScore["_a_aa"]=1100;
     toScore["aa_a_"]=1100;
-    toScore["aaa__"]=1200;                     //眠三
+    toScore["aaa__"]=1200;
 
-    toScore["_aa_a_"]=9000;                    //跳活三
+    toScore["_aa_a_"]=9000;
     toScore["_a_aa_"]=9000;
 
-    toScore["_aaa_"]=10000;                    //活三
+    toScore["_aaa_"]=10000;
 
 
-    toScore["a_aaa"]=49000;                    //冲四
-    toScore["aaa_a"]=49000;                    //冲四
-    toScore["_aaaa"]=50000;                    //冲四
-    toScore["aaaa_"]=50000;                    //冲四
-    toScore["aa_aa"]=49000;                    //冲四
+    toScore["a_aaa"]=49000;
+    toScore["aaa_a"]=49000;
+    toScore["_aaaa"]=50000;
+    toScore["aaaa_"]=50000;
+    toScore["aa_aa"]=49000;
 
 
-    toScore["_aaaa_"]=100000;                 //活四
+    toScore["_aaaa_"]=100000;
 
-    toScore["aaaaa"]=1000000;           //连五
+    toScore["aaaaa"]=1000000;
 
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
@@ -69,7 +69,6 @@ AIPlayer2::~AIPlayer2()
 float AIPlayer2::getLineScore(pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
     string str = "a";
-    //右边
     HideCursor();
     for(int i = offset.first,j = offset.second,k=0; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15&&k<5; i+=offset.first,j+=offset.second,k++)
@@ -87,7 +86,7 @@ float AIPlayer2::getLineScore(pair<short,short> p,pair<short,short> offset,Chess
             break;
         }
     }
-    //左边
+
     for(int i = -offset.first,j = -offset.second,k=0; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15&&k<5; i-=offset.first,j-=offset.second,k++)
     {
