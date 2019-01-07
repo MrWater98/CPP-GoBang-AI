@@ -1,6 +1,6 @@
 #include "Tools.h"
 #include<string.h>
-void HideCursor()
+void HideCursor()// hide the cursor
 {
     HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO myCursorInfo;
@@ -8,40 +8,31 @@ void HideCursor()
     myCursorInfo.bVisible = false;
     SetConsoleCursorInfo(handle,&myCursorInfo);
 }
-void SetCursorPos(pair<short,short> pos)
+void SetCursorPos(pair<short,short> pos)//Set the cursor position
 {
     COORD Pos;
     Pos.X = 2*pos.first;
     Pos.Y = pos.second;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),Pos);
 }
-void SetColor(int colorID)//设置背景色
+void SetColor(int colorID)//Set the background color
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), colorID);
 }
 void copyArray(char cloneChessboard[15][15],char temp[15][15])
 {
-    /*
-    for(int i = 0;i < 15;i++)
-    {
-        for(int j = 0;j < 15;j++)
-        {
-            temp[i][j] = cloneChessboard[i][j];
-        }
-    }*/
     memcpy(temp,cloneChessboard,15*15*sizeof(char));
 }
 
-//以下是从贪吃蛇里copy的东西
-void SetWindowSize(int cols, int lines)//设置窗口大小
+void SetWindowSize(int cols, int lines)//set the windows size
 {
-    system("title FSTONE Author:Zheng Ziyue   Zhang Chenhao");//设置窗口标题
+    system("title FSTONE Author:Zheng Ziyue   Zhang Chenhao");//Set the title
     char cmd[30];
-    sprintf(cmd, "mode con cols=%d lines=%d", cols * 2, lines);//一个图形■占两个字符，故宽度乘以2
-    system(cmd);//system(mode con cols=88 lines=88)设置窗口宽度和高度
+    sprintf(cmd, "mode con cols=%d lines=%d", cols * 2, lines);//One ■ Obtain two charater，So multiple two
+    system(cmd);//system(mode con cols=88 lines=88)Set the windows size
 }
 
-void SetCursorPosition(const int x, const int y)//设置光标位置
+void SetCursorPosition(const int x, const int y)//Set the cursor position
 {
     COORD position;
     position.X = x * 2;
@@ -51,7 +42,7 @@ void SetCursorPosition(const int x, const int y)//设置光标位置
 
 
 
-void SetBackColor()//设置文本背景色
+void SetBackColor()//Set the text background color
 {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
                             FOREGROUND_BLUE |
