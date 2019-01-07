@@ -1,7 +1,7 @@
 #ifndef POINT_H
 #define POINT_H
 
-class Point
+class Point //A class to show the animation
 {
 public:
     Point(){}
