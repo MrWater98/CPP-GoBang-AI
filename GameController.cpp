@@ -13,92 +13,110 @@
 #include "AIPlayer3.h"
 #include "AIPlayer4.h"
 #include "AIPlayer5.h"
-
-void GameController::Start()//开始界面
+using namespace std;
+void GameController::Start()//Start Interface
 {
-    SetWindowSize(41, 32);//设置窗口大小
-    SetColor(2);//设置开始动画颜色
-    StartInterface *start = new StartInterface();//动态分配一个StartInterface类start
-    start->Action();//开始动画
-    delete start;//释放内存空间
+    SetWindowSize(41, 32);//Set the windows size
+    SetColor(2);//set the color of the animation
+    StartInterface *start = new StartInterface();
+    start->Action();//Start animation
+    delete start;//release the start
 
-    /*设置关标位置，并输出提示语，等待任意键输入结束*/
+    /*Srt cursor pos and print the begin button*/
     SetCursorPosition(13, 26);
-    std::cout << "Press any key to start... " ;
-    SetCursorPosition(13, 27);
-    system("pause");
+    cout << "Press any key to start... " ;
+    //SetCursorPosition(13, 27);
+    //system("pause");
 }
-void GameController::SelectPlayer()//选择和人打还是和AI打
+void GameController::SelectPlayer()//select play with human or AI
 {
-    /*初始化界面选项*/
+    /*initial the interface*/
     SetColor(3);
     SetCursorPosition(13, 26);
-    std::cout << "                          " ;
+    cout << "                          " ;
     SetCursorPosition(13, 27);
-    std::cout << "                          " ;
+    cout << "                          " ;
     SetColor(11);
     SetCursorPosition(2, 21);
-    std::cout << "Chose to Play Game!" ;
+    cout << "Chose to Play Game!" ;
     SetCursorPosition(2, 22);
-    std::cout << "(UP/DOWN move, Enter determine.\"r\" to regret)" ;
+    cout << "(UP/DOWN move, Enter determine.\"r\" to regret)" ;
     SetCursorPosition(2, 24);
-    std::cout << "Press \"b\" then press Enter can back to last level" ;
+    cout << "Press \"b\" then press Enter can back to last level" ;
+    if(!ChessBoard::getInstance()->show)
+    {
+        SetCursorPosition(2, 26);
+        cout << "Show Mode: off(Press \"S\")" ;
+    }else
+    {
+        SetCursorPosition(2, 26);
+        cout << "Show Mode: on" ;
+    }
     SetCursorPosition(27, 22);
     SetBackColor();//第一个选项设置背景色以表示当前选中
-    std::cout << "Player VS Player" ;
+    cout << "Player VS Player" ;
 
     SetCursorPosition(27, 26);
     SetColor(3);
-    std::cout << "Player VS   AI" ;
+    cout << "Player VS   AI" ;
 
     SetCursorPosition(0, 31);
 
-    /*上下方向键选择模块*/
-    int ch;//记录键入值
-    key = 1;//记录选中项，初始选择第一个
-    bool flag = false;//记录是否键入Enter键标记，初始置为否
+    /*Up and down button*/
+    int ch;
+    key = 1;//record the choice, the default is the first one
+    bool flag = false;//record whether Enter
     while ((ch = getch()))
     {
-        switch (ch)//检测输入键
+        switch (ch)//check the input
         {
-        case 72://UP上方向键
-            if (key = 2)//当此时选中项为第一项时，UP上方向键无效
-            {
-                SetCursorPosition(27, 22);//给待选中项设置背景色
-                SetBackColor();
-                std::cout << "Player VS Player" ;
+        case 's':
+        {
+            ChessBoard::getInstance()->show = true;
+            SetCursorPosition(2, 26);
+            cout << "                                    " ;
+            SetCursorPosition(2, 26);
+            cout << "Show Mode: on" ;
 
-                SetCursorPosition(27, 26);//将已选中项取消我背景色
+        }
+        case 72://if Up
+            if (key = 2)//when it is first one, the up not work
+            {
+                SetCursorPosition(27, 22);
+                SetBackColor();
+                cout << "Player VS Player" ;
+
+                SetCursorPosition(27, 26);
                 SetColor(3);
-                std::cout << "Player VS     AI" ;
+                cout << "Player VS   AI" ;
                 --key;
             }
             break;
 
-        case 80://DOWN下方向键
+        case 80://DOWN
             if (key = 1)
             {
-                SetCursorPosition(27, 26);//给待选中项设置背景色
+                SetCursorPosition(27, 26);
                 SetBackColor();
-                std::cout << "Player VS     AI" ;
+                cout << "Player VS   AI" ;
 
                 SetCursorPosition(27, 22);//将已选中项取消我背景色
                 SetColor(3);
-                std::cout << "Player VS Player" ;
+                cout << "Player VS Player" ;
                 key++;
             }
             break;
 
-        case 13://Enter回车键
+        case 13://Enter
             flag = true;
             break;
-        default://无效按键
+        default:
             break;
         }
         if (flag)
-            break;//输入Enter回车键确认，退出检查输入循环
+            break;
 
-        SetCursorPosition(0, 31);//将光标置于左下角，避免关标闪烁影响游戏体验
+        SetCursorPosition(0, 31);
     }
     switch (key)
     {
@@ -128,26 +146,27 @@ void GameController::SelectFirstPlayer()
     SetCursorPosition(27, 22);
     cout<<"                                          ";
     SetCursorPosition(27, 22);
-    SetBackColor();//第一个选项设置背景色以表示当前选中
-    std::cout << "You First" ;
+    SetBackColor();
+    cout << "You First" ;
     SetCursorPosition(27, 26);
     SetColor(3);
     cout<<"                                          ";
     SetColor(3);
     SetCursorPosition(27, 26);
-    std::cout << "AI  First" ;
+    cout << "AI  First" ;
 
     SetCursorPosition(0, 31);
 
-    /*上下方向键选择模块*/
-    int ch;//记录键入值
-    key = 1;//记录选中项，初始选择第一个
-    bool flag = false;//记录是否键入Enter键标记，初始置为否
+
+    int ch;
+    key = 1;
+    bool flag = false;
     while ((ch = getch()))
     {
-        switch (ch)//检测输入键
+        switch (ch)
         {
-        case 'b':{
+        case 'b':
+        {
             SetCursorPosition(27, 22);
             cout<<"                                          ";
             SetCursorPosition(27, 24);
@@ -158,92 +177,106 @@ void GameController::SelectFirstPlayer()
             cout<<"                                          ";
             SelectPlayer();
         }
-        case 72://UP上方向键
-            if (key = 2)//当此时选中项为第一项时，UP上方向键无效
+        case 's':
+        {
+            ChessBoard::getInstance()->show = true;
+            SetCursorPosition(2, 26);
+            cout << "                                          " ;
+            SetCursorPosition(2, 26);
+            cout << "Show Mode: on" ;
+        }
+        case 72:
+            if (key = 2)
             {
-                SetCursorPosition(27, 22);//给待选中项设置背景色
+                SetCursorPosition(27, 22);
                 SetBackColor();
-                std::cout << "You First" ;
+                cout << "You First" ;
 
-                SetCursorPosition(27, 26);//将已选中项取消我背景色
+                SetCursorPosition(27, 26);
                 SetColor(3);
-                std::cout << "AI  First" ;
+                cout << "AI  First" ;
                 --key;
             }
             break;
 
-        case 80://DOWN下方向键
+        case 80:
             if (key = 1)
             {
-                SetCursorPosition(27, 26);//给待选中项设置背景色
+                SetCursorPosition(27, 26);
                 SetBackColor();
-                std::cout << "AI  First" ;
+                cout << "AI  First" ;
 
-                SetCursorPosition(27, 22);//将已选中项取消我背景色
+                SetCursorPosition(27, 22);
                 SetColor(3);
-                std::cout << "You First" ;
+                cout << "You First" ;
                 key++;
             }
             break;
 
-        case 13://Enter回车键
+        case 13:
             flag = true;
             break;
-        default://无效按键
+        default:
             break;
         }
         if (flag)
-            break;//输入Enter回车键确认，退出检查输入循环
+            break;
 
-        SetCursorPosition(0, 31);//将光标置于左下角，避免关标闪烁影响游戏体验
+        SetCursorPosition(0, 31);
     }
     switch (key)
     {
     case 1:
-        //人类先下棋
         SelectDifficulty(false);
         break;
     case 2:
         SelectDifficulty(true);
-        //AI先下棋
         break;
     }
 }
-void GameController::SelectDifficulty(bool AIFirst)//选择界面
+void GameController::SelectDifficulty(bool AIFirst)
 {
     SetColor(3);
     SetCursorPosition(13, 26);
-    std::cout << "                          " ;
+    cout << "                          " ;
     SetCursorPosition(13, 27);
-    std::cout << "                          " ;
+    cout << "                          " ;
     SetColor(11);
     SetCursorPosition(2, 21);
-    std::cout << "Chose to Play Game!" ;
+    cout << "Chose to Play Game!" ;
     SetCursorPosition(2, 22);
-    std::cout << "(UP/DOWN move, Enter determine.\"r\" to regret)" ;
+    cout << "(UP/DOWN move, Enter determine.\"r\" to regret)" ;
     SetCursorPosition(2, 24);
-    std::cout << "Press \"b\" then press Enter can back to last level" ;
+    cout << "Press \"b\" then press Enter can back to last level" ;
+    if(!ChessBoard::getInstance()->show)
+    {
+        SetCursorPosition(2, 26);
+        cout << "Show Mode: off" ;
+    }else
+    {
+        SetCursorPosition(2, 26);
+        cout << "Show Mode: on" ;
+    }
     SetCursorPosition(27, 22);
-    SetBackColor();//第一个选项设置背景色以表示当前选中
-    std::cout << "Easy   Mode" ;
+    SetBackColor();
+    cout << "Easy   Mode" ;
     SetCursorPosition(27, 24);
     SetColor(3);
-    std::cout << "Normal Mode" ;
+    cout << "Normal Mode" ;
     SetCursorPosition(27, 26);
     cout<<"                                          ";
     SetCursorPosition(27, 26);
-    std::cout << "Hard   Mode" ;
+    cout << "Hard   Mode" ;
     SetCursorPosition(27, 28);
-    std::cout << "Purgatory!!" ;
+    cout << "Purgatory!!" ;
     SetCursorPosition(0, 31);
 
-    /*上下方向键选择模块*/
-    int ch;//记录键入值
-    key = 1;//记录选中项，初始选择第一个
-    bool flag = false;//记录是否键入Enter键标记，初始置为否
+    int ch;
+    key = 1;
+    bool flag = false;
     while ((ch = getch()))
     {
-        switch (ch)//检测输入键
+        switch (ch)
         {
         case 'b':
             SetCursorPosition(27, 22);
@@ -255,41 +288,50 @@ void GameController::SelectDifficulty(bool AIFirst)//选择界面
             SetCursorPosition(27, 28);
             cout<<"                                          ";
             SelectFirstPlayer();
-        case 72://UP上方向键
-            if (key > 1)//当此时选中项为第一项时，UP上方向键无效
+        case 's':
+        {
+            ChessBoard::getInstance()->show = true;
+            SetCursorPosition(2, 26);
+            cout << "                 " ;
+            SetCursorPosition(2, 26);
+            cout << "Show Mode: on" ;
+
+        }
+        case 72:
+            if (key > 1)
             {
                 switch (key)
                 {
                 case 2:
-                    SetCursorPosition(27, 22);//给待选中项设置背景色
+                    SetCursorPosition(27, 22);
                     SetBackColor();
-                    std::cout << "Easy   Mode" ;
+                    cout << "Easy   Mode" ;
 
-                    SetCursorPosition(27, 24);//将已选中项取消我背景色
+                    SetCursorPosition(27, 24);
                     SetColor(3);
-                    std::cout << "Normal Mode" ;
+                    cout << "Normal Mode" ;
 
                     --key;
                     break;
                 case 3:
                     SetCursorPosition(27, 24);
                     SetBackColor();
-                    std::cout << "Normal Mode" ;
+                    cout << "Normal Mode" ;
 
                     SetCursorPosition(27, 26);
                     SetColor(3);
-                    std::cout << "Hard   Mode" ;
+                    cout << "Hard   Mode" ;
 
                     --key;
                     break;
                 case 4:
                     SetCursorPosition(27, 26);
                     SetBackColor();
-                    std::cout << "Hard   Mode" ;
+                    cout << "Hard   Mode" ;
 
                     SetCursorPosition(27, 28);
                     SetColor(3);
-                    std::cout << "Purgatory!!" ;
+                    cout << "Purgatory!!" ;
 
                     --key;
                     break;
@@ -297,7 +339,7 @@ void GameController::SelectDifficulty(bool AIFirst)//选择界面
             }
             break;
 
-        case 80://DOWN下方向键
+        case 80:
             if (key < 4)
             {
                 switch (key)
@@ -305,30 +347,30 @@ void GameController::SelectDifficulty(bool AIFirst)//选择界面
                 case 1:
                     SetCursorPosition(27, 24);
                     SetBackColor();
-                    std::cout << "Normal Mode" ;
+                    cout << "Normal Mode" ;
                     SetCursorPosition(27, 22);
                     SetColor(3);
-                    std::cout << "Easy   Mode" ;
+                    cout << "Easy   Mode" ;
 
                     ++key;
                     break;
                 case 2:
                     SetCursorPosition(27, 26);
                     SetBackColor();
-                    std::cout << "Hard   Mode" ;
+                    cout << "Hard   Mode" ;
                     SetCursorPosition(27, 24);
                     SetColor(3);
-                    std::cout << "Normal Mode" ;
+                    cout << "Normal Mode" ;
 
                     ++key;
                     break;
                 case 3:
                     SetCursorPosition(27, 28);
                     SetBackColor();
-                    std::cout << "Purgatory!!" ;
+                    cout << "Purgatory!!" ;
                     SetCursorPosition(27, 26);
                     SetColor(3);
-                    std::cout << "Hard   Mode" ;
+                    cout << "Hard   Mode" ;
 
                     ++key;
                     break;
@@ -336,16 +378,16 @@ void GameController::SelectDifficulty(bool AIFirst)//选择界面
             }
             break;
 
-        case 13://Enter回车键
+        case 13:
             flag = true;
             break;
-        default://无效按键
+        default:
             break;
         }
         if (flag)
-            break;//输入Enter回车键确认，退出检查输入循环
+            break;
 
-        SetCursorPosition(0, 31);//将光标置于左下角，避免关标闪烁影响游戏体验
+        SetCursorPosition(0, 31);
     }
     switch (key)
     {
@@ -432,25 +474,43 @@ void GameController::StartGame(bool AIFirst,int key)
     {
         AIPlayer5 AIBlack = AIPlayer5(BLACK);
         AIPlayer5 AIWhite = AIPlayer5(WHITE);
+        AIPlayer3 _AIBlack = AIPlayer3(BLACK);
+        AIPlayer3 _AIWhite = AIPlayer3(WHITE);
         while(true)
         {
             if(AIFirst)
             {
-                AIBlack.Start();
-                Human.Start();
+                if(ChessBoard::getInstance()->st.size()<=18)
+                {
+                    AIBlack.Start();
+                    Human.Start();
+                }
+                else
+                {
+                    _AIBlack.Start();
+                    Human.Start();
+                }
             }
             else
             {
-                Human.Start();
-                AIWhite.Start();
+                if(ChessBoard::getInstance()->st.size()<=18)
+                {
+                    Human.Start();
+                    AIWhite.Start();
+                }
+                else
+                {
+                    Human.Start();
+                    _AIWhite.Start();
+                }
             }
         }
     }
 }
-int GameController::PlayGame()//游戏二级循环
+int GameController::PlayGame()
 {
     HideCursor();
-    Player BlackPlayer(BLACK);//创建Player类，并使用默认构造方法，生成黑子选手
+    Player BlackPlayer(BLACK);
     Player WhitePlayer(WHITE);
     while(true)
     {
@@ -458,13 +518,12 @@ int GameController::PlayGame()//游戏二级循环
     }
 }
 
-void GameController::Game()//游戏一级循环
+void GameController::Game()
 {
-    Start();//开始界面
-    while (true)//游戏可视为一个死循环，直到退出游戏时循环结束
+    Start();
+    while (true)
     {
-        SelectPlayer();//选择界面
-        //PlayGame();
+        SelectPlayer();
     }
 }
 
