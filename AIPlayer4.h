@@ -11,13 +11,14 @@ struct nextState
             copyArray(temp,nextBoard);
         }
     };
-class AIPlayer4 : public AIPlayer2
+class AIPlayer4 : public AIPlayer2//Monte Carlo
 {
     public:
         AIPlayer4();
         AIPlayer4(ChessType Color);
         int MonteCarlo(char bestPlace[][15],ChessType ChessColor);
         bool CheckWinner(char Board[][15],pair<short,short> pos);
+        unordered_map<string,int> pointModel;
         bool CheckLine(char Board[][15],pair<short,short> pos,pair<short,short>offset);
         void addPos(vector<pair<short,short> > &p,int i,int j,char newBoard[][15]);
         void playChess();
