@@ -1,11 +1,19 @@
 #include "AIPlayer3.h"
 #include<iostream>
+#include<fstream>
+#include<iomanip>
 #include<vector>
 #include<float.h>
 #include<limits.h>
 #include<ctime>
 #include<unordered_map>
+#include<algorithm>
+#define LEVELDETECT 3
 using namespace std;
+bool cmp(MiniMaxNode1 &a,MiniMaxNode1 &b)
+{
+    return a.value>b.value;
+}
 AIPlayer3::AIPlayer3(ChessType Color)
 {
     chessColor = Color;
@@ -24,7 +32,7 @@ AIPlayer3::AIPlayer3(ChessType Color)
     toScore["___a_"] = pointModel["LiveOne"];
     toScore["___a_"] = pointModel["LiveOne"];
 
-    toScore["aa___"]=pointModel["SleepTwo"];                      //眠二
+    toScore["aa___"]=pointModel["SleepTwo"];
     toScore["a_a__"]=pointModel["SleepTwo"];
     toScore["___aa"]=pointModel["SleepTwo"];
     toScore["__a_a"]=pointModel["SleepTwo"];
@@ -33,7 +41,7 @@ AIPlayer3::AIPlayer3(ChessType Color)
     toScore["a___a"]=pointModel["SleepTwo"];
 
 
-    toScore["__aa__"]=pointModel["LiveTwo"]+1;                     //活二
+    toScore["__aa__"]=pointModel["LiveTwo"]+1;
     toScore["_a_a_"]=pointModel["LiveTwo"];
     toScore["_a__a_"]=pointModel["LiveTwo"]-1;
 
@@ -47,24 +55,24 @@ AIPlayer3::AIPlayer3(ChessType Color)
     toScore["a_aa_"]=pointModel["SleepThree"];
     toScore["_a_aa"]=pointModel["SleepThree"];
     toScore["aa_a_"]=pointModel["SleepThree"];
-    toScore["aaa__"]=pointModel["SleepThree"]+1;                     //眠三
+    toScore["aaa__"]=pointModel["SleepThree"]+1;
 
-    toScore["_aa_a_"]=pointModel["LiveThree"]-100;                    //跳活三
+    toScore["_aa_a_"]=pointModel["LiveThree"]-100;
     toScore["_a_aa_"]=pointModel["LiveThree"]-100;
 
-    toScore["_aaa_"]=pointModel["LiveThree"]+1;                    //活三
+    toScore["_aaa_"]=pointModel["LiveThree"]+1;
 
 
-    toScore["a_aaa"]=pointModel["SleepFour"];                    //冲四
-    toScore["aaa_a"]=pointModel["SleepFour"];                    //冲四
-    toScore["_aaaa"]=pointModel["SleepFour"]+1;                    //冲四
-    toScore["aaaa_"]=pointModel["SleepFour"]+1;                    //冲四
-    toScore["aa_aa"]=pointModel["SleepFour"];                    //冲四
+    toScore["a_aaa"]=pointModel["SleepFour"];
+    toScore["aaa_a"]=pointModel["SleepFour"];
+    toScore["_aaaa"]=pointModel["SleepFour"]+1;
+    toScore["aaaa_"]=pointModel["SleepFour"]+1;
+    toScore["aa_aa"]=pointModel["SleepFour"];
 
 
-    toScore["_aaaa_"]=pointModel["LiveFour"];                 //活四
+    toScore["_aaaa_"]=pointModel["LiveFour"];
 
-    toScore["aaaaa"]=pointModel["Five"];           //连五
+    toScore["aaaaa"]=pointModel["Five"];
 
     stateMap[BLACK] = 'x';
     stateMap[WHITE] = 'o';
@@ -95,8 +103,10 @@ void AIPlayer3::playChess()
                 {
                     srand((unsigned)time(NULL));
                     int a,b;
-                    a = rand()%3-1;b = rand()%3-1;
-                    while(a==0&&b==0){
+                    a = rand()%3-1;
+                    b = rand()%3-1;
+                    while(a==0&&b==0)
+                    {
                         a = rand()%3-1;
                         b = rand()%3-1;
                     }
@@ -113,21 +123,18 @@ void AIPlayer3::playChess()
     int Count = 0;
     char cloneChessBoard[15][15];
     copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
-    //for(int i = 0;i < 15;++i)
-    //for(int j = 0;j < 15;++j)
-    //cloneChessBoard[i][j] = ChessBoard::getInstance()->myChessBoard[i][j];
 
 
     vector<MiniMaxNode1> Mnn = GetVector(cloneChessBoard,chessColor,true);
     for(auto &item : Mnn)
     {
         copyArray(ChessBoard::getInstance()->myChessBoard,cloneChessBoard);
-        createTree(item,cloneChessBoard,3,false);
+        createTree(item,cloneChessBoard,LEVELDETECT,false);
 
         float a = INT_MIN;
         float b = INT_MAX;
-        item.value += AlphaBeta(item,3,false,a,b);
-        //挑最大的
+        item.value += AlphaBeta(item,LEVELDETECT,false,a,b);
+        //find the best one
         if(node.value<item.value)
         {
             node = item;
@@ -136,7 +143,6 @@ void AIPlayer3::playChess()
         SetColor(10);
         cout<<".";
     }
-
     ChessBoard::getInstance()->PlayChess(node.pos);
 }
 
@@ -151,7 +157,7 @@ float AIPlayer3::AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,f
         {
             alpha = max(alpha,AlphaBeta(child,depth-1,!myself,alpha,beta));
 
-            //alpha pruning 剪枝
+            //alpha pruning
             if(alpha>=beta)
                 return alpha;
         }
@@ -163,7 +169,7 @@ float AIPlayer3::AlphaBeta(MiniMaxNode1 node,int depth,bool myself,float alpha,f
         {
             beta = min(beta,AlphaBeta(child,depth-1,!myself,alpha,beta));
 
-            //beta pruning 剪枝
+            //beta pruning
             if(alpha>=beta)
                 return beta;
         }
@@ -175,15 +181,23 @@ vector<MiniMaxNode1> AIPlayer3::GetVector(char chessboard[][15],ChessType myChes
 {
     vector<MiniMaxNode1> nodeVector;
     MiniMaxNode1 node;
+    ofstream myCout;
+    myCout.open("ChessBoard1.txt");
+    //myCout.setf(std::ios::left);
+
     for(int i = 0; i < 15; ++i)
     {
         for(int j = 0; j < 15; ++j)
         {
+            myCout.width(8);
             if(hasNeighbor(chessboard,i,j))
             {
                 pair<short,short> p = pair<short,short>(i,j);
                 if(chessboard[i][j]!='.')
+                {
+                    myCout<<"0"<<"\t";
                     continue;
+                }
 
                 node.pos = p;
                 node.chess = myChessColor;
@@ -191,6 +205,7 @@ vector<MiniMaxNode1> AIPlayer3::GetVector(char chessboard[][15],ChessType myChes
                     node.value = getTotalScore(chessboard,p);
                 else
                     node.value = -getTotalScore(chessboard,p);
+                myCout<<fixed<<setprecision(1)<<(node.value>=0?node.value:-node.value)<<"\t";
                 if(nodeVector.size()<=3)
                     nodeVector.push_back(node);
                 else
@@ -220,8 +235,18 @@ vector<MiniMaxNode1> AIPlayer3::GetVector(char chessboard[][15],ChessType myChes
                     }
                 }
             }
+            else
+            {
+                myCout<<"0"<<"\t";
+            }
         }
+        myCout<<"\n";
     }
+    myCout<<"\n";
+    myCout.close();
+    sort(nodeVector.begin(),nodeVector.end(),cmp);
+    if(!myself)
+        reverse(nodeVector.begin(),nodeVector.end());
     return nodeVector;
 }
 //To create a MinMax Tree
@@ -235,27 +260,26 @@ void AIPlayer3::createTree(MiniMaxNode1 &node,char chessboard[][15],int depth,bo
     else
         chessboard[node.pos.first][node.pos.second] = stateMap[ChessType(-chessColor+3)];
     node.child = GetVector(chessboard,ChessType(-node.chess+3),!myself);
-
-    for(int i = 0; i < 15; ++i)
+    if(ChessBoard::getInstance()->show)
     {
-        for(int j = 0; j < 15; ++j)
+        for(int i = 0; i < 15; ++i)
         {
-            SetCursorPos(pair<short,short>(i+20,j));
-            cout<<"   ";
+            for(int j = 0; j < 15; ++j)
+            {
+                SetCursorPos(pair<short,short>(i+20,j));
+                cout<<"   ";
+            }
+        }
+        for(int i = 0; i < 15; ++i)
+        {
+            for(int j = 0; j < 15; ++j)
+            {
+
+                SetCursorPos(pair<short,short>(i+20,j));
+                cout<<chessboard[i][j];
+            }
         }
     }
-    for(int i = 0; i < 15; ++i)
-    {
-        for(int j = 0; j < 15; ++j)
-        {
-
-            SetCursorPos(pair<short,short>(i+20,j));
-            cout<<chessboard[i][j];
-        }
-    }
-
-    getchar();
-
 
     for(auto &item : node.child)
     {
@@ -323,7 +347,7 @@ float AIPlayer3::getTotalScore(char chessboard[][15],pair<short,short> p)
 float AIPlayer3::getLineScore(char chessboard[][15],pair<short,short> p,pair<short,short> offset,ChessType myChessColor)
 {
     string str = "a";
-    //右边
+    //Right Side
     HideCursor();
     for(int i = offset.first,j = offset.second,k=0; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15&&k<4; i+=offset.first,j+=offset.second,k++)
@@ -341,7 +365,7 @@ float AIPlayer3::getLineScore(char chessboard[][15],pair<short,short> p,pair<sho
             break;
         }
     }
-    //左边
+    //Left side左边
     for(int i = -offset.first,j = -offset.second,k=0; p.first+i>=0&&p.first+i<15
             &&p.second+j>=0&&p.second+j<15&&k<4; i-=offset.first,j-=offset.second,k++)
     {
