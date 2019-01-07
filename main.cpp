@@ -13,7 +13,7 @@
 
 int main()
 {
-    HideCursor();//hide the cursor 隐藏鼠标
+    HideCursor();//hide the cursor
     GameController c;//declare a GameController
     c.Game();//begin the game
     return 0;
@@ -25,19 +25,18 @@ int main()
 {
     HideCursor();
     AIPlayer4 BlackPlayer(BLACK);
-    AIPlayer5 WhitePlayer(WHITE);
+    Player WhitePlayer(WHITE);
     while(true)
     {
-        ChessBoard::getInstance()->print(pair<short,short>(0,0));
+        //ChessBoard::getInstance()->print(pair<short,short>(0,0));
         BlackPlayer.Start();
-        Sleep(200);
-        system("cls");
-        ChessBoard::getInstance()->print(pair<short,short>(0,0));
+        //Sleep(200);
+        //system("cls");
+        //ChessBoard::getInstance()->print(pair<short,short>(0,0));
         WhitePlayer.Start();
-        Sleep(200);
+        //Sleep(200);
     }
     getchar();
     return 0;
 }
 */
-
