@@ -102,8 +102,8 @@ public:
     void ClearText();
     void Action();
 private:
-    std::deque<Point> startsnake;//开始动画中的蛇
-    std::vector<Point> textsnake;//开始动画中的文字
-    int speed;//动画的速度
+    std::deque<Point> startsnake;
+    std::vector<Point> textsnake;
+    int speed;// speed of animation
 };
 #endif // STRATINTERFACE_H
